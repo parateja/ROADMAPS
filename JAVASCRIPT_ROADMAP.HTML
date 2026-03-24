@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Complete Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --purple: #bf5fff;
+    --pink: #ff3cac;
+    --gold: #ffd700;
+    --green: #00ff88;
+    --bg: #050714;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.10);
+    --glass-hover: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: #e0e6ff;
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,245,255,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(191,95,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(255,60,172,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.3;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.1; }
+    100% { opacity: 0.6; }
+  }
+
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 60px 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: rgba(0,245,255,0.1);
+    border: 1px solid rgba(0,245,255,0.3);
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  header h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(0,245,255,0.3));
+  }
+
+  header p {
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,7,20,0.85);
+    backdrop-filter: blur(20px);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .nav-tab {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .nav-tab:hover, .nav-tab.active {
+    background: rgba(0,245,255,0.12);
+    border-color: rgba(0,245,255,0.4);
+    color: var(--cyan);
+    box-shadow: 0 0 20px rgba(0,245,255,0.15);
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 50px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* H1 = # */
+  .h1-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: var(--cyan);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(0,245,255,0.2);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 30px rgba(0,245,255,0.4);
+  }
+
+  .h1-title .hash {
+    color: rgba(0,245,255,0.35);
+    font-size: 0.7em;
+  }
+
+  /* GLASS CARD */
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 28px 28px 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* H2 = ## */
+  .h2-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 700;
+    color: var(--purple);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 20px rgba(191,95,255,0.4);
+  }
+
+  .h2-title:first-child { margin-top: 0; }
+
+  .h2-title .hash {
+    color: rgba(191,95,255,0.35);
+    font-size: 0.75em;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  /* H3 = ### */
+  .h3-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: var(--pink);
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 15px rgba(255,60,172,0.35);
+  }
+
+  .h3-title .hash {
+    color: rgba(255,60,172,0.3);
+    font-size: 0.8em;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  /* H4 = #### */
+  .h4-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.78rem, 1.8vw, 0.98rem);
+    font-weight: 600;
+    color: var(--gold);
+    margin: 16px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 12px rgba(255,215,0,0.3);
+  }
+
+  .h4-title .hash {
+    color: rgba(255,215,0,0.3);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
+  }
+
+  /* TOPIC GRID */
+  .topic-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .topic-chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    color: rgba(220,230,255,0.85);
+    cursor: default;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .topic-chip::before {
+    content: '›';
+    color: rgba(0,245,255,0.5);
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .topic-chip:hover {
+    background: rgba(0,245,255,0.08);
+    border-color: rgba(0,245,255,0.3);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0,245,255,0.1);
+  }
+
+  /* DAY BADGE */
+  .day-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .badge {
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-day {
+    background: rgba(0,245,255,0.12);
+    border: 1px solid rgba(0,245,255,0.3);
+    color: var(--cyan);
+  }
+
+  .badge-level-beginner {
+    background: rgba(0,255,136,0.12);
+    border: 1px solid rgba(0,255,136,0.3);
+    color: var(--green);
+  }
+
+  .badge-level-intermediate {
+    background: rgba(255,215,0,0.12);
+    border: 1px solid rgba(255,215,0,0.3);
+    color: var(--gold);
+  }
+
+  .badge-level-advanced {
+    background: rgba(255,60,172,0.12);
+    border: 1px solid rgba(255,60,172,0.3);
+    color: var(--pink);
+  }
+
+  .badge-level-beginner-intermediate {
+    background: rgba(0,245,255,0.08);
+    border: 1px solid rgba(0,245,255,0.25);
+    color: #7df9ff;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,245,255,0.2), transparent);
+    margin: 8px 0;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,245,255,0.25); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,245,255,0.45); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .glass-card { padding: 18px 14px; }
+    .topic-chip { font-size: 12px; padding: 6px 10px; }
+    .nav-tab { font-size: 11px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<nav class="nav-tabs" id="navTabs">
+  <a class="nav-tab active" href="#intro">Intro</a>
+  <a class="nav-tab" href="#variables">Variables</a>
+  <a class="nav-tab" href="#datatypes">Datatypes</a>
+  <a class="nav-tab" href="#operators">Operators</a>
+  <a class="nav-tab" href="#controlflow">Control Flow</a>
+  <a class="nav-tab" href="#loops">Loops</a>
+  <a class="nav-tab" href="#functions">Functions</a>
+  <a class="nav-tab" href="#strings">Strings</a>
+  <a class="nav-tab" href="#arrays">Arrays</a>
+  <a class="nav-tab" href="#objects">Objects</a>
+  <a class="nav-tab" href="#mapset">Map/Set</a>
+  <a class="nav-tab" href="#numbers">Numbers</a>
+  <a class="nav-tab" href="#date">Date</a>
+  <a class="nav-tab" href="#dom">DOM</a>
+  <a class="nav-tab" href="#events">Events</a>
+  <a class="nav-tab" href="#bom">BOM</a>
+  <a class="nav-tab" href="#async">Async JS</a>
+  <a class="nav-tab" href="#oop">OOP</a>
+  <a class="nav-tab" href="#es6">ES6+</a>
+</nav>
+
+<div class="container">
+
+  <header>
+    <div class="header-badge">60-Day Complete Roadmap</div>
+    <h1>JavaScript Mastery<br>Roadmap</h1>
+    <p>Every topic · Every subtopic · Structured learning path</p>
+  </header>
+
+  <!-- ===== 1. INTRODUCTION ===== -->
+  <div class="section" id="intro">
+    <div class="h1-title"><span class="hash">#</span> Introduction to JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Core Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is JavaScript</div>
+        <div class="topic-chip">History &amp; Evolution</div>
+        <div class="topic-chip">ES5 → ES6 → ESNext</div>
+        <div class="topic-chip">JavaScript vs Java vs Python</div>
+        <div class="topic-chip">Client-Side vs Server-Side JS</div>
+        <div class="topic-chip">Where JS runs (Browser, Node.js)</div>
+        <div class="topic-chip">JavaScript Engines (V8, SpiderMonkey)</div>
+        <div class="topic-chip">How JavaScript works internally</div>
+        <div class="topic-chip">JavaScript Use-Cases in Industry</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Basics &amp; Syntax</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Writing JS in HTML</div>
+        <div class="topic-chip">Script placement (head, body)</div>
+        <div class="topic-chip">Inline JS</div>
+        <div class="topic-chip">Internal JS</div>
+        <div class="topic-chip">External JS</div>
+        <div class="topic-chip">Statements &amp; Expressions</div>
+        <div class="topic-chip">Semicolons</div>
+        <div class="topic-chip">Case Sensitivity</div>
+        <div class="topic-chip">Single-line Comments</div>
+        <div class="topic-chip">Multi-line Comments</div>
+        <div class="topic-chip">Keywords &amp; Reserved Words</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 1–2</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 2. VARIABLES ===== -->
+  <div class="section" id="variables">
+    <div class="h1-title"><span class="hash">#</span> Variables in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Variable Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is a variable</div>
+        <div class="topic-chip">Variable declaration</div>
+        <div class="topic-chip">Variable initialization</div>
+        <div class="topic-chip">Memory concept</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Variable Keywords</div>
+      <div class="topic-grid">
+        <div class="topic-chip">var keyword</div>
+        <div class="topic-chip">let keyword</div>
+        <div class="topic-chip">const keyword</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Differences</div>
+      <div class="topic-grid">
+        <div class="topic-chip">var vs let vs const</div>
+        <div class="topic-chip">Redeclaration rules</div>
+        <div class="topic-chip">Reassignment rules</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Variable Naming Rules</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Naming conventions</div>
+        <div class="topic-chip">Valid identifiers</div>
+        <div class="topic-chip">Invalid identifiers</div>
+        <div class="topic-chip">camelCase naming</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Scope of Variables</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Global scope</div>
+        <div class="topic-chip">Function scope</div>
+        <div class="topic-chip">Block scope</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Hoisting</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Variable hoisting</div>
+        <div class="topic-chip">var hoisting</div>
+        <div class="topic-chip">let hoisting</div>
+        <div class="topic-chip">const hoisting</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Temporal Dead Zone (TDZ)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">TDZ concept</div>
+        <div class="topic-chip">TDZ with let</div>
+        <div class="topic-chip">TDZ with const</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 3–4</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 3. DATATYPES ===== -->
+  <div class="section" id="datatypes">
+    <div class="h1-title"><span class="hash">#</span> Datatypes in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Datatype Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is a datatype</div>
+        <div class="topic-chip">Dynamic typing</div>
+        <div class="topic-chip">typeof operator</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Primitive Datatypes</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Number</div>
+        <div class="topic-chip">String</div>
+        <div class="topic-chip">Boolean</div>
+        <div class="topic-chip">Undefined</div>
+        <div class="topic-chip">Null</div>
+        <div class="topic-chip">BigInt</div>
+        <div class="topic-chip">Symbol</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Non-Primitive Datatypes</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object</div>
+        <div class="topic-chip">Array</div>
+        <div class="topic-chip">Function</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Type Conversion</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Implicit conversion (Type Coercion)</div>
+        <div class="topic-chip">Explicit conversion (Type Casting)</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Conversion Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Number()</div>
+        <div class="topic-chip">String()</div>
+        <div class="topic-chip">Boolean()</div>
+        <div class="topic-chip">parseInt()</div>
+        <div class="topic-chip">parseFloat()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Truthy &amp; Falsy Values</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Falsy values list (0, "", null, undefined, NaN, false)</div>
+        <div class="topic-chip">Truthy values list</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 5–6</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 4. OPERATORS ===== -->
+  <div class="section" id="operators">
+    <div class="h1-title"><span class="hash">#</span> Operators</div>
+    <div class="glass-card">
+      <div class="topic-grid">
+        <div class="topic-chip">Arithmetic Operators (+, -, *, /, %, **)</div>
+        <div class="topic-chip">Assignment Operators (=, +=, -=, *=, /=)</div>
+        <div class="topic-chip">Comparison Operators (==, ===, !=, !==, &gt;, &lt;)</div>
+        <div class="topic-chip">Logical Operators (&amp;&amp;, ||, !)</div>
+        <div class="topic-chip">Bitwise Operators (&amp;, |, ^, ~, &lt;&lt;, &gt;&gt;)</div>
+        <div class="topic-chip">Unary Operators (typeof, void, delete, ++, --)</div>
+        <div class="topic-chip">Ternary Operator (? :)</div>
+        <div class="topic-chip">Operator Precedence</div>
+        <div class="topic-chip">Nullish Coalescing (??)</div>
+        <div class="topic-chip">Optional Chaining (?.)</div>
+        <div class="topic-chip">Spread Operator (...)</div>
+        <div class="topic-chip">in operator</div>
+        <div class="topic-chip">instanceof operator</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 7</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 5. CONTROL FLOW ===== -->
+  <div class="section" id="controlflow">
+    <div class="h1-title"><span class="hash">#</span> Control Flow</div>
+    <div class="glass-card">
+      <div class="topic-grid">
+        <div class="topic-chip">if statement</div>
+        <div class="topic-chip">else statement</div>
+        <div class="topic-chip">else if ladder</div>
+        <div class="topic-chip">Nested conditions</div>
+        <div class="topic-chip">switch statement</div>
+        <div class="topic-chip">case, break, default</div>
+        <div class="topic-chip">Real-time conditional scenarios</div>
+        <div class="topic-chip">Ternary in conditions</div>
+        <div class="topic-chip">Short-circuit evaluation</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 8</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 6. LOOPS ===== -->
+  <div class="section" id="loops">
+    <div class="h1-title"><span class="hash">#</span> Loops &amp; Iteration</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Loop Types</div>
+      <div class="topic-grid">
+        <div class="topic-chip">for loop</div>
+        <div class="topic-chip">while loop</div>
+        <div class="topic-chip">do…while loop</div>
+        <div class="topic-chip">for…in loop</div>
+        <div class="topic-chip">for…of loop</div>
+        <div class="topic-chip">Nested loops</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Loop Control</div>
+      <div class="topic-grid">
+        <div class="topic-chip">break statement</div>
+        <div class="topic-chip">continue statement</div>
+        <div class="topic-chip">Label statements</div>
+        <div class="topic-chip">Infinite loop concept</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Pattern Programs</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Star patterns</div>
+        <div class="topic-chip">Number patterns</div>
+        <div class="topic-chip">Pyramid patterns</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 9</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 7. FUNCTIONS ===== -->
+  <div class="section" id="functions">
+    <div class="h1-title"><span class="hash">#</span> Functions in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Function Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is a function</div>
+        <div class="topic-chip">Function purpose</div>
+        <div class="topic-chip">Reusable code concept</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Function Types</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Function declaration</div>
+        <div class="topic-chip">Function expression</div>
+        <div class="topic-chip">Anonymous function</div>
+        <div class="topic-chip">Arrow function (ES6)</div>
+        <div class="topic-chip">IIFE (Immediately Invoked)</div>
+        <div class="topic-chip">Named function expression</div>
+        <div class="topic-chip">Generator functions</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Function Parameters</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Parameters</div>
+        <div class="topic-chip">Arguments</div>
+        <div class="topic-chip">Default parameters</div>
+        <div class="topic-chip">Rest parameters (...args)</div>
+        <div class="topic-chip">arguments object</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Return Concept</div>
+      <div class="topic-grid">
+        <div class="topic-chip">return statement</div>
+        <div class="topic-chip">Returning values</div>
+        <div class="topic-chip">Returning multiple values</div>
+        <div class="topic-chip">Early return pattern</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Function Scope</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Local scope</div>
+        <div class="topic-chip">Global scope</div>
+        <div class="topic-chip">Lexical scope</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Advanced Function Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Callback Functions</div>
+        <div class="topic-chip">Higher Order Functions</div>
+        <div class="topic-chip">Recursion</div>
+        <div class="topic-chip">Closures</div>
+        <div class="topic-chip">this Keyword</div>
+        <div class="topic-chip">call()</div>
+        <div class="topic-chip">apply()</div>
+        <div class="topic-chip">bind()</div>
+        <div class="topic-chip">Pure functions</div>
+        <div class="topic-chip">Function currying</div>
+        <div class="topic-chip">Memoization</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Function Hoisting</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Function declaration hoisting</div>
+        <div class="topic-chip">Function expression hoisting</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 10–12</span>
+        <span class="badge badge-level-beginner-intermediate">Beginner–Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 8. STRINGS ===== -->
+  <div class="section" id="strings">
+    <div class="h1-title"><span class="hash">#</span> Strings in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> String Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is a String</div>
+        <div class="topic-chip">Single quotes</div>
+        <div class="topic-chip">Double quotes</div>
+        <div class="topic-chip">Backticks (template literals)</div>
+        <div class="topic-chip">String immutability</div>
+        <div class="topic-chip">Escape characters</div>
+        <div class="topic-chip">Multiline strings</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> String Properties</div>
+      <div class="topic-grid">
+        <div class="topic-chip">length property</div>
+        <div class="topic-chip">Character indexing</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Accessing Characters</div>
+      <div class="topic-grid">
+        <div class="topic-chip">charAt()</div>
+        <div class="topic-chip">at()</div>
+        <div class="topic-chip">Index access []</div>
+        <div class="topic-chip">charCodeAt()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Searching Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">indexOf()</div>
+        <div class="topic-chip">lastIndexOf()</div>
+        <div class="topic-chip">includes()</div>
+        <div class="topic-chip">startsWith()</div>
+        <div class="topic-chip">endsWith()</div>
+        <div class="topic-chip">search()</div>
+        <div class="topic-chip">match()</div>
+        <div class="topic-chip">matchAll()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Extracting Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">slice()</div>
+        <div class="topic-chip">substring()</div>
+        <div class="topic-chip">substr() (legacy)</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Modifying Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">replace()</div>
+        <div class="topic-chip">replaceAll()</div>
+        <div class="topic-chip">concat()</div>
+        <div class="topic-chip">repeat()</div>
+        <div class="topic-chip">padStart()</div>
+        <div class="topic-chip">padEnd()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Case Conversion</div>
+      <div class="topic-grid">
+        <div class="topic-chip">toUpperCase()</div>
+        <div class="topic-chip">toLowerCase()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Removing Spaces</div>
+      <div class="topic-grid">
+        <div class="topic-chip">trim()</div>
+        <div class="topic-chip">trimStart()</div>
+        <div class="topic-chip">trimEnd()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Converting to Array</div>
+      <div class="topic-grid">
+        <div class="topic-chip">split()</div>
+        <div class="topic-chip">Array.from(string)</div>
+        <div class="topic-chip">Spread into array</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Template Literals (ES6)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">String interpolation</div>
+        <div class="topic-chip">Expression embedding</div>
+        <div class="topic-chip">Tagged templates</div>
+        <div class="topic-chip">Multiline template strings</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> String Conversion</div>
+      <div class="topic-grid">
+        <div class="topic-chip">toString()</div>
+        <div class="topic-chip">String(value)</div>
+        <div class="topic-chip">fromCharCode()</div>
+        <div class="topic-chip">codePointAt()</div>
+        <div class="topic-chip">normalize()</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 13–14</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 9. ARRAYS ===== -->
+  <div class="section" id="arrays">
+    <div class="h1-title"><span class="hash">#</span> Arrays in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Array Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is an Array</div>
+        <div class="topic-chip">Array literal</div>
+        <div class="topic-chip">Array constructor</div>
+        <div class="topic-chip">Array indexing</div>
+        <div class="topic-chip">Array length property</div>
+        <div class="topic-chip">Heterogeneous arrays</div>
+        <div class="topic-chip">Nested arrays</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Adding &amp; Removing Elements</div>
+      <div class="topic-grid">
+        <div class="topic-chip">push()</div>
+        <div class="topic-chip">pop()</div>
+        <div class="topic-chip">shift()</div>
+        <div class="topic-chip">unshift()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Modifying Arrays</div>
+      <div class="topic-grid">
+        <div class="topic-chip">splice()</div>
+        <div class="topic-chip">slice()</div>
+        <div class="topic-chip">concat()</div>
+        <div class="topic-chip">fill()</div>
+        <div class="topic-chip">copyWithin()</div>
+        <div class="topic-chip">flat()</div>
+        <div class="topic-chip">flatMap()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Searching Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">indexOf()</div>
+        <div class="topic-chip">lastIndexOf()</div>
+        <div class="topic-chip">includes()</div>
+        <div class="topic-chip">find()</div>
+        <div class="topic-chip">findIndex()</div>
+        <div class="topic-chip">findLast()</div>
+        <div class="topic-chip">findLastIndex()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Sorting &amp; Reversing</div>
+      <div class="topic-grid">
+        <div class="topic-chip">sort()</div>
+        <div class="topic-chip">reverse()</div>
+        <div class="topic-chip">Numeric sorting</div>
+        <div class="topic-chip">Custom sorting</div>
+        <div class="topic-chip">toSorted() (ES2023)</div>
+        <div class="topic-chip">toReversed() (ES2023)</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Array Iteration Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">for loop</div>
+        <div class="topic-chip">for…of loop</div>
+        <div class="topic-chip">forEach()</div>
+        <div class="topic-chip">map()</div>
+        <div class="topic-chip">filter()</div>
+        <div class="topic-chip">reduce()</div>
+        <div class="topic-chip">reduceRight()</div>
+        <div class="topic-chip">some()</div>
+        <div class="topic-chip">every()</div>
+        <div class="topic-chip">entries()</div>
+        <div class="topic-chip">keys()</div>
+        <div class="topic-chip">values()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Array Destructuring (ES6)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Basic destructuring</div>
+        <div class="topic-chip">Default values</div>
+        <div class="topic-chip">Nested destructuring</div>
+        <div class="topic-chip">Skipping elements</div>
+        <div class="topic-chip">Rest in destructuring</div>
+        <div class="topic-chip">Swap variables</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Advanced Array Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Shallow copy vs deep copy</div>
+        <div class="topic-chip">Flatten arrays</div>
+        <div class="topic-chip">Multidimensional arrays</div>
+        <div class="topic-chip">Array.from()</div>
+        <div class="topic-chip">Array.of()</div>
+        <div class="topic-chip">Array.isArray()</div>
+        <div class="topic-chip">Spread operator with arrays</div>
+        <div class="topic-chip">Array cloning</div>
+        <div class="topic-chip">Remove duplicates</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 15–16</span>
+        <span class="badge badge-level-beginner-intermediate">Beginner–Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 10. OBJECTS ===== -->
+  <div class="section" id="objects">
+    <div class="h1-title"><span class="hash">#</span> Objects in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Object Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is an Object</div>
+        <div class="topic-chip">Key-value structure</div>
+        <div class="topic-chip">Object literal</div>
+        <div class="topic-chip">new Object()</div>
+        <div class="topic-chip">Dot notation</div>
+        <div class="topic-chip">Bracket notation</div>
+        <div class="topic-chip">Adding new properties</div>
+        <div class="topic-chip">Updating properties</div>
+        <div class="topic-chip">delete keyword</div>
+        <div class="topic-chip">this keyword basics</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Object Iteration</div>
+      <div class="topic-grid">
+        <div class="topic-chip">for…in loop</div>
+        <div class="topic-chip">Object methods iteration</div>
+        <div class="topic-chip">for…of with entries</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Nested Objects</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object inside object</div>
+        <div class="topic-chip">Object inside array</div>
+        <div class="topic-chip">Array inside object</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Object Utility Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object.keys()</div>
+        <div class="topic-chip">Object.values()</div>
+        <div class="topic-chip">Object.entries()</div>
+        <div class="topic-chip">Object.assign()</div>
+        <div class="topic-chip">hasOwnProperty()</div>
+        <div class="topic-chip">freeze()</div>
+        <div class="topic-chip">seal()</div>
+        <div class="topic-chip">Object.create()</div>
+        <div class="topic-chip">Object.fromEntries()</div>
+        <div class="topic-chip">Object.getOwnPropertyNames()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Advanced Object Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object destructuring</div>
+        <div class="topic-chip">Spread operator</div>
+        <div class="topic-chip">Shallow cloning</div>
+        <div class="topic-chip">Deep cloning</div>
+        <div class="topic-chip">Reference vs value</div>
+        <div class="topic-chip">Computed property names</div>
+        <div class="topic-chip">Property shorthand</div>
+        <div class="topic-chip">Optional chaining in objects</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> JSON</div>
+      <div class="topic-grid">
+        <div class="topic-chip">JSON.stringify()</div>
+        <div class="topic-chip">JSON.parse()</div>
+        <div class="topic-chip">API data handling</div>
+        <div class="topic-chip">JSON formatting options</div>
+        <div class="topic-chip">JSON reviver &amp; replacer</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 17–19</span>
+        <span class="badge badge-level-beginner-intermediate">Beginner–Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 11. MAP, WEAKMAP, SET, WEAKSET ===== -->
+  <div class="section" id="mapset">
+    <div class="h1-title"><span class="hash">#</span> Map, WeakMap, Set &amp; WeakSet</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> MAP</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is Map</div>
+        <div class="topic-chip">Why Map is used</div>
+        <div class="topic-chip">Map vs Object</div>
+        <div class="topic-chip">Key-value structure</div>
+        <div class="topic-chip">Creating empty Map</div>
+        <div class="topic-chip">Creating Map with values</div>
+        <div class="topic-chip">Creating Map from Array</div>
+        <div class="topic-chip">size property</div>
+        <div class="topic-chip">set()</div>
+        <div class="topic-chip">get()</div>
+        <div class="topic-chip">has()</div>
+        <div class="topic-chip">delete()</div>
+        <div class="topic-chip">clear()</div>
+        <div class="topic-chip">for…of iteration</div>
+        <div class="topic-chip">forEach() iteration</div>
+        <div class="topic-chip">keys()</div>
+        <div class="topic-chip">values()</div>
+        <div class="topic-chip">entries()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> WEAKMAP</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is WeakMap</div>
+        <div class="topic-chip">Map vs WeakMap</div>
+        <div class="topic-chip">Object-only keys</div>
+        <div class="topic-chip">set()</div>
+        <div class="topic-chip">get()</div>
+        <div class="topic-chip">has()</div>
+        <div class="topic-chip">delete()</div>
+        <div class="topic-chip">Garbage collection concept</div>
+        <div class="topic-chip">Use cases</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> SET</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is Set</div>
+        <div class="topic-chip">Why Set is used</div>
+        <div class="topic-chip">Set vs Array</div>
+        <div class="topic-chip">Unique values concept</div>
+        <div class="topic-chip">Creating empty Set</div>
+        <div class="topic-chip">Creating Set with values</div>
+        <div class="topic-chip">Creating Set from Array</div>
+        <div class="topic-chip">size property</div>
+        <div class="topic-chip">add()</div>
+        <div class="topic-chip">delete()</div>
+        <div class="topic-chip">has()</div>
+        <div class="topic-chip">clear()</div>
+        <div class="topic-chip">for…of iteration</div>
+        <div class="topic-chip">forEach() iteration</div>
+        <div class="topic-chip">Set to Array conversion</div>
+        <div class="topic-chip">Union &amp; Intersection with Sets</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> WEAKSET</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is WeakSet</div>
+        <div class="topic-chip">Set vs WeakSet</div>
+        <div class="topic-chip">Object-only values</div>
+        <div class="topic-chip">add()</div>
+        <div class="topic-chip">delete()</div>
+        <div class="topic-chip">has()</div>
+        <div class="topic-chip">Garbage collection</div>
+        <div class="topic-chip">Use cases</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 20–21</span>
+        <span class="badge badge-level-intermediate">Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 12. NUMBERS & MATH ===== -->
+  <div class="section" id="numbers">
+    <div class="h1-title"><span class="hash">#</span> Numbers &amp; Math</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Numbers</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Integer values</div>
+        <div class="topic-chip">Floating point values</div>
+        <div class="topic-chip">Scientific notation</div>
+        <div class="topic-chip">Numeric precision issues</div>
+        <div class="topic-chip">Safe integers concept</div>
+        <div class="topic-chip">Number literals</div>
+        <div class="topic-chip">Number constructor</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Special Number Values</div>
+      <div class="topic-grid">
+        <div class="topic-chip">NaN (Not a Number)</div>
+        <div class="topic-chip">Infinity</div>
+        <div class="topic-chip">-Infinity</div>
+        <div class="topic-chip">Number limits</div>
+        <div class="topic-chip">Floating precision problem</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Number Properties</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Number.MAX_VALUE</div>
+        <div class="topic-chip">Number.MIN_VALUE</div>
+        <div class="topic-chip">Number.MAX_SAFE_INTEGER</div>
+        <div class="topic-chip">Number.MIN_SAFE_INTEGER</div>
+        <div class="topic-chip">Number.POSITIVE_INFINITY</div>
+        <div class="topic-chip">Number.NEGATIVE_INFINITY</div>
+        <div class="topic-chip">Number.EPSILON</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Number Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">toString()</div>
+        <div class="topic-chip">toFixed()</div>
+        <div class="topic-chip">toPrecision()</div>
+        <div class="topic-chip">valueOf()</div>
+        <div class="topic-chip">toExponential()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Number Conversion Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Number()</div>
+        <div class="topic-chip">parseInt()</div>
+        <div class="topic-chip">parseFloat()</div>
+        <div class="topic-chip">Unary + operator</div>
+        <div class="topic-chip">Implicit conversion</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Number Checking Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Number.isNaN()</div>
+        <div class="topic-chip">Number.isInteger()</div>
+        <div class="topic-chip">Number.isFinite()</div>
+        <div class="topic-chip">isNaN()</div>
+        <div class="topic-chip">isFinite()</div>
+        <div class="topic-chip">Number.isSafeInteger()</div>
+      </div>
+
+      <div class="h4-title"><span class="hash">####</span> Numeric Separators (ES6+)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Underscore (_) in numbers</div>
+        <div class="topic-chip">Readability improvement</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="h2-title"><span class="hash">##</span> Math Object</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Math.PI</div>
+        <div class="topic-chip">Math.E</div>
+        <div class="topic-chip">Math.LN2</div>
+        <div class="topic-chip">Math.LN10</div>
+        <div class="topic-chip">Math.LOG2E</div>
+        <div class="topic-chip">Math.LOG10E</div>
+        <div class="topic-chip">Math.SQRT2</div>
+        <div class="topic-chip">Math.SQRT1_2</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Math Rounding Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Math.round()</div>
+        <div class="topic-chip">Math.ceil()</div>
+        <div class="topic-chip">Math.floor()</div>
+        <div class="topic-chip">Math.trunc()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Math Calculation Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Math.pow()</div>
+        <div class="topic-chip">Math.sqrt()</div>
+        <div class="topic-chip">Math.abs()</div>
+        <div class="topic-chip">Math.sign()</div>
+        <div class="topic-chip">Math.cbrt()</div>
+        <div class="topic-chip">Math.min()</div>
+        <div class="topic-chip">Math.max()</div>
+        <div class="topic-chip">Math.hypot()</div>
+        <div class="topic-chip">Math.clz32()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Random Numbers</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Math.random()</div>
+        <div class="topic-chip">Random number in range</div>
+        <div class="topic-chip">Random integer generation</div>
+        <div class="topic-chip">Random OTP generation logic</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Logarithmic &amp; Trig Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Math.log()</div>
+        <div class="topic-chip">Math.log10()</div>
+        <div class="topic-chip">Math.log2()</div>
+        <div class="topic-chip">Math.exp()</div>
+        <div class="topic-chip">Math.sin()</div>
+        <div class="topic-chip">Math.cos()</div>
+        <div class="topic-chip">Math.tan()</div>
+        <div class="topic-chip">Math.asin()</div>
+        <div class="topic-chip">Math.acos()</div>
+        <div class="topic-chip">Math.atan()</div>
+        <div class="topic-chip">Math.atan2()</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 22–23</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 13. DATE OBJECT ===== -->
+  <div class="section" id="date">
+    <div class="h1-title"><span class="hash">#</span> Date Object</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Creating Date</div>
+      <div class="topic-grid">
+        <div class="topic-chip">new Date()</div>
+        <div class="topic-chip">new Date(milliseconds)</div>
+        <div class="topic-chip">new Date(date string)</div>
+        <div class="topic-chip">new Date(year, month, day)</div>
+        <div class="topic-chip">Current date and time</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Get Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">getFullYear()</div>
+        <div class="topic-chip">getMonth()</div>
+        <div class="topic-chip">getDate()</div>
+        <div class="topic-chip">getDay()</div>
+        <div class="topic-chip">getHours()</div>
+        <div class="topic-chip">getMinutes()</div>
+        <div class="topic-chip">getSeconds()</div>
+        <div class="topic-chip">getMilliseconds()</div>
+        <div class="topic-chip">getTime()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Set Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">setFullYear()</div>
+        <div class="topic-chip">setMonth()</div>
+        <div class="topic-chip">setDate()</div>
+        <div class="topic-chip">setHours()</div>
+        <div class="topic-chip">setMinutes()</div>
+        <div class="topic-chip">setSeconds()</div>
+        <div class="topic-chip">setMilliseconds()</div>
+        <div class="topic-chip">setTime()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> UTC Date Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">getUTCFullYear()</div>
+        <div class="topic-chip">getUTCMonth()</div>
+        <div class="topic-chip">getUTCDate()</div>
+        <div class="topic-chip">getUTCHours()</div>
+        <div class="topic-chip">getTimezoneOffset()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Date Formatting</div>
+      <div class="topic-grid">
+        <div class="topic-chip">toDateString()</div>
+        <div class="topic-chip">toTimeString()</div>
+        <div class="topic-chip">toISOString()</div>
+        <div class="topic-chip">toUTCString()</div>
+        <div class="topic-chip">toLocaleDateString()</div>
+        <div class="topic-chip">toLocaleTimeString()</div>
+        <div class="topic-chip">toLocaleString()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Date Calculations</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Difference between two dates</div>
+        <div class="topic-chip">Calculating age</div>
+        <div class="topic-chip">Adding days</div>
+        <div class="topic-chip">Subtracting days</div>
+        <div class="topic-chip">Date comparison</div>
+        <div class="topic-chip">Date.now()</div>
+        <div class="topic-chip">Timestamps</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 24</span>
+        <span class="badge badge-level-beginner">Beginner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 14. DOM ===== -->
+  <div class="section" id="dom">
+    <div class="h1-title"><span class="hash">#</span> DOM – Document Object Model</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> DOM Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is DOM</div>
+        <div class="topic-chip">DOM tree structure</div>
+        <div class="topic-chip">Nodes and elements</div>
+        <div class="topic-chip">Parent node</div>
+        <div class="topic-chip">Child node</div>
+        <div class="topic-chip">Sibling nodes</div>
+        <div class="topic-chip">Root element</div>
+        <div class="topic-chip">Document object</div>
+        <div class="topic-chip">DOM hierarchy</div>
+        <div class="topic-chip">HTML DOM vs XML DOM</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Accessing DOM Elements</div>
+      <div class="h3-title"><span class="hash">###</span> Basic Selectors</div>
+      <div class="topic-grid">
+        <div class="topic-chip">document.getElementById()</div>
+        <div class="topic-chip">document.getElementsByClassName()</div>
+        <div class="topic-chip">document.getElementsByTagName()</div>
+        <div class="topic-chip">document.getElementsByName()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Modern Selectors</div>
+      <div class="topic-grid">
+        <div class="topic-chip">document.querySelector()</div>
+        <div class="topic-chip">document.querySelectorAll()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Selector Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">id selector</div>
+        <div class="topic-chip">class selector</div>
+        <div class="topic-chip">tag selector</div>
+        <div class="topic-chip">attribute selector</div>
+        <div class="topic-chip">CSS selector usage in JS</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> DOM Properties</div>
+      <div class="topic-grid">
+        <div class="topic-chip">innerHTML</div>
+        <div class="topic-chip">innerText</div>
+        <div class="topic-chip">textContent</div>
+        <div class="topic-chip">value</div>
+        <div class="topic-chip">style property</div>
+        <div class="topic-chip">className</div>
+        <div class="topic-chip">id property</div>
+        <div class="topic-chip">tagName</div>
+        <div class="topic-chip">nodeType</div>
+        <div class="topic-chip">nodeName</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> DOM Attribute Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">getAttribute()</div>
+        <div class="topic-chip">setAttribute()</div>
+        <div class="topic-chip">removeAttribute()</div>
+        <div class="topic-chip">hasAttribute()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> DOM Class Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">classList.add()</div>
+        <div class="topic-chip">classList.remove()</div>
+        <div class="topic-chip">classList.toggle()</div>
+        <div class="topic-chip">classList.contains()</div>
+        <div class="topic-chip">classList.replace()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Creating Elements Dynamically</div>
+      <div class="topic-grid">
+        <div class="topic-chip">createElement()</div>
+        <div class="topic-chip">createTextNode()</div>
+        <div class="topic-chip">appendChild()</div>
+        <div class="topic-chip">append()</div>
+        <div class="topic-chip">prepend()</div>
+        <div class="topic-chip">insertBefore()</div>
+        <div class="topic-chip">insertAdjacentHTML()</div>
+        <div class="topic-chip">insertAdjacentElement()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Removing &amp; Replacing Elements</div>
+      <div class="topic-grid">
+        <div class="topic-chip">remove()</div>
+        <div class="topic-chip">removeChild()</div>
+        <div class="topic-chip">replaceChild()</div>
+        <div class="topic-chip">replaceWith()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Traversing DOM</div>
+      <div class="topic-grid">
+        <div class="topic-chip">parentNode</div>
+        <div class="topic-chip">parentElement</div>
+        <div class="topic-chip">childNodes</div>
+        <div class="topic-chip">children</div>
+        <div class="topic-chip">firstChild</div>
+        <div class="topic-chip">lastChild</div>
+        <div class="topic-chip">nextSibling</div>
+        <div class="topic-chip">previousSibling</div>
+        <div class="topic-chip">closest()</div>
+        <div class="topic-chip">firstElementChild</div>
+        <div class="topic-chip">lastElementChild</div>
+        <div class="topic-chip">nextElementSibling</div>
+        <div class="topic-chip">previousElementSibling</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> DOM Styling</div>
+      <div class="topic-grid">
+        <div class="topic-chip">element.style.property</div>
+        <div class="topic-chip">getComputedStyle()</div>
+        <div class="topic-chip">CSS variables via JS</div>
+        <div class="topic-chip">offsetWidth / offsetHeight</div>
+        <div class="topic-chip">scrollTop / scrollLeft</div>
+        <div class="topic-chip">getBoundingClientRect()</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 25–27</span>
+        <span class="badge badge-level-intermediate">Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 15. EVENT HANDLING ===== -->
+  <div class="section" id="events">
+    <div class="h1-title"><span class="hash">#</span> Event Handling in JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Event Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is an event</div>
+        <div class="topic-chip">Event-driven programming</div>
+        <div class="topic-chip">Types of events</div>
+        <div class="topic-chip">Event object concept</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Adding Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Inline events (onclick, onmouseover)</div>
+        <div class="topic-chip">addEventListener()</div>
+        <div class="topic-chip">removeEventListener()</div>
+        <div class="topic-chip">Multiple event listeners</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Event Types</div>
+
+      <div class="h3-title"><span class="hash">###</span> Mouse Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">click</div>
+        <div class="topic-chip">dblclick</div>
+        <div class="topic-chip">mouseenter</div>
+        <div class="topic-chip">mouseleave</div>
+        <div class="topic-chip">mouseover</div>
+        <div class="topic-chip">mouseout</div>
+        <div class="topic-chip">mousedown</div>
+        <div class="topic-chip">mouseup</div>
+        <div class="topic-chip">mousemove</div>
+        <div class="topic-chip">contextmenu</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Keyboard Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">keydown</div>
+        <div class="topic-chip">keyup</div>
+        <div class="topic-chip">keypress (deprecated)</div>
+        <div class="topic-chip">key property</div>
+        <div class="topic-chip">keyCode property</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Form Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">submit</div>
+        <div class="topic-chip">change</div>
+        <div class="topic-chip">input</div>
+        <div class="topic-chip">focus</div>
+        <div class="topic-chip">blur</div>
+        <div class="topic-chip">reset</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Window Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">load</div>
+        <div class="topic-chip">resize</div>
+        <div class="topic-chip">scroll</div>
+        <div class="topic-chip">DOMContentLoaded</div>
+        <div class="topic-chip">beforeunload</div>
+        <div class="topic-chip">online / offline</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Touch Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">touchstart</div>
+        <div class="topic-chip">touchend</div>
+        <div class="topic-chip">touchmove</div>
+        <div class="topic-chip">touchcancel</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Clipboard Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">copy</div>
+        <div class="topic-chip">cut</div>
+        <div class="topic-chip">paste</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Drag Events</div>
+      <div class="topic-grid">
+        <div class="topic-chip">drag</div>
+        <div class="topic-chip">dragstart</div>
+        <div class="topic-chip">dragend</div>
+        <div class="topic-chip">dragover</div>
+        <div class="topic-chip">drop</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Event Object &amp; Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">event target</div>
+        <div class="topic-chip">event type</div>
+        <div class="topic-chip">event properties</div>
+        <div class="topic-chip">accessing event values</div>
+        <div class="topic-chip">preventDefault()</div>
+        <div class="topic-chip">stopPropagation()</div>
+        <div class="topic-chip">stopImmediatePropagation()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Event Flow</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Event bubbling</div>
+        <div class="topic-chip">Event capturing</div>
+        <div class="topic-chip">Propagation phases</div>
+        <div class="topic-chip">useCapture option</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Event Delegation</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Concept of delegation</div>
+        <div class="topic-chip">Handling multiple elements efficiently</div>
+        <div class="topic-chip">this keyword in event handlers</div>
+        <div class="topic-chip">Dynamic element events</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 28–30</span>
+        <span class="badge badge-level-intermediate">Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 16. BOM ===== -->
+  <div class="section" id="bom">
+    <div class="h1-title"><span class="hash">#</span> BOM – Browser Object Model</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> BOM Basics</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is BOM</div>
+        <div class="topic-chip">Browser interaction using JavaScript</div>
+        <div class="topic-chip">window object</div>
+        <div class="topic-chip">Global object concept</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Window Object Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">alert()</div>
+        <div class="topic-chip">confirm()</div>
+        <div class="topic-chip">prompt()</div>
+        <div class="topic-chip">open()</div>
+        <div class="topic-chip">close()</div>
+        <div class="topic-chip">print()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Timing Functions</div>
+      <div class="topic-grid">
+        <div class="topic-chip">setTimeout()</div>
+        <div class="topic-chip">clearTimeout()</div>
+        <div class="topic-chip">setInterval()</div>
+        <div class="topic-chip">clearInterval()</div>
+        <div class="topic-chip">requestAnimationFrame()</div>
+        <div class="topic-chip">cancelAnimationFrame()</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Location Object</div>
+      <div class="topic-grid">
+        <div class="topic-chip">location.href</div>
+        <div class="topic-chip">location.reload()</div>
+        <div class="topic-chip">location.assign()</div>
+        <div class="topic-chip">location.replace()</div>
+        <div class="topic-chip">location.hostname</div>
+        <div class="topic-chip">location.pathname</div>
+        <div class="topic-chip">location.search</div>
+        <div class="topic-chip">location.hash</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Navigator Object</div>
+      <div class="topic-grid">
+        <div class="topic-chip">navigator.appName</div>
+        <div class="topic-chip">navigator.userAgent</div>
+        <div class="topic-chip">navigator.language</div>
+        <div class="topic-chip">Browser information</div>
+        <div class="topic-chip">navigator.onLine</div>
+        <div class="topic-chip">navigator.geolocation</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Screen Object</div>
+      <div class="topic-grid">
+        <div class="topic-chip">screen.width</div>
+        <div class="topic-chip">screen.height</div>
+        <div class="topic-chip">screen.availWidth</div>
+        <div class="topic-chip">screen.availHeight</div>
+        <div class="topic-chip">screen.colorDepth</div>
+        <div class="topic-chip">screen.pixelDepth</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> History Object</div>
+      <div class="topic-grid">
+        <div class="topic-chip">history.back()</div>
+        <div class="topic-chip">history.forward()</div>
+        <div class="topic-chip">history.go()</div>
+        <div class="topic-chip">history.length</div>
+        <div class="topic-chip">history.pushState()</div>
+        <div class="topic-chip">history.replaceState()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Execution Context &amp; Scope</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Global execution context</div>
+        <div class="topic-chip">Function execution context</div>
+        <div class="topic-chip">Call stack</div>
+        <div class="topic-chip">Lexical scope</div>
+        <div class="topic-chip">Scope chain</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Browser Storage</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Cookies</div>
+        <div class="topic-chip">Local Storage</div>
+        <div class="topic-chip">Session Storage</div>
+        <div class="topic-chip">IndexedDB (overview)</div>
+        <div class="topic-chip">Storage events</div>
+      </div>
+
+      <div class="h4-title"><span class="hash">####</span> Cookies</div>
+      <div class="topic-grid">
+        <div class="topic-chip">document.cookie concept</div>
+        <div class="topic-chip">Storing small data in browser</div>
+        <div class="topic-chip">Cookie attributes (expires, path, secure)</div>
+        <div class="topic-chip">Reading &amp; deleting cookies</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 31–33</span>
+        <span class="badge badge-level-intermediate">Intermediate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 17. ASYNC JS ===== -->
+  <div class="section" id="async">
+    <div class="h1-title"><span class="hash">#</span> Asynchronous JavaScript</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> Async Concepts</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Synchronous vs Asynchronous</div>
+        <div class="topic-chip">Callbacks</div>
+        <div class="topic-chip">Callback Hell</div>
+        <div class="topic-chip">Non-blocking I/O</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Promises</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is a Promise</div>
+        <div class="topic-chip">Promise states (pending, fulfilled, rejected)</div>
+        <div class="topic-chip">.then()</div>
+        <div class="topic-chip">.catch()</div>
+        <div class="topic-chip">.finally()</div>
+        <div class="topic-chip">Promise.all()</div>
+        <div class="topic-chip">Promise.race()</div>
+        <div class="topic-chip">Promise.allSettled()</div>
+        <div class="topic-chip">Promise.any()</div>
+        <div class="topic-chip">Promise chaining</div>
+        <div class="topic-chip">Creating custom promises</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Async / Await</div>
+      <div class="topic-grid">
+        <div class="topic-chip">async function</div>
+        <div class="topic-chip">await keyword</div>
+        <div class="topic-chip">try/catch with async/await</div>
+        <div class="topic-chip">Multiple awaits</div>
+        <div class="topic-chip">Parallel async operations</div>
+        <div class="topic-chip">Async IIFE</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> APIs</div>
+      <div class="topic-grid">
+        <div class="topic-chip">fetch() API</div>
+        <div class="topic-chip">GET requests</div>
+        <div class="topic-chip">POST requests</div>
+        <div class="topic-chip">PUT / PATCH / DELETE requests</div>
+        <div class="topic-chip">Handling responses</div>
+        <div class="topic-chip">Error handling in API calls</div>
+        <div class="topic-chip">Response.json()</div>
+        <div class="topic-chip">Request headers</div>
+        <div class="topic-chip">CORS concept</div>
+        <div class="topic-chip">XMLHttpRequest (legacy)</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Event Loop &amp; Concurrency</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Event loop</div>
+        <div class="topic-chip">Microtask queue</div>
+        <div class="topic-chip">Macrotask queue</div>
+        <div class="topic-chip">Web APIs</div>
+        <div class="topic-chip">Call stack behavior</div>
+        <div class="topic-chip">Task scheduling</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Error Handling &amp; Debugging</div>
+      <div class="topic-grid">
+        <div class="topic-chip">try…catch</div>
+        <div class="topic-chip">throw statement</div>
+        <div class="topic-chip">Custom errors</div>
+        <div class="topic-chip">finally block</div>
+        <div class="topic-chip">Error types (TypeError, ReferenceError, SyntaxError)</div>
+        <div class="topic-chip">Error.name and Error.message</div>
+        <div class="topic-chip">console methods for debugging</div>
+        <div class="topic-chip">Breakpoints concept</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 34–40</span>
+        <span class="badge badge-level-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 18. OOP ===== -->
+  <div class="section" id="oop">
+    <div class="h1-title"><span class="hash">#</span> OOP – Object-Oriented Programming</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> OOP Introduction</div>
+      <div class="topic-grid">
+        <div class="topic-chip">What is OOP</div>
+        <div class="topic-chip">Why OOP is used</div>
+        <div class="topic-chip">Procedural vs OOP</div>
+        <div class="topic-chip">Benefits of OOP</div>
+        <div class="topic-chip">Real-world OOP examples</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Object Creation Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object literal method</div>
+        <div class="topic-chip">Constructor function</div>
+        <div class="topic-chip">Object.create()</div>
+        <div class="topic-chip">Factory functions</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Constructor Functions</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Constructor function concept</div>
+        <div class="topic-chip">new keyword</div>
+        <div class="topic-chip">this keyword in constructor</div>
+        <div class="topic-chip">Creating multiple objects</div>
+        <div class="topic-chip">Constructor parameters</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Classes (ES6)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">class keyword</div>
+        <div class="topic-chip">constructor() method</div>
+        <div class="topic-chip">Instance properties</div>
+        <div class="topic-chip">Instance methods</div>
+        <div class="topic-chip">Class expressions</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> OOP Pillars</div>
+
+      <div class="h3-title"><span class="hash">###</span> Encapsulation</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Data encapsulation</div>
+        <div class="topic-chip">Data hiding</div>
+        <div class="topic-chip">Public properties</div>
+        <div class="topic-chip">Private properties</div>
+        <div class="topic-chip">Getters (get keyword)</div>
+        <div class="topic-chip">Setters (set keyword)</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Inheritance</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Parent class</div>
+        <div class="topic-chip">Child class</div>
+        <div class="topic-chip">extends keyword</div>
+        <div class="topic-chip">super keyword</div>
+        <div class="topic-chip">Method inheritance</div>
+        <div class="topic-chip">Multi-level inheritance</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Polymorphism</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Method overriding</div>
+        <div class="topic-chip">Same method different behavior</div>
+        <div class="topic-chip">Runtime polymorphism</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Abstraction</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Hiding implementation details</div>
+        <div class="topic-chip">Interface concept (basic idea)</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Prototype System</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Prototype concept</div>
+        <div class="topic-chip">prototype property</div>
+        <div class="topic-chip">__proto__</div>
+        <div class="topic-chip">Prototype chain</div>
+        <div class="topic-chip">Adding methods to prototype</div>
+        <div class="topic-chip">Prototype inheritance</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Static Methods</div>
+      <div class="topic-grid">
+        <div class="topic-chip">static keyword</div>
+        <div class="topic-chip">Static properties</div>
+        <div class="topic-chip">Static methods</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Getters &amp; Setters</div>
+      <div class="topic-grid">
+        <div class="topic-chip">get keyword</div>
+        <div class="topic-chip">set keyword</div>
+        <div class="topic-chip">Accessing values via getters</div>
+        <div class="topic-chip">Modifying values via setters</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Object Property Control</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object.defineProperty()</div>
+        <div class="topic-chip">Object.defineProperties()</div>
+        <div class="topic-chip">Property descriptors</div>
+        <div class="topic-chip">writable, enumerable, configurable</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Class Inheritance Details</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Method overriding</div>
+        <div class="topic-chip">super() usage</div>
+        <div class="topic-chip">Constructor chaining</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Private Class Fields</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Private properties (#)</div>
+        <div class="topic-chip">Private methods</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> Instance Checking</div>
+      <div class="topic-grid">
+        <div class="topic-chip">instanceof operator</div>
+        <div class="topic-chip">typeof with objects</div>
+      </div>
+
+      <div class="h3-title"><span class="hash">###</span> this Keyword in OOP</div>
+      <div class="topic-grid">
+        <div class="topic-chip">this inside object</div>
+        <div class="topic-chip">this inside class</div>
+        <div class="topic-chip">this inside constructor</div>
+        <div class="topic-chip">Arrow functions and this</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 41–50</span>
+        <span class="badge badge-level-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 19. ES6+ FEATURES ===== -->
+  <div class="section" id="es6">
+    <div class="h1-title"><span class="hash">#</span> Important ES6+ Features</div>
+    <div class="glass-card">
+      <div class="h2-title"><span class="hash">##</span> ES6 Core Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">1. let</div>
+        <div class="topic-chip">2. const</div>
+        <div class="topic-chip">3. Arrow Functions</div>
+        <div class="topic-chip">4. Template Literals</div>
+        <div class="topic-chip">5. Destructuring</div>
+        <div class="topic-chip">6. Spread Operator</div>
+        <div class="topic-chip">7. Rest Parameters</div>
+        <div class="topic-chip">8. Default Parameters</div>
+        <div class="topic-chip">9. Enhanced Object Literals</div>
+        <div class="topic-chip">10. Classes</div>
+        <div class="topic-chip">11. Inheritance</div>
+        <div class="topic-chip">12. Modules (import/export)</div>
+        <div class="topic-chip">13. Promises</div>
+        <div class="topic-chip">14. Async / Await</div>
+        <div class="topic-chip">15. for…of Loop</div>
+        <div class="topic-chip">16. Map</div>
+        <div class="topic-chip">17. Set</div>
+        <div class="topic-chip">18. WeakMap</div>
+        <div class="topic-chip">19. WeakSet</div>
+        <div class="topic-chip">20. Symbol</div>
+        <div class="topic-chip">21. Optional Chaining (?.)</div>
+        <div class="topic-chip">22. Nullish Coalescing (??)</div>
+        <div class="topic-chip">23. BigInt</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2017+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Object.entries() / Object.values()</div>
+        <div class="topic-chip">String padding (padStart / padEnd)</div>
+        <div class="topic-chip">Trailing commas</div>
+        <div class="topic-chip">Async generators</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2019+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Array.flat() / flatMap()</div>
+        <div class="topic-chip">Object.fromEntries()</div>
+        <div class="topic-chip">trimStart() / trimEnd()</div>
+        <div class="topic-chip">Optional catch binding</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2020+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Promise.allSettled()</div>
+        <div class="topic-chip">globalThis</div>
+        <div class="topic-chip">Dynamic import()</div>
+        <div class="topic-chip">Logical assignment operators (&&=, ||=, ??=)</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2021+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">String.replaceAll()</div>
+        <div class="topic-chip">Promise.any()</div>
+        <div class="topic-chip">Numeric separators</div>
+        <div class="topic-chip">WeakRef</div>
+        <div class="topic-chip">FinalizationRegistry</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2022+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Array.at() / String.at()</div>
+        <div class="topic-chip">Object.hasOwn()</div>
+        <div class="topic-chip">Top-level await</div>
+        <div class="topic-chip">Private class fields (#)</div>
+        <div class="topic-chip">Error cause</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> ES2023+ Features</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Array.toSorted()</div>
+        <div class="topic-chip">Array.toReversed()</div>
+        <div class="topic-chip">Array.toSpliced()</div>
+        <div class="topic-chip">Array.findLast()</div>
+        <div class="topic-chip">Array.findLastIndex()</div>
+        <div class="topic-chip">Array.with()</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Modules (import / export)</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Named exports</div>
+        <div class="topic-chip">Default exports</div>
+        <div class="topic-chip">import statement</div>
+        <div class="topic-chip">import * as syntax</div>
+        <div class="topic-chip">Re-exports</div>
+        <div class="topic-chip">Dynamic import()</div>
+        <div class="topic-chip">Module scope</div>
+        <div class="topic-chip">ES modules vs CommonJS</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Regex in JavaScript</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Regular expression basics</div>
+        <div class="topic-chip">RegExp object</div>
+        <div class="topic-chip">test() method</div>
+        <div class="topic-chip">exec() method</div>
+        <div class="topic-chip">match() / matchAll()</div>
+        <div class="topic-chip">replace() with regex</div>
+        <div class="topic-chip">Flags (g, i, m, s)</div>
+        <div class="topic-chip">Character classes</div>
+        <div class="topic-chip">Quantifiers</div>
+        <div class="topic-chip">Groups and anchors</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Symbol in JavaScript</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Symbol() creation</div>
+        <div class="topic-chip">Symbol.for()</div>
+        <div class="topic-chip">Symbol.iterator</div>
+        <div class="topic-chip">Well-known symbols</div>
+        <div class="topic-chip">Using as unique keys</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Iterators &amp; Generators</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Iterable protocol</div>
+        <div class="topic-chip">Iterator protocol</div>
+        <div class="topic-chip">Custom iterators</div>
+        <div class="topic-chip">Generator functions (function*)</div>
+        <div class="topic-chip">yield keyword</div>
+        <div class="topic-chip">next() method</div>
+        <div class="topic-chip">Infinite generators</div>
+      </div>
+
+      <div class="h2-title"><span class="hash">##</span> Proxy &amp; Reflect</div>
+      <div class="topic-grid">
+        <div class="topic-chip">Proxy object</div>
+        <div class="topic-chip">Traps (get, set, has)</div>
+        <div class="topic-chip">Reflect API</div>
+        <div class="topic-chip">Use cases of Proxy</div>
+      </div>
+
+      <div class="day-badges">
+        <span class="badge badge-day">Day 51–60</span>
+        <span class="badge badge-level-advanced">Advanced</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // Generate stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+    star.style.animationDelay = (Math.random() * 3) + 's';
+    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // Smooth scroll + active tab
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+      }
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Section entrance animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.section').forEach((s, i) => {
+    s.style.animationDelay = '0ms';
+    s.style.animationPlayState = 'paused';
+    observer.observe(s);
+  });
+</script>
+
+</body>
+</html>
