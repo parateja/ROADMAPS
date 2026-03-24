@@ -1,0 +1,1737 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 60-Day Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0015;
+    --bg2: #0d0025;
+    --glass: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.12);
+    --glass-hover: rgba(255,255,255,0.09);
+    --accent1: #b200ff;
+    --accent2: #00f0ff;
+    --accent3: #ff6b35;
+    --accent4: #39ff14;
+    --accent5: #ff2d78;
+    --gold: #ffd700;
+    --text: #e8e8ff;
+    --subtext: #a0a0cc;
+    --h1-color: #00f0ff;
+    --h2-color: #b200ff;
+    --h3-color: #39ff14;
+    --h4-color: #ff6b35;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+ 
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(178,0,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(0,240,255,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(57,255,20,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* Floating particles */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+ 
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+ 
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+ 
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  /* Header */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 50px;
+    position: relative;
+  }
+ 
+  .hero-badge {
+    display: inline-block;
+    background: rgba(178,0,255,0.15);
+    border: 1px solid rgba(178,0,255,0.4);
+    border-radius: 50px;
+    padding: 6px 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--accent1);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+ 
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(178,0,255,0.3); }
+    50% { box-shadow: 0 0 25px rgba(178,0,255,0.6); }
+  }
+ 
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #00f0ff, #b200ff, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    filter: drop-shadow(0 0 30px rgba(0,240,255,0.3));
+  }
+ 
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--subtext);
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+ 
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+ 
+  .stat-chip {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 40px;
+    padding: 8px 22px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.82rem;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+ 
+  .stat-chip .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent4);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+ 
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+ 
+  /* Search */
+  .search-wrap {
+    max-width: 520px;
+    margin: 0 auto 40px;
+    position: relative;
+  }
+ 
+  .search-wrap input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,240,255,0.25);
+    border-radius: 50px;
+    padding: 14px 24px 14px 50px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+ 
+  .search-wrap input::placeholder { color: var(--subtext); }
+  .search-wrap input:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 20px rgba(0,240,255,0.2);
+  }
+ 
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: var(--accent2);
+    pointer-events: none;
+  }
+ 
+  /* Progress bar */
+  .progress-section {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 18px;
+    padding: 22px 28px;
+    margin-bottom: 36px;
+  }
+ 
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--subtext);
+    margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+  }
+ 
+  .progress-track {
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+ 
+  .progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    box-shadow: 0 0 12px rgba(0,240,255,0.5);
+    transition: width 0.5s ease;
+  }
+ 
+  /* Day cards */
+  .day-group {
+    margin-bottom: 12px;
+    animation: fadeSlide 0.5s ease both;
+  }
+ 
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 16px 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .day-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.03));
+    pointer-events: none;
+  }
+ 
+  .day-header:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255,255,255,0.22);
+    transform: translateX(4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+ 
+  .day-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    min-width: 80px;
+    text-align: center;
+  }
+ 
+  .day-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    flex: 1;
+    line-height: 1.3;
+  }
+ 
+  .day-time {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    color: var(--subtext);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+ 
+  .chevron {
+    font-size: 0.9rem;
+    color: var(--subtext);
+    transition: transform 0.3s ease;
+    margin-left: 4px;
+  }
+ 
+  .day-header.open .chevron { transform: rotate(180deg); }
+ 
+  .day-content {
+    display: none;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    padding: 0;
+    overflow: hidden;
+  }
+ 
+  .day-content.open { display: block; }
+ 
+  .topic-block {
+    padding: 20px 28px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+ 
+  .topic-block:last-child { border-bottom: none; }
+ 
+  /* Heading styles */
+  .h1-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--h1-color);
+    text-shadow: 0 0 20px rgba(0,240,255,0.5);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .h2-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--h2-color);
+    text-shadow: 0 0 15px rgba(178,0,255,0.5);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+ 
+  .h3-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--h3-color);
+    text-shadow: 0 0 12px rgba(57,255,20,0.4);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+ 
+  .h4-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--h4-color);
+    text-shadow: 0 0 10px rgba(255,107,53,0.4);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+ 
+  .h-marker {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7em;
+    opacity: 0.6;
+  }
+ 
+  /* Subtopic pills */
+  .subtopics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 6px;
+  }
+ 
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 13px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border: 1px solid;
+    transition: all 0.2s;
+    cursor: default;
+  }
+ 
+  .pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+ 
+  .pill-cyan {
+    background: rgba(0,240,255,0.08);
+    border-color: rgba(0,240,255,0.3);
+    color: var(--accent2);
+  }
+ 
+  .pill-purple {
+    background: rgba(178,0,255,0.08);
+    border-color: rgba(178,0,255,0.3);
+    color: var(--accent1);
+  }
+ 
+  .pill-green {
+    background: rgba(57,255,20,0.07);
+    border-color: rgba(57,255,20,0.3);
+    color: var(--accent4);
+  }
+ 
+  .pill-orange {
+    background: rgba(255,107,53,0.08);
+    border-color: rgba(255,107,53,0.3);
+    color: var(--accent3);
+  }
+ 
+  .pill-pink {
+    background: rgba(255,45,120,0.08);
+    border-color: rgba(255,45,120,0.3);
+    color: var(--accent5);
+  }
+ 
+  .pill-gold {
+    background: rgba(255,215,0,0.08);
+    border-color: rgba(255,215,0,0.3);
+    color: var(--gold);
+  }
+ 
+  /* Color band for day difficulty */
+  .band-beginner { background: linear-gradient(90deg, rgba(57,255,20,0.6), rgba(0,240,255,0.6)); }
+  .band-intermediate { background: linear-gradient(90deg, rgba(0,240,255,0.6), rgba(178,0,255,0.6)); }
+  .band-advanced { background: linear-gradient(90deg, rgba(178,0,255,0.6), rgba(255,45,120,0.6)); }
+  .band-expert { background: linear-gradient(90deg, rgba(255,45,120,0.6), rgba(255,107,53,0.6)); }
+  .band-project { background: linear-gradient(90deg, rgba(255,215,0,0.6), rgba(255,107,53,0.6)); }
+ 
+  .num-beginner { background: rgba(57,255,20,0.15); color: var(--accent4); border: 1px solid rgba(57,255,20,0.3); }
+  .num-intermediate { background: rgba(0,240,255,0.15); color: var(--accent2); border: 1px solid rgba(0,240,255,0.3); }
+  .num-advanced { background: rgba(178,0,255,0.15); color: var(--accent1); border: 1px solid rgba(178,0,255,0.3); }
+  .num-expert { background: rgba(255,45,120,0.15); color: var(--accent5); border: 1px solid rgba(255,45,120,0.3); }
+  .num-project { background: rgba(255,215,0,0.15); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
+ 
+  .color-bar {
+    height: 3px;
+    border-radius: 3px;
+    margin-bottom: 0;
+  }
+ 
+  /* Scroll top */
+  #scrollTop {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: rgba(178,0,255,0.3);
+    border: 1px solid rgba(178,0,255,0.5);
+    backdrop-filter: blur(10px);
+    color: white;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 100;
+  }
+ 
+  #scrollTop:hover {
+    background: rgba(178,0,255,0.5);
+    box-shadow: 0 0 20px rgba(178,0,255,0.5);
+    transform: translateY(-3px);
+  }
+ 
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+ 
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.78rem;
+    font-family: 'Fira Code', monospace;
+    color: var(--subtext);
+  }
+ 
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+  }
+ 
+  /* Expand all btn */
+  .controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+ 
+  .ctrl-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+ 
+  .ctrl-btn:hover {
+    background: rgba(0,240,255,0.1);
+    border-color: rgba(0,240,255,0.4);
+    color: var(--accent2);
+  }
+ 
+  /* section desc */
+  .section-desc {
+    font-size: 0.88rem;
+    color: var(--subtext);
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+ 
+  .checkbox-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+ 
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.83rem;
+    color: var(--subtext);
+    transition: color 0.2s;
+  }
+ 
+  .check-item:hover { color: var(--text); }
+ 
+  .check-item input[type="checkbox"] {
+    accent-color: var(--accent2);
+    width: 14px; height: 14px;
+    cursor: pointer;
+  }
+ 
+  .completed-count {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--accent4);
+    margin-left: auto;
+  }
+ 
+  /* responsive */
+  @media (max-width: 600px) {
+    .day-header { flex-wrap: wrap; gap: 8px; }
+    .day-time { font-size: 0.68rem; }
+    .day-title { font-size: 0.95rem; }
+    .h1-tag { font-size: 1.3rem; }
+    .h2-tag { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+ 
+<div class="particles" id="particles"></div>
+ 
+<div class="container">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">⚡ PYTHON MASTERY PROGRAM</div>
+    <h1>60-Day Python Roadmap</h1>
+    <p class="hero-sub">From Zero to Professional Python Developer</p>
+    <div class="stats-row">
+      <div class="stat-chip"><span class="dot"></span> 60 Days</div>
+      <div class="stat-chip"><span class="dot"></span> ~300+ Hours</div>
+      <div class="stat-chip"><span class="dot"></span> 12 Phases</div>
+      <div class="stat-chip"><span class="dot"></span> 100% Python</div>
+    </div>
+  </div>
+ 
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search topics, subtopics..." />
+  </div>
+ 
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Overall Progress</span>
+      <span id="progressText">0 / 60 days completed</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+    </div>
+  </div>
+ 
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(57,255,20,0.6)"></div> Beginner</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(0,240,255,0.6)"></div> Intermediate</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(178,0,255,0.6)"></div> Advanced</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(255,45,120,0.6)"></div> Expert</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(255,215,0,0.6)"></div> Project Day</div>
+  </div>
+ 
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">▼ Expand All</button>
+    <button class="ctrl-btn" onclick="collapseAll()">▲ Collapse All</button>
+    <button class="ctrl-btn" onclick="resetProgress()">🔄 Reset Progress</button>
+    <span class="completed-count" id="completedCount">✅ 0 completed</span>
+  </div>
+ 
+  <!-- DAYS CONTAINER -->
+  <div id="daysContainer"></div>
+</div>
+ 
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+ 
+<script>
+// ============================================================
+// ROADMAP DATA
+// ============================================================
+const roadmap = [
+  // ── PHASE 1: DAYS 1-5 ─────────────────────────────────────
+  {
+    day: 1, level: "beginner", time: "4-5 hrs",
+    title: "Python Setup & Absolute Basics",
+    topics: [
+      { type: "h1", text: "# Python Installation & Environment Setup" },
+      { type: "desc", text: "Set up a clean Python development environment before writing a single line of code." },
+      { type: "pills", color: "green", items: ["Python 3.12+ download", "Official python.org installer", "PATH environment variable", "Verify: python --version"] },
+      { type: "h2", text: "## IDEs & Code Editors" },
+      { type: "pills", color: "cyan", items: ["VS Code setup", "PyCharm Community", "Jupyter Notebook", "Google Colab (cloud)", "Thonny (beginners)", "IDLE (built-in)"] },
+      { type: "h3", text: "### First Python Program" },
+      { type: "pills", color: "purple", items: ["print() function", "Hello World", "Running .py files", "Interactive REPL", "Script mode vs interactive"] },
+      { type: "h4", text: "#### Python Enhancement Proposals (PEPs)" },
+      { type: "pills", color: "orange", items: ["PEP 8 style guide", "PEP 20 Zen of Python", "Indentation rules", "Comments with #", "Docstrings intro"] },
+    ]
+  },
+  {
+    day: 2, level: "beginner", time: "5 hrs",
+    title: "Variables, Data Types & Operators",
+    topics: [
+      { type: "h1", text: "# Variables & Data Types" },
+      { type: "desc", text: "Master Python's dynamic typing and core built-in data types." },
+      { type: "pills", color: "green", items: ["Variable assignment", "Dynamic typing", "Type inference", "Variable naming rules", "Case sensitivity", "Underscore convention"] },
+      { type: "h2", text: "## Numeric Types" },
+      { type: "pills", color: "cyan", items: ["int (integers)", "float (decimals)", "complex (a+bj)", "Arbitrary precision int", "Scientific notation", "Underscores in numbers (1_000_000)"] },
+      { type: "h2", text: "## String Type (str)" },
+      { type: "pills", color: "purple", items: ["Single quotes", "Double quotes", "Triple quotes", "Raw strings r\"\"", "Byte strings b\"\"", "Unicode strings", "String escape sequences"] },
+      { type: "h2", text: "## Boolean & None Types" },
+      { type: "pills", color: "orange", items: ["True / False", "None type", "Truthy/Falsy values", "NoneType checks"] },
+      { type: "h3", text: "### Operators" },
+      { type: "pills", color: "pink", items: ["Arithmetic: + - * / // % **", "Comparison: == != < > <= >=", "Logical: and or not", "Assignment: = += -= *= /= //= **= %=", "Bitwise: & | ^ ~ << >>", "Identity: is, is not", "Membership: in, not in", "Walrus operator :="] },
+      { type: "h4", text: "#### Type Conversion" },
+      { type: "pills", color: "gold", items: ["int()", "float()", "str()", "bool()", "type()", "isinstance()", "Implicit conversion", "Explicit casting"] },
+    ]
+  },
+  {
+    day: 3, level: "beginner", time: "5 hrs",
+    title: "Strings In-Depth",
+    topics: [
+      { type: "h1", text: "# String Manipulation Mastery" },
+      { type: "desc", text: "Strings are everywhere. Learn every method and technique." },
+      { type: "h2", text: "## String Indexing & Slicing" },
+      { type: "pills", color: "cyan", items: ["Zero-based indexing", "Negative indexing", "Slicing [start:stop:step]", "Reverse with [::-1]", "Copy with [:]"] },
+      { type: "h2", text: "## String Methods" },
+      { type: "pills", color: "purple", items: ["upper() lower() title() capitalize()", "strip() lstrip() rstrip()", "split() rsplit() splitlines()", "join()", "replace()", "find() rfind() index()", "count()", "startswith() endswith()", "zfill() center() ljust() rjust()", "isdigit() isalpha() isalnum() isspace()", "encode() decode()", "format() format_map()"] },
+      { type: "h3", text: "### String Formatting" },
+      { type: "pills", color: "green", items: ["%-formatting (old)", ".format() method", "f-strings (f\"\")", "f-string expressions", "f-string format specifiers", "Alignment & padding", "Number formatting {:,.2f}", "Multiline f-strings"] },
+      { type: "h4", text: "#### String Immutability" },
+      { type: "pills", color: "orange", items: ["Why strings are immutable", "String interning", "id() comparisons", "Concatenation vs join performance"] },
+    ]
+  },
+  {
+    day: 4, level: "beginner", time: "5 hrs",
+    title: "Input/Output & Control Flow",
+    topics: [
+      { type: "h1", text: "# Input, Output & Control Flow" },
+      { type: "h2", text: "## User Input & Output" },
+      { type: "pills", color: "cyan", items: ["input() function", "input() with prompt", "Type conversion of input", "print() arguments", "sep and end params", "file parameter", "flush parameter"] },
+      { type: "h2", text: "## Conditional Statements" },
+      { type: "pills", color: "purple", items: ["if statement", "if-else", "if-elif-else chains", "Nested if", "Ternary operator (conditional expression)", "match-case (Python 3.10+)", "Structural pattern matching"] },
+      { type: "h3", text: "### For Loops" },
+      { type: "pills", color: "green", items: ["for item in iterable", "range()", "range(start, stop, step)", "enumerate()", "zip()", "Nested for loops", "Loop with else clause"] },
+      { type: "h3", text: "### While Loops" },
+      { type: "pills", color: "orange", items: ["while condition", "Infinite loops", "Loop with else", "do-while equivalent"] },
+      { type: "h4", text: "#### Loop Control Statements" },
+      { type: "pills", color: "pink", items: ["break", "continue", "pass", "return in loops"] },
+    ]
+  },
+  {
+    day: 5, level: "beginner", time: "5 hrs",
+    title: "Lists & Tuples",
+    topics: [
+      { type: "h1", text: "# Lists — Python's Workhorse" },
+      { type: "h2", text: "## List Basics" },
+      { type: "pills", color: "cyan", items: ["Creating lists []", "Heterogeneous lists", "Nested lists", "List from range", "list() constructor"] },
+      { type: "h2", text: "## List Methods & Operations" },
+      { type: "pills", color: "purple", items: ["append() extend() insert()", "remove() pop() del clear()", "index() count()", "sort() sorted() reverse() reversed()", "copy() deepcopy()", "Concatenation +", "Repetition *", "Membership test in", "len() min() max() sum()"] },
+      { type: "h2", text: "## List Comprehensions" },
+      { type: "pills", color: "green", items: ["[expr for x in iter]", "With condition", "Nested comprehension", "Flat vs nested output", "Performance advantage"] },
+      { type: "h3", text: "### Tuples" },
+      { type: "pills", color: "orange", items: ["Creating tuples ()", "Single-element tuple (x,)", "Tuple immutability", "Tuple methods: count() index()", "Tuple unpacking", "Extended unpacking *", "Named tuples (namedtuple)", "Tuples as dict keys"] },
+      { type: "h4", text: "#### Slicing & Copying" },
+      { type: "pills", color: "gold", items: ["Shallow copy", "Deep copy", "Copy module", "Slice assignment", "List as stack", "List as queue", "deque from collections"] },
+    ]
+  },
+ 
+  // ── PHASE 2: DAYS 6-10 ────────────────────────────────────
+  {
+    day: 6, level: "beginner", time: "5 hrs",
+    title: "Dictionaries & Sets",
+    topics: [
+      { type: "h1", text: "# Dictionaries" },
+      { type: "desc", text: "Hash-table based key-value mappings — critical for almost everything." },
+      { type: "h2", text: "## Dictionary Basics" },
+      { type: "pills", color: "cyan", items: ["Creating dicts {}", "dict() constructor", "Key-value pairs", "Keys must be hashable", "Accessing values []", "get() with default"] },
+      { type: "h2", text: "## Dictionary Methods" },
+      { type: "pills", color: "purple", items: ["keys() values() items()", "update()", "pop() popitem()", "setdefault()", "clear() copy()", "fromkeys()", "dict merging |= (Python 3.9+)"] },
+      { type: "h3", text: "### Dictionary Comprehensions" },
+      { type: "pills", color: "green", items: ["{k:v for k,v in ...}", "Conditional dicts", "Swapping keys and values", "Nested dict comprehension"] },
+      { type: "h3", text: "### Sets" },
+      { type: "pills", color: "orange", items: ["Creating sets {}", "set() constructor", "frozenset()", "add() remove() discard() pop() clear()", "union() |", "intersection() &", "difference() -", "symmetric_difference() ^", "issubset() issuperset() isdisjoint()", "Set comprehensions"] },
+      { type: "h4", text: "#### Choosing the Right Data Structure" },
+      { type: "pills", color: "pink", items: ["list vs tuple vs set vs dict", "Time complexity O(1) O(n) O(log n)", "Memory considerations", "Mutability comparison"] },
+    ]
+  },
+  {
+    day: 7, level: "beginner", time: "5 hrs",
+    title: "Functions — Part 1",
+    topics: [
+      { type: "h1", text: "# Functions — Building Blocks of Code" },
+      { type: "h2", text: "## Defining Functions" },
+      { type: "pills", color: "cyan", items: ["def keyword", "Function naming", "Function body", "return statement", "Returning multiple values", "None return", "Docstrings"] },
+      { type: "h2", text: "## Parameters & Arguments" },
+      { type: "pills", color: "purple", items: ["Positional arguments", "Keyword arguments", "Default parameter values", "*args (variable positional)", "**kwargs (variable keyword)", "Positional-only parameters /", "Keyword-only parameters *", "Parameter ordering rules"] },
+      { type: "h3", text: "### Variable Scope" },
+      { type: "pills", color: "green", items: ["LEGB rule", "Local scope", "Enclosing scope", "Global scope", "Built-in scope", "global keyword", "nonlocal keyword"] },
+      { type: "h4", text: "#### First-Class Functions" },
+      { type: "pills", color: "orange", items: ["Functions as objects", "Passing functions as arguments", "Returning functions", "Storing in data structures", "Callable objects"] },
+    ]
+  },
+  {
+    day: 8, level: "beginner", time: "5 hrs",
+    title: "Functions — Part 2 & Lambda",
+    topics: [
+      { type: "h1", text: "# Advanced Functions & Functional Tools" },
+      { type: "h2", text: "## Lambda Functions" },
+      { type: "pills", color: "cyan", items: ["lambda syntax", "Single expression", "With sorted()", "With map()", "With filter()", "With reduce()", "When NOT to use lambda"] },
+      { type: "h2", text: "## Built-in Functional Tools" },
+      { type: "pills", color: "purple", items: ["map()", "filter()", "zip()", "enumerate()", "sorted() key param", "min() max() key param", "any() all()", "sum() with start"] },
+      { type: "h3", text: "### functools Module" },
+      { type: "pills", color: "green", items: ["reduce()", "partial()", "lru_cache / cache", "@functools.wraps", "total_ordering", "singledispatch"] },
+      { type: "h4", text: "#### Recursion" },
+      { type: "pills", color: "orange", items: ["Recursive functions", "Base case", "Recursive case", "Call stack", "Stack overflow", "Tail recursion", "Fibonacci / factorial examples", "Memoization"] },
+    ]
+  },
+  {
+    day: 9, level: "beginner", time: "4-5 hrs",
+    title: "File I/O & Exception Handling",
+    topics: [
+      { type: "h1", text: "# File I/O Operations" },
+      { type: "h2", text: "## Opening & Reading Files" },
+      { type: "pills", color: "cyan", items: ["open() function", "File modes: r w a x b t", "read() readline() readlines()", "with statement (context manager)", "File iteration", "tell() seek()", "Encoding parameter"] },
+      { type: "h2", text: "## Writing Files" },
+      { type: "pills", color: "purple", items: ["write()", "writelines()", "Append mode", "Binary files", "File flushing", "Truncate()"] },
+      { type: "h3", text: "### Exception Handling" },
+      { type: "pills", color: "green", items: ["try-except", "Multiple except", "Exception hierarchy", "BaseException", "as keyword", "else clause", "finally clause", "raise statement", "re-raise", "Custom exceptions", "Exception chaining __cause__"] },
+      { type: "h4", text: "#### Common Built-in Exceptions" },
+      { type: "pills", color: "orange", items: ["ValueError", "TypeError", "IndexError", "KeyError", "AttributeError", "FileNotFoundError", "IOError", "ZeroDivisionError", "OverflowError", "MemoryError", "RuntimeError", "StopIteration", "NotImplementedError"] },
+    ]
+  },
+  {
+    day: 10, level: "beginner", time: "5 hrs",
+    title: "Modules & Packages",
+    topics: [
+      { type: "h1", text: "# Modules, Packages & Imports" },
+      { type: "h2", text: "## Import System" },
+      { type: "pills", color: "cyan", items: ["import module", "from module import name", "import as alias", "from module import *", "__name__ == '__main__'", "Relative imports", "Circular imports"] },
+      { type: "h2", text: "## Creating Modules & Packages" },
+      { type: "pills", color: "purple", items: ["__init__.py", "Package structure", "Subpackages", "__all__ variable", "Module attributes", "Reloading modules", "importlib"] },
+      { type: "h3", text: "### Essential Standard Library Modules" },
+      { type: "pills", color: "green", items: ["os", "sys", "math", "random", "datetime", "time", "json", "csv", "re (regex)", "collections", "itertools", "pathlib", "shutil", "glob", "argparse", "logging", "pprint", "copy", "string", "textwrap"] },
+      { type: "h4", text: "#### Package Management with pip" },
+      { type: "pills", color: "orange", items: ["pip install", "pip uninstall", "pip list", "pip freeze", "requirements.txt", "Virtual environments (venv)", "python -m venv", "activate/deactivate", "pip install -r requirements.txt"] },
+    ]
+  },
+ 
+  // ── PHASE 3: DAYS 11-15 ───────────────────────────────────
+  {
+    day: 11, level: "intermediate", time: "5-6 hrs",
+    title: "Object-Oriented Programming — Part 1",
+    topics: [
+      { type: "h1", text: "# OOP Fundamentals" },
+      { type: "desc", text: "OOP is how large codebases are structured. Master it thoroughly." },
+      { type: "h2", text: "## Classes & Objects" },
+      { type: "pills", color: "cyan", items: ["class keyword", "Object instantiation", "__init__ constructor", "self parameter", "Instance attributes", "Class attributes", "Instance methods", "Class methods @classmethod", "Static methods @staticmethod"] },
+      { type: "h2", text: "## Encapsulation" },
+      { type: "pills", color: "purple", items: ["Public attributes", "Protected attributes _", "Private attributes __", "Name mangling", "Properties @property", "@property.setter", "@property.deleter", "Getters and setters"] },
+      { type: "h3", text: "### Special/Dunder Methods" },
+      { type: "pills", color: "green", items: ["__init__", "__str__", "__repr__", "__len__", "__getitem__", "__setitem__", "__delitem__", "__contains__", "__iter__", "__next__", "__call__", "__eq__ __lt__ __le__", "__add__ __sub__ __mul__"] },
+      { type: "h4", text: "#### Object Lifecycle" },
+      { type: "pills", color: "orange", items: ["__new__", "__del__", "Garbage collection", "Reference counting", "del statement", "weakref module"] },
+    ]
+  },
+  {
+    day: 12, level: "intermediate", time: "5-6 hrs",
+    title: "OOP — Part 2: Inheritance & Polymorphism",
+    topics: [
+      { type: "h1", text: "# Inheritance & Polymorphism" },
+      { type: "h2", text: "## Inheritance" },
+      { type: "pills", color: "cyan", items: ["Single inheritance", "Multiple inheritance", "Multilevel inheritance", "Hierarchical inheritance", "Hybrid inheritance", "super() function", "Method Resolution Order (MRO)", "C3 linearization", "__mro__"] },
+      { type: "h2", text: "## Polymorphism" },
+      { type: "pills", color: "purple", items: ["Method overriding", "Method overloading (via *args)", "Duck typing", "isinstance()", "issubclass()", "Abstract methods", "abc module", "ABC class", "@abstractmethod"] },
+      { type: "h3", text: "### Composition vs Inheritance" },
+      { type: "pills", color: "green", items: ["'Has-a' vs 'Is-a'", "Composition pattern", "Mixin classes", "Interfaces via ABC", "Protocol (typing)"] },
+      { type: "h4", text: "#### Dataclasses" },
+      { type: "pills", color: "orange", items: ["@dataclass decorator", "field()", "Post-init", "Frozen dataclasses", "Comparison support", "Slots", "asdict() astuple()"] },
+    ]
+  },
+  {
+    day: 13, level: "intermediate", time: "5 hrs",
+    title: "Iterators, Generators & Context Managers",
+    topics: [
+      { type: "h1", text: "# Iterators & Generators" },
+      { type: "h2", text: "## Iterators Protocol" },
+      { type: "pills", color: "cyan", items: ["__iter__ __next__", "iter() next()", "StopIteration", "Infinite iterators", "Custom iterator class", "Iterator vs Iterable"] },
+      { type: "h2", text: "## Generators" },
+      { type: "pills", color: "purple", items: ["yield keyword", "Generator functions", "Generator expressions (x for x in ...)", "Generator pipeline", "send() method", "throw() method", "close() method", "yield from", "Delegating generators", "Lazy evaluation"] },
+      { type: "h3", text: "### itertools Module" },
+      { type: "pills", color: "green", items: ["count() cycle() repeat()", "chain() chain.from_iterable()", "zip_longest()", "islice()", "takewhile() dropwhile()", "filterfalse()", "groupby()", "accumulate()", "product() permutations() combinations()", "starmap() tee()"] },
+      { type: "h4", text: "#### Context Managers" },
+      { type: "pills", color: "orange", items: ["with statement", "__enter__ __exit__", "@contextmanager", "contextlib module", "suppress()", "redirect_stdout()", "ExitStack()", "asynccontextmanager"] },
+    ]
+  },
+  {
+    day: 14, level: "intermediate", time: "6 hrs",
+    title: "Decorators & Metaprogramming",
+    topics: [
+      { type: "h1", text: "# Decorators" },
+      { type: "h2", text: "## Function Decorators" },
+      { type: "pills", color: "cyan", items: ["@ syntax", "Decorator pattern", "Preserving metadata @wraps", "Stacking decorators", "Decorators with arguments", "Parameterized decorators", "Class-based decorators"] },
+      { type: "h2", text: "## Class Decorators" },
+      { type: "pills", color: "purple", items: ["@classmethod", "@staticmethod", "@property", "@dataclass", "@abstractmethod", "@lru_cache", "Custom class decorators"] },
+      { type: "h3", text: "### Metaprogramming" },
+      { type: "pills", color: "green", items: ["type() to create classes", "Metaclasses", "__metaclass__", "type as metaclass", "__new__ in metaclass", "__init__ in metaclass", "__prepare__", "ABCMeta"] },
+      { type: "h4", text: "#### Introspection & Reflection" },
+      { type: "pills", color: "orange", items: ["dir()", "vars()", "getattr() setattr() hasattr() delattr()", "inspect module", "callable()", "__dict__", "__doc__", "__module__", "__class__", "type hints introspection"] },
+    ]
+  },
+  {
+    day: 15, level: "intermediate", time: "5-6 hrs",
+    title: "Type Hints & Typing Module",
+    topics: [
+      { type: "h1", text: "# Type Hints & Static Typing" },
+      { type: "desc", text: "Type hints make code more readable, maintainable and catch bugs early." },
+      { type: "h2", text: "## Basic Type Annotations" },
+      { type: "pills", color: "cyan", items: ["Variable annotations", "Function annotations", "Return type hints", "-> return syntax", "None return type", "Optional[]", "Union[] (|operator 3.10+)"] },
+      { type: "h2", text: "## typing Module" },
+      { type: "pills", color: "purple", items: ["List Tuple Dict Set", "Any", "Optional", "Union", "Literal", "Final", "ClassVar", "TypeVar", "Generic", "Protocol", "TypedDict", "NamedTuple", "Callable", "Iterator Generator", "Sequence Mapping Iterable", "Awaitable Coroutine"] },
+      { type: "h3", text: "### Type Checking Tools" },
+      { type: "pills", color: "green", items: ["mypy", "pyright", "pytype", "pylance", "TYPE_CHECKING guard", "cast()", "reveal_type()"] },
+      { type: "h4", text: "#### Advanced Typing" },
+      { type: "pills", color: "orange", items: ["TypeAlias (3.10+)", "ParamSpec", "Concatenate", "TypeGuard", "Self type (3.11+)", "Unpack (3.11+)", "TypeVarTuple", "Overload decorator"] },
+    ]
+  },
+ 
+  // ── PHASE 4: DAYS 16-20 ───────────────────────────────────
+  {
+    day: 16, level: "intermediate", time: "5 hrs",
+    title: "Regular Expressions (re module)",
+    topics: [
+      { type: "h1", text: "# Regular Expressions" },
+      { type: "h2", text: "## Regex Syntax" },
+      { type: "pills", color: "cyan", items: [". ^ $ * + ? {m,n}", "[] character classes", "[^] negation", "\\d \\D \\w \\W \\s \\S", "\\b word boundary", "Groups ()", "Non-capturing (?:)", "Named groups (?P<name>)", "Lookahead (?=) (?!)", "Lookbehind (?<=) (?<!)", "Alternation |", "Backreferences \\1"] },
+      { type: "h2", text: "## re Module Functions" },
+      { type: "pills", color: "purple", items: ["re.match()", "re.search()", "re.findall()", "re.finditer()", "re.sub() re.subn()", "re.split()", "re.compile()", "re.fullmatch()", "Match object methods: group() groups() span() start() end()"] },
+      { type: "h3", text: "### Regex Flags" },
+      { type: "pills", color: "green", items: ["re.IGNORECASE (re.I)", "re.MULTILINE (re.M)", "re.DOTALL (re.S)", "re.VERBOSE (re.X)", "re.ASCII", "re.UNICODE"] },
+      { type: "h4", text: "#### Practical Regex Patterns" },
+      { type: "pills", color: "orange", items: ["Email validation", "URL matching", "Phone number", "IP address", "Date formats", "Password strength", "HTML tag stripping"] },
+    ]
+  },
+  {
+    day: 17, level: "intermediate", time: "5 hrs",
+    title: "Collections & Advanced Data Structures",
+    topics: [
+      { type: "h1", text: "# collections Module" },
+      { type: "h2", text: "## Specialized Containers" },
+      { type: "pills", color: "cyan", items: ["Counter", "defaultdict", "OrderedDict", "deque", "namedtuple", "ChainMap", "UserDict UserList UserString"] },
+      { type: "h2", text: "## heapq Module" },
+      { type: "pills", color: "purple", items: ["heappush() heappop()", "heapify()", "nlargest() nsmallest()", "Min-heap", "Max-heap trick", "Priority queue"] },
+      { type: "h3", text: "### array Module" },
+      { type: "pills", color: "green", items: ["array type codes", "array() constructor", "fromlist() tolist()", "buffer_info()", "When to use array vs list"] },
+      { type: "h4", text: "#### Linked List, Stack, Queue (Manual Implementation)" },
+      { type: "pills", color: "orange", items: ["Node class", "Singly linked list", "Doubly linked list", "Stack class", "Queue class", "Priority Queue", "Circular buffer", "Implementing with deque"] },
+    ]
+  },
+  {
+    day: 18, level: "intermediate", time: "5-6 hrs",
+    title: "Comprehensions, Unpacking & Advanced Syntax",
+    topics: [
+      { type: "h1", text: "# Pythonic Code & Advanced Syntax" },
+      { type: "h2", text: "## All Comprehension Types" },
+      { type: "pills", color: "cyan", items: ["List comprehension", "Dict comprehension", "Set comprehension", "Generator expression", "Nested comprehensions", "Comprehension with walrus :="] },
+      { type: "h2", text: "## Unpacking" },
+      { type: "pills", color: "purple", items: ["Tuple unpacking", "Extended unpacking *", "Nested unpacking", "Swap variables", "Ignore values _", "Function argument unpacking *args **kwargs", "Dictionary merging **"] },
+      { type: "h3", text: "### Walrus Operator & Assignment Expressions" },
+      { type: "pills", color: "green", items: [":= operator", "In while loops", "In comprehensions", "In if statements", "Avoiding double evaluation"] },
+      { type: "h4", text: "#### Other Pythonic Techniques" },
+      { type: "pills", color: "orange", items: ["Chained comparisons", "Conditional expressions", "String multiplication", "Ellipsis ...", "Positional-only params /", "Keyword-only params *"] },
+    ]
+  },
+  {
+    day: 19, level: "intermediate", time: "5 hrs",
+    title: "datetime, math & numbers",
+    topics: [
+      { type: "h1", text: "# Numeric & Date/Time Modules" },
+      { type: "h2", text: "## math Module" },
+      { type: "pills", color: "cyan", items: ["ceil() floor() trunc()", "sqrt() pow() exp()", "log() log2() log10()", "sin() cos() tan()", "pi e tau inf nan", "factorial() comb() perm()", "gcd() lcm()", "isfinite() isinf() isnan()", "copysign() fabs() fmod()"] },
+      { type: "h2", text: "## decimal & fractions Modules" },
+      { type: "pills", color: "purple", items: ["Decimal class", "getcontext()", "Floating-point precision", "Fraction class", "Exact arithmetic", "limit_denominator()"] },
+      { type: "h3", text: "### datetime Module" },
+      { type: "pills", color: "green", items: ["date time datetime timedelta", "now() today() utcnow()", "strftime() strptime()", "Date arithmetic", "isoformat() fromisoformat()", "timezone tzinfo", "pytz / zoneinfo", "calendar module"] },
+      { type: "h4", text: "#### random Module" },
+      { type: "pills", color: "orange", items: ["random()", "randint() randrange()", "choice() choices()", "shuffle() sample()", "seed()", "gauss() normalvariate()", "SystemRandom", "secrets module (secure random)"] },
+    ]
+  },
+  {
+    day: 20, level: "project", time: "6 hrs",
+    title: "🎯 PROJECT DAY — Mini Python CLI Apps",
+    topics: [
+      { type: "h1", text: "# Project: CLI Applications" },
+      { type: "desc", text: "Apply everything from Days 1-19 into real projects." },
+      { type: "h2", text: "## Project Ideas" },
+      { type: "pills", color: "gold", items: ["To-do list (CRUD + file persistence)", "Password generator & strength checker", "Simple calculator with history", "Contacts book (dict-based)", "Number guessing game", "Caesar cipher encoder/decoder", "File organizer script", "Word frequency counter"] },
+      { type: "h3", text: "### Best Practices Checklist" },
+      { type: "pills", color: "cyan", items: ["PEP 8 compliance", "Docstrings on all functions", "Type hints", "Error handling", "Unit tests", "README.md", "requirements.txt", "argparse for CLI args"] },
+    ]
+  },
+ 
+  // ── PHASE 5: DAYS 21-25 ───────────────────────────────────
+  {
+    day: 21, level: "intermediate", time: "5-6 hrs",
+    title: "Concurrency — Threads & Processes",
+    topics: [
+      { type: "h1", text: "# Concurrency & Parallelism" },
+      { type: "h2", text: "## Threading" },
+      { type: "pills", color: "cyan", items: ["threading.Thread", "start() join()", "Thread subclassing", "Daemon threads", "Thread naming", "GIL (Global Interpreter Lock)", "Thread safety", "Race conditions"] },
+      { type: "h2", text: "## Synchronization Primitives" },
+      { type: "pills", color: "purple", items: ["Lock RLock", "Semaphore BoundedSemaphore", "Event", "Condition", "Barrier", "acquire() release()", "with Lock()", "Threading local()"] },
+      { type: "h3", text: "### multiprocessing Module" },
+      { type: "pills", color: "green", items: ["Process class", "Pool.map() Pool.starmap()", "Pool.imap()", "Queue Pipe", "Value Array (shared memory)", "Manager()", "cpu_count()", "Process vs Thread when to use"] },
+      { type: "h4", text: "#### concurrent.futures" },
+      { type: "pills", color: "orange", items: ["ThreadPoolExecutor", "ProcessPoolExecutor", "submit() map()", "Future object", "as_completed()", "wait()", "Context manager usage"] },
+    ]
+  },
+  {
+    day: 22, level: "intermediate", time: "5-6 hrs",
+    title: "Async Programming (asyncio)",
+    topics: [
+      { type: "h1", text: "# Async/Await & asyncio" },
+      { type: "h2", text: "## Coroutines & Event Loop" },
+      { type: "pills", color: "cyan", items: ["async def", "await keyword", "Coroutine objects", "asyncio.run()", "Event loop", "get_event_loop()", "Event loop lifecycle"] },
+      { type: "h2", text: "## asyncio Tasks & Futures" },
+      { type: "pills", color: "purple", items: ["asyncio.create_task()", "asyncio.gather()", "asyncio.wait()", "asyncio.shield()", "Future objects", "ensure_future()", "Task cancellation", "Task groups (3.11+)"] },
+      { type: "h3", text: "### asyncio Primitives" },
+      { type: "pills", color: "green", items: ["asyncio.Lock", "asyncio.Event", "asyncio.Semaphore", "asyncio.Queue", "asyncio.Condition", "asyncio.sleep()", "asyncio.timeout() (3.11+)"] },
+      { type: "h4", text: "#### Async I/O" },
+      { type: "pills", color: "orange", items: ["aiofiles", "aiohttp basics", "Async generators", "Async comprehensions", "Async context managers", "Async iterators", "__aiter__ __anext__", "__aenter__ __aexit__"] },
+    ]
+  },
+  {
+    day: 23, level: "intermediate", time: "5 hrs",
+    title: "Testing with pytest & unittest",
+    topics: [
+      { type: "h1", text: "# Python Testing" },
+      { type: "h2", text: "## unittest Module" },
+      { type: "pills", color: "cyan", items: ["TestCase class", "setUp() tearDown()", "setUpClass() tearDownClass()", "assertEqual() assertNotEqual()", "assertTrue() assertFalse()", "assertRaises()", "assertIn() assertNotIn()", "assertIsNone() assertIsNotNone()", "assertAlmostEqual()", "Test discovery", "Test runner"] },
+      { type: "h2", text: "## pytest" },
+      { type: "pills", color: "purple", items: ["test_ prefix convention", "assert statement", "pytest fixtures", "@pytest.fixture", "conftest.py", "Fixture scopes", "parametrize @pytest.mark.parametrize", "pytest.raises()", "pytest.warns()", "Markers @pytest.mark", "pytest.ini / pyproject.toml"] },
+      { type: "h3", text: "### Mocking" },
+      { type: "pills", color: "green", items: ["unittest.mock", "Mock MagicMock", "patch decorator", "patch.object()", "side_effect return_value", "assert_called_with()", "call_count", "Mock attributes"] },
+      { type: "h4", text: "#### Test Coverage & Quality" },
+      { type: "pills", color: "orange", items: ["coverage.py", "pytest-cov", "Line/branch coverage", "HTML coverage report", "doctest module", "TDD methodology", "Test types: unit/integration/e2e"] },
+    ]
+  },
+  {
+    day: 24, level: "intermediate", time: "5 hrs",
+    title: "Debugging, Logging & Profiling",
+    topics: [
+      { type: "h1", text: "# Debugging & Performance" },
+      { type: "h2", text: "## Debugging Tools" },
+      { type: "pills", color: "cyan", items: ["print() debugging", "pdb module", "breakpoint() (Python 3.7+)", "pdb commands: n s c l q p", "post-mortem debugging", "VS Code debugger", "PyCharm debugger", "ipdb"] },
+      { type: "h2", text: "## logging Module" },
+      { type: "pills", color: "purple", items: ["Logging levels: DEBUG INFO WARNING ERROR CRITICAL", "basicConfig()", "getLogger()", "Handlers: StreamHandler FileHandler", "Formatters", "Filters", "Log rotation: RotatingFileHandler", "TimedRotatingFileHandler", "logging.config", "structlog library"] },
+      { type: "h3", text: "### Profiling & Performance" },
+      { type: "pills", color: "green", items: ["timeit module", "time.perf_counter()", "cProfile", "profile module", "pstats", "snakeviz visualization", "line_profiler", "memory_profiler", "tracemalloc"] },
+      { type: "h4", text: "#### Code Quality Tools" },
+      { type: "pills", color: "orange", items: ["flake8", "pylint", "black formatter", "isort", "mypy", "bandit (security)", "pre-commit hooks", "pyproject.toml setup"] },
+    ]
+  },
+  {
+    day: 25, level: "intermediate", time: "5 hrs",
+    title: "File Formats: JSON, CSV, XML, YAML",
+    topics: [
+      { type: "h1", text: "# Data Serialization & File Formats" },
+      { type: "h2", text: "## JSON" },
+      { type: "pills", color: "cyan", items: ["json.loads() json.dumps()", "json.load() json.dump()", "indent= parameter", "sort_keys=", "ensure_ascii=", "Custom JSONEncoder", "Custom JSONDecoder", "json.JSONDecodeError"] },
+      { type: "h2", text: "## CSV" },
+      { type: "pills", color: "purple", items: ["csv.reader()", "csv.writer()", "csv.DictReader()", "csv.DictWriter()", "Delimiter quoting", "Dialect", "csv.QUOTE_ALL etc.", "fieldnames parameter", "writeheader()"] },
+      { type: "h3", text: "### XML & HTML Parsing" },
+      { type: "pills", color: "green", items: ["xml.etree.ElementTree", "parse() fromstring()", "find() findall() iter()", "Element attributes", "minidom (pretty print)", "lxml library", "Beautiful Soup 4", "html.parser"] },
+      { type: "h4", text: "#### YAML & TOML & INI" },
+      { type: "pills", color: "orange", items: ["PyYAML: yaml.safe_load() yaml.dump()", "ruamel.yaml", "tomllib (Python 3.11+)", "tomli library", "configparser module", "INI file format", "environ / dotenv (.env files)"] },
+    ]
+  },
+ 
+  // ── PHASE 6: DAYS 26-30 ───────────────────────────────────
+  {
+    day: 26, level: "advanced", time: "6 hrs",
+    title: "Algorithms & Data Structures I",
+    topics: [
+      { type: "h1", text: "# Algorithms & Data Structures" },
+      { type: "h2", text: "## Big-O Complexity" },
+      { type: "pills", color: "cyan", items: ["Time complexity", "Space complexity", "O(1) O(log n) O(n) O(n log n) O(n²)", "Best/average/worst case", "Amortized analysis"] },
+      { type: "h2", text: "## Sorting Algorithms" },
+      { type: "pills", color: "purple", items: ["Bubble sort", "Selection sort", "Insertion sort", "Merge sort", "Quick sort", "Heap sort", "Counting sort", "Radix sort", "Tim sort (Python default)", "sorted() key param", "Stability"] },
+      { type: "h3", text: "### Searching Algorithms" },
+      { type: "pills", color: "green", items: ["Linear search", "Binary search", "bisect module", "bisect_left bisect_right insort()", "Interpolation search", "Jump search"] },
+      { type: "h4", text: "#### Tree Data Structures" },
+      { type: "pills", color: "orange", items: ["Binary tree", "Binary search tree (BST)", "AVL tree basics", "Heap (min/max)", "Trie", "Segment tree basics", "Inorder/preorder/postorder traversal", "BFS/DFS on trees"] },
+    ]
+  },
+  {
+    day: 27, level: "advanced", time: "6 hrs",
+    title: "Algorithms & Data Structures II",
+    topics: [
+      { type: "h1", text: "# Graph Algorithms & Dynamic Programming" },
+      { type: "h2", text: "## Graph Representations" },
+      { type: "pills", color: "cyan", items: ["Adjacency matrix", "Adjacency list", "Edge list", "Weighted graphs", "Directed vs undirected", "networkx library"] },
+      { type: "h2", text: "## Graph Algorithms" },
+      { type: "pills", color: "purple", items: ["BFS (Breadth-First Search)", "DFS (Depth-First Search)", "Dijkstra's algorithm", "Bellman-Ford", "Floyd-Warshall", "Topological sort", "Kruskal's MST", "Prim's MST", "Cycle detection", "Connected components"] },
+      { type: "h3", text: "### Dynamic Programming" },
+      { type: "pills", color: "green", items: ["Overlapping subproblems", "Optimal substructure", "Memoization (top-down)", "Tabulation (bottom-up)", "Classic problems: Fibonacci, Knapsack, LCS, LIS, Coin change, Edit distance, Matrix chain"] },
+      { type: "h4", text: "#### Greedy & Divide-and-Conquer" },
+      { type: "pills", color: "orange", items: ["Activity selection", "Huffman coding", "Fractional knapsack", "Merge sort (D&C)", "Quick sort (D&C)", "Binary search (D&C)", "Strassen matrix multiply"] },
+    ]
+  },
+  {
+    day: 28, level: "advanced", time: "5-6 hrs",
+    title: "Advanced OOP Patterns",
+    topics: [
+      { type: "h1", text: "# Design Patterns in Python" },
+      { type: "h2", text: "## Creational Patterns" },
+      { type: "pills", color: "cyan", items: ["Singleton", "Factory Method", "Abstract Factory", "Builder", "Prototype", "Object Pool"] },
+      { type: "h2", text: "## Structural Patterns" },
+      { type: "pills", color: "purple", items: ["Adapter", "Bridge", "Composite", "Decorator", "Facade", "Flyweight", "Proxy"] },
+      { type: "h3", text: "### Behavioral Patterns" },
+      { type: "pills", color: "green", items: ["Observer (Event system)", "Strategy", "Command", "Iterator", "State", "Template Method", "Chain of Responsibility", "Visitor", "Mediator", "Memento"] },
+      { type: "h4", text: "#### SOLID Principles" },
+      { type: "pills", color: "orange", items: ["Single Responsibility", "Open/Closed", "Liskov Substitution", "Interface Segregation", "Dependency Inversion", "DRY Don't Repeat Yourself", "YAGNI", "KISS"] },
+    ]
+  },
+  {
+    day: 29, level: "advanced", time: "5 hrs",
+    title: "Functional Programming in Python",
+    topics: [
+      { type: "h1", text: "# Functional Programming" },
+      { type: "h2", text: "## Core FP Concepts" },
+      { type: "pills", color: "cyan", items: ["Pure functions", "Immutability", "Side effects", "Referential transparency", "Higher-order functions", "Function composition"] },
+      { type: "h2", text: "## Functional Tools" },
+      { type: "pills", color: "purple", items: ["map() filter() reduce()", "functools.partial()", "functools.compose (manual)", "operator module", "toolz / cytoolz library", "fn.py library", "Currying", "Point-free style"] },
+      { type: "h3", text: "### Monads & Functors (conceptual)" },
+      { type: "pills", color: "green", items: ["Maybe monad (Option type)", "Result/Either monad", "returns library", "Pipe operator pattern", "Railway-oriented programming"] },
+      { type: "h4", text: "#### Immutable Data" },
+      { type: "pills", color: "orange", items: ["frozenset", "Frozen dataclass", "tuple as immutable list", "immutables library (HAMT)", "attrs library", "pyrsistent library"] },
+    ]
+  },
+  {
+    day: 30, level: "project", time: "6-7 hrs",
+    title: "🎯 PROJECT DAY — OOP System Design",
+    topics: [
+      { type: "h1", text: "# Project: Object-Oriented System" },
+      { type: "desc", text: "Build a complete, well-designed Python system using OOP and design patterns." },
+      { type: "h2", text: "## Project Ideas" },
+      { type: "pills", color: "gold", items: ["Library management system", "Bank account simulation", "Hotel booking system", "Inventory management", "Student grade tracker", "Simple ORM (SQLite)", "Event system / message bus", "Plugin architecture"] },
+      { type: "h3", text: "### Requirements for Full Marks" },
+      { type: "pills", color: "cyan", items: ["Abstract base classes", "Inheritance hierarchy", "Design pattern (1+)", "Custom exceptions", "Logging integration", "Unit tests (pytest)", "Type hints", "Documentation"] },
+    ]
+  },
+ 
+  // ── PHASE 7: DAYS 31-35 ───────────────────────────────────
+  {
+    day: 31, level: "advanced", time: "5-6 hrs",
+    title: "Web Scraping & HTTP",
+    topics: [
+      { type: "h1", text: "# Web Scraping & HTTP" },
+      { type: "h2", text: "## requests Library" },
+      { type: "pills", color: "cyan", items: ["GET POST PUT PATCH DELETE", "Response object", "status_code headers", "response.json()", "response.text response.content", "Query parameters params=", "Request headers", "Authentication: Basic Bearer", "Timeout handling", "Sessions", "Proxies"] },
+      { type: "h2", text: "## Beautiful Soup 4" },
+      { type: "pills", color: "purple", items: ["bs4 install", "BeautifulSoup()", "find() find_all()", "CSS selectors select()", "Tag attributes", "NavigableString", "Navigating the tree", "Modifying the tree", "Output: prettify()"] },
+      { type: "h3", text: "### Selenium & Playwright" },
+      { type: "pills", color: "green", items: ["selenium webdriver", "ChromeDriver setup", "find_element()", "click() send_keys()", "Waits: implicit/explicit", "WebDriverWait", "Screenshots", "playwright-python", "Headless mode", "Page interactions"] },
+      { type: "h4", text: "#### Scrapy Framework" },
+      { type: "pills", color: "orange", items: ["Spider class", "start_urls", "parse() method", "Items & ItemLoader", "Pipelines", "Middlewares", "Settings", "scrapy crawl command", "CrawlerProcess", "Scrapy shell"] },
+    ]
+  },
+  {
+    day: 32, level: "advanced", time: "6 hrs",
+    title: "Flask Web Framework",
+    topics: [
+      { type: "h1", text: "# Flask Web Framework" },
+      { type: "h2", text: "## Flask Basics" },
+      { type: "pills", color: "cyan", items: ["Flask app creation", "Route decorators @app.route", "HTTP methods GET POST", "URL parameters <variable>", "Query strings request.args", "Request body request.form request.json", "Response objects", "jsonify()", "redirect() url_for()", "abort()"] },
+      { type: "h2", text: "## Templates (Jinja2)" },
+      { type: "pills", color: "purple", items: ["render_template()", "{{ variable }}", "{% if %} {% for %}", "template inheritance extends/block", "Filters |upper |lower", "Custom filters", "Macros", "include", "Static files url_for('static')"] },
+      { type: "h3", text: "### Flask Extensions" },
+      { type: "pills", color: "green", items: ["Flask-SQLAlchemy", "Flask-Migrate", "Flask-Login", "Flask-WTF forms", "Flask-Mail", "Flask-JWT-Extended", "Flask-CORS", "Flask-Caching", "Flask-Limiter", "Blueprints"] },
+      { type: "h4", text: "#### Flask Deployment" },
+      { type: "pills", color: "orange", items: ["Development server", "gunicorn", "uWSGI", "Nginx reverse proxy", "Environment variables", "Config classes", "Application factory", "WSGI", "Docker containerization"] },
+    ]
+  },
+  {
+    day: 33, level: "advanced", time: "6 hrs",
+    title: "FastAPI & REST APIs",
+    topics: [
+      { type: "h1", text: "# FastAPI" },
+      { type: "h2", text: "## FastAPI Fundamentals" },
+      { type: "pills", color: "cyan", items: ["FastAPI app instance", "Path operations (GET POST PUT PATCH DELETE)", "Path parameters", "Query parameters", "Request body (Pydantic)", "Response model", "Status codes", "HTTPException", "uvicorn server"] },
+      { type: "h2", text: "## Pydantic" },
+      { type: "pills", color: "purple", items: ["BaseModel", "Field() validators", "model_validator (v2)", "field_validator", "Nested models", "Optional fields", "Default values", "Config class", "model_json_schema()", "from_orm()"] },
+      { type: "h3", text: "### Async FastAPI" },
+      { type: "pills", color: "green", items: ["async def endpoints", "Dependency injection Depends()", "Background tasks", "Startup/shutdown events", "Middleware", "CORS middleware", "WebSockets", "File upload UploadFile", "Response streaming"] },
+      { type: "h4", text: "#### API Design & Documentation" },
+      { type: "pills", color: "orange", items: ["OpenAPI auto-docs", "Swagger UI /docs", "ReDoc /redoc", "Tags routers prefix", "APIRouter", "Security schemes", "OAuth2 JWT", "Rate limiting", "Versioning strategies"] },
+    ]
+  },
+  {
+    day: 34, level: "advanced", time: "5-6 hrs",
+    title: "Databases & SQLAlchemy",
+    topics: [
+      { type: "h1", text: "# Database Programming" },
+      { type: "h2", text: "## sqlite3 (built-in)" },
+      { type: "pills", color: "cyan", items: ["connect() cursor()", "execute() executemany()", "fetchone() fetchall() fetchmany()", "commit() rollback()", "Parameterized queries", "Context manager", "Row factory", "In-memory database :memory:"] },
+      { type: "h2", text: "## SQLAlchemy ORM" },
+      { type: "pills", color: "purple", items: ["Engine create_engine()", "Session sessionmaker()", "Base declarative_base()", "Column types", "Relationships: one-to-many, many-to-many", "ForeignKey", "relationship() back_populates", "Query API", "add() commit() refresh()", "filter() filter_by()", "join()", "lazy loading", "eager loading joinedload()"] },
+      { type: "h3", text: "### Alembic (Migrations)" },
+      { type: "pills", color: "green", items: ["alembic init", "env.py setup", "alembic revision --autogenerate", "alembic upgrade head", "alembic downgrade", "migration scripts"] },
+      { type: "h4", text: "#### NoSQL with Python" },
+      { type: "pills", color: "orange", items: ["pymongo (MongoDB)", "redis-py (Redis)", "motor (async MongoDB)", "elasticsearch-py", "cassandra-driver", "DynamoDB boto3", "TinyDB (local NoSQL)"] },
+    ]
+  },
+  {
+    day: 35, level: "advanced", time: "5 hrs",
+    title: "CLI Apps with argparse & Click",
+    topics: [
+      { type: "h1", text: "# CLI Development" },
+      { type: "h2", text: "## argparse Module" },
+      { type: "pills", color: "cyan", items: ["ArgumentParser()", "add_argument()", "Positional vs optional", "nargs", "type= conversion", "choices=", "default=", "required=", "metavar=", "subparsers", "parse_args()", "Namespace object", "Mutual exclusion"] },
+      { type: "h2", text: "## Click Library" },
+      { type: "pills", color: "purple", items: ["@click.command()", "@click.option()", "@click.argument()", "@click.group()", "Prompting", "Password input", "Multiple values", "Environment variables", "Click context", "Callbacks", "Testing with CliRunner"] },
+      { type: "h3", text: "### Rich Library (Beautiful CLI Output)" },
+      { type: "pills", color: "green", items: ["Console()", "print() with markup", "Tables", "Progress bars", "Spinners", "Panels", "Syntax highlighting", "Tree display", "Columns", "Prompt()", "Traceback rendering"] },
+      { type: "h4", text: "#### Typer & Textual" },
+      { type: "pills", color: "orange", items: ["typer.Typer()", "Type hint based CLI", "textual TUI framework", "Reactive apps", "CSS-like styling", "App.run()", "Widgets"] },
+    ]
+  },
+ 
+  // ── PHASE 8: DAYS 36-40 ───────────────────────────────────
+  {
+    day: 36, level: "advanced", time: "6 hrs",
+    title: "Data Science — NumPy",
+    topics: [
+      { type: "h1", text: "# NumPy" },
+      { type: "h2", text: "## NumPy Arrays" },
+      { type: "pills", color: "cyan", items: ["np.array()", "ndarray dtype shape ndim", "zeros() ones() full() eye()", "arange() linspace() logspace()", "random: rand() randn() randint()", "reshape() ravel() flatten()", "Transpose .T", "newaxis"] },
+      { type: "h2", text: "## Array Operations" },
+      { type: "pills", color: "purple", items: ["Broadcasting rules", "Element-wise operations", "Matrix multiplication @", "np.dot() np.matmul()", "Universal functions (ufuncs)", "Vectorization", "Boolean indexing", "Fancy indexing", "np.where()", "np.select()"] },
+      { type: "h3", text: "### NumPy Math & Statistics" },
+      { type: "pills", color: "green", items: ["sum() mean() std() var()", "min() max() argmin() argmax()", "cumsum() cumprod()", "axis parameter", "np.linalg: det() inv() eig() svd()", "np.fft module", "np.polynomial", "sort() argsort()"] },
+      { type: "h4", text: "#### Memory & Performance" },
+      { type: "pills", color: "orange", items: ["Strides", "Contiguous arrays", "Views vs copies", "np.copy()", "Memory layout C vs F", "np.memmap", "Numba JIT intro", "Cython overview"] },
+    ]
+  },
+  {
+    day: 37, level: "advanced", time: "6 hrs",
+    title: "Data Science — Pandas",
+    topics: [
+      { type: "h1", text: "# Pandas" },
+      { type: "h2", text: "## Series & DataFrame" },
+      { type: "pills", color: "cyan", items: ["Series creation", "DataFrame creation", "read_csv() read_excel() read_json() read_sql()", "to_csv() to_excel() to_json()", "head() tail() info() describe()", "dtypes shape columns index", "rename() drop() reset_index()"] },
+      { type: "h2", text: "## Data Selection & Indexing" },
+      { type: "pills", color: "purple", items: ["[] selection", ".loc[] .iloc[]", "Boolean indexing", "isin()", "query()", "at[] iat[]", "MultiIndex", "xs() swaplevel() stack() unstack()"] },
+      { type: "h3", text: "### Data Manipulation" },
+      { type: "pills", color: "green", items: ["apply() applymap()/map()", "groupby() agg()", "merge() join() concat()", "pivot_table() melt()", "sort_values() sort_index()", "drop_duplicates() duplicated()", "fillna() dropna() interpolate()", "astype() pd.to_datetime() pd.to_numeric()", "cut() qcut()", "shift() diff() rolling() expanding() ewm()"] },
+      { type: "h4", text: "#### Pandas Performance" },
+      { type: "pills", color: "orange", items: ["Vectorization over loops", "Categoricals", "Chunking large files", "Dask for big data", "pandas-profiling", "Polars (fast alternative)", "PyArrow backend (2.0+)"] },
+    ]
+  },
+  {
+    day: 38, level: "advanced", time: "6 hrs",
+    title: "Data Visualization — Matplotlib & Seaborn",
+    topics: [
+      { type: "h1", text: "# Data Visualization" },
+      { type: "h2", text: "## Matplotlib" },
+      { type: "pills", color: "cyan", items: ["plt.plot() scatter() bar() barh()", "hist() boxplot() violinplot()", "pie() imshow()", "Figure Axes subplots", "plt.subplots() add_subplot()", "Title xlabel ylabel labels", "Legend grid xlim ylim", "Ticks ticklabels", "Annotations text() annotate()", "Styles & themes", "Saving: savefig()"] },
+      { type: "h2", text: "## Seaborn" },
+      { type: "pills", color: "purple", items: ["sns.set_theme()", "relplot() scatterplot() lineplot()", "catplot() boxplot() violinplot() stripplot() swarmplot() pointplot()", "displot() histplot() kdeplot() ecdfplot()", "heatmap() clustermap()", "pairplot() PairGrid", "FacetGrid", "regplot() lmplot()", "Palettes"] },
+      { type: "h3", text: "### Interactive Visualization" },
+      { type: "pills", color: "green", items: ["Plotly Express", "plotly.graph_objects", "Dash framework", "Bokeh", "Altair (declarative)", "Folium (maps)", "ipywidgets"] },
+      { type: "h4", text: "#### Plotly Dash" },
+      { type: "pills", color: "orange", items: ["Dash app layout", "dcc components", "html components", "Callbacks @app.callback", "Input Output State", "Multi-page apps", "Deploying Dash"] },
+    ]
+  },
+  {
+    day: 39, level: "advanced", time: "6 hrs",
+    title: "Machine Learning — scikit-learn",
+    topics: [
+      { type: "h1", text: "# Machine Learning with scikit-learn" },
+      { type: "h2", text: "## ML Fundamentals" },
+      { type: "pills", color: "cyan", items: ["Supervised vs Unsupervised vs RL", "Classification vs Regression", "train_test_split()", "Cross-validation", "Bias-variance tradeoff", "Overfitting Underfitting", "Feature engineering", "Feature scaling"] },
+      { type: "h2", text: "## Supervised Learning Models" },
+      { type: "pills", color: "purple", items: ["Linear Regression", "Logistic Regression", "Decision Trees", "Random Forest", "Gradient Boosting (XGBoost LightGBM)", "SVM", "K-Nearest Neighbors", "Naive Bayes", "Neural Networks (MLPClassifier)"] },
+      { type: "h3", text: "### Unsupervised Learning" },
+      { type: "pills", color: "green", items: ["K-Means", "DBSCAN", "Hierarchical clustering", "PCA", "t-SNE", "UMAP", "Autoencoders (intro)", "Isolation Forest", "LOF"] },
+      { type: "h4", text: "#### sklearn Pipeline & Tuning" },
+      { type: "pills", color: "orange", items: ["Pipeline()", "ColumnTransformer", "StandardScaler MinMaxScaler", "OneHotEncoder LabelEncoder", "GridSearchCV RandomizedSearchCV", "cross_val_score()", "Classification metrics: accuracy precision recall F1 ROC-AUC", "Regression metrics: MAE MSE RMSE R²", "Confusion matrix", "feature_importances_"] },
+    ]
+  },
+  {
+    day: 40, level: "project", time: "7 hrs",
+    title: "🎯 PROJECT DAY — Data Analysis Project",
+    topics: [
+      { type: "h1", text: "# Project: End-to-End Data Analysis" },
+      { type: "desc", text: "Use NumPy, Pandas, Matplotlib/Seaborn, and optionally sklearn on a real dataset." },
+      { type: "h2", text: "## Project Ideas" },
+      { type: "pills", color: "gold", items: ["COVID-19 data analysis", "Stock market analysis", "House price prediction (regression)", "Titanic survival (classification)", "Movie recommendation (clustering)", "Twitter sentiment analysis", "Sales forecasting", "Customer segmentation"] },
+      { type: "h3", text: "## Deliverables" },
+      { type: "pills", color: "cyan", items: ["Jupyter notebook", "Data cleaning section", "EDA with visualizations", "Model training & evaluation", "Conclusions & insights", "README with dataset source"] },
+    ]
+  },
+ 
+  // ── PHASE 9: DAYS 41-45 ───────────────────────────────────
+  {
+    day: 41, level: "advanced", time: "6 hrs",
+    title: "Deep Learning — PyTorch",
+    topics: [
+      { type: "h1", text: "# PyTorch Deep Learning" },
+      { type: "h2", text: "## Tensor Operations" },
+      { type: "pills", color: "cyan", items: ["torch.tensor()", "Tensor dtypes", "CPU vs GPU (CUDA)", ".to(device)", "Tensor operations", "Broadcasting", "Autograd", "requires_grad", "backward()", "grad"] },
+      { type: "h2", text: "## Neural Network Building" },
+      { type: "pills", color: "purple", items: ["nn.Module", "forward()", "nn.Linear nn.Conv2d nn.LSTM", "nn.ReLU Sigmoid Tanh Softmax", "nn.Dropout nn.BatchNorm", "nn.Sequential", "Loss functions: MSELoss CrossEntropyLoss BCELoss", "Optimizers: SGD Adam AdamW RMSprop"] },
+      { type: "h3", text: "### Training Loop" },
+      { type: "pills", color: "green", items: ["Dataset & DataLoader", "__getitem__ __len__", "Transforms (torchvision)", "Training loop", "Validation loop", "zero_grad() forward backward step()", "Model saving/loading state_dict", "Checkpointing", "Early stopping"] },
+      { type: "h4", text: "#### Common Architectures" },
+      { type: "pills", color: "orange", items: ["MLP / Feedforward", "CNN", "RNN / LSTM / GRU", "Attention mechanism", "Transformer basics", "ResNet VGG overview", "Transfer learning", "Fine-tuning pretrained models"] },
+    ]
+  },
+  {
+    day: 42, level: "advanced", time: "6 hrs",
+    title: "NLP & Text Processing",
+    topics: [
+      { type: "h1", text: "# Natural Language Processing" },
+      { type: "h2", text: "## Text Preprocessing" },
+      { type: "pills", color: "cyan", items: ["Tokenization", "Lowercasing", "Stopword removal", "Stemming (PorterStemmer)", "Lemmatization", "Punctuation removal", "Regular expressions for text", "NLTK library", "spaCy library"] },
+      { type: "h2", text: "## Feature Extraction" },
+      { type: "pills", color: "purple", items: ["Bag of Words (BoW)", "TF-IDF", "n-grams", "Word2Vec (gensim)", "GloVe embeddings", "FastText", "Sentence transformers", "HuggingFace tokenizers"] },
+      { type: "h3", text: "### NLP Tasks" },
+      { type: "pills", color: "green", items: ["Text classification", "Sentiment analysis", "Named Entity Recognition (NER)", "POS tagging", "Text summarization", "Machine translation", "Question answering", "Text generation"] },
+      { type: "h4", text: "#### HuggingFace Transformers" },
+      { type: "pills", color: "orange", items: ["pipeline()", "AutoTokenizer AutoModel", "BERT GPT RoBERTa T5", "Fine-tuning with Trainer", "Datasets library", "PEFT & LoRA intro", "LangChain overview"] },
+    ]
+  },
+  {
+    day: 43, level: "advanced", time: "5-6 hrs",
+    title: "System Programming & OS Interaction",
+    topics: [
+      { type: "h1", text: "# System Programming" },
+      { type: "h2", text: "## os Module" },
+      { type: "pills", color: "cyan", items: ["os.getcwd() chdir()", "os.listdir() scandir()", "os.path: join exists isfile isdir", "os.makedirs() rmdir()", "os.rename() remove()", "os.environ", "os.getpid() getppid()", "os.system() os.popen()", "os.walk()"] },
+      { type: "h2", text: "## pathlib Module" },
+      { type: "pills", color: "purple", items: ["Path()", "Path.cwd() home()", "/ operator for paths", "exists() is_file() is_dir()", "mkdir() rmdir() unlink()", "read_text() write_text()", "glob() rglob()", "stat() chmod()", "rename() replace()", "stem suffix name parent"] },
+      { type: "h3", text: "### subprocess Module" },
+      { type: "pills", color: "green", items: ["subprocess.run()", "capture_output=True", "check=True", "shell=True", "Popen class", "communicate()", "PIPE STDOUT STDERR", "stdin stdout", "Timeout", "Call check_call check_output"] },
+      { type: "h4", text: "#### System Automation" },
+      { type: "pills", color: "orange", items: ["shutil module", "copy() copy2() copytree()", "move() rmtree()", "disk_usage()", "zipfile module", "tarfile module", "tempfile module", "fnmatch glob", "watchdog (file monitoring)", "schedule library", "cron via Python"] },
+    ]
+  },
+  {
+    day: 44, level: "advanced", time: "5 hrs",
+    title: "Networking & Sockets",
+    topics: [
+      { type: "h1", text: "# Network Programming" },
+      { type: "h2", text: "## socket Module" },
+      { type: "pills", color: "cyan", items: ["socket.socket()", "AF_INET AF_INET6", "SOCK_STREAM SOCK_DGRAM", "bind() listen() accept()", "connect() send() recv()", "sendto() recvfrom()", "close() shutdown()", "Blocking vs non-blocking", "setsockopt() getsockopt()"] },
+      { type: "h2", text: "## HTTP Clients & Servers" },
+      { type: "pills", color: "purple", items: ["urllib.request urlopen()", "urllib.parse urlencode quote()", "http.client", "http.server BaseHTTPRequestHandler", "httpx library (async HTTP)", "websockets library", "socket.io python client"] },
+      { type: "h3", text: "### Email & Protocols" },
+      { type: "pills", color: "green", items: ["smtplib SMTP", "ssl.create_default_context()", "MIME email.mime", "imaplib IMAP4", "poplib POP3", "ftplib FTP", "paramiko SSH/SFTP", "pysnmp SNMP"] },
+      { type: "h4", text: "#### Network Security" },
+      { type: "pills", color: "orange", items: ["ssl module", "TLS/SSL setup", "hashlib module", "hmac module", "secrets module", "cryptography library (Fernet)", "JWT with PyJWT", "bcrypt passlib password hashing"] },
+    ]
+  },
+  {
+    day: 45, level: "advanced", time: "5-6 hrs",
+    title: "Python Internals & Performance",
+    topics: [
+      { type: "h1", text: "# Python Internals" },
+      { type: "h2", text: "## CPython Internals" },
+      { type: "pills", color: "cyan", items: ["CPython reference implementation", "Python compilation: .py → .pyc", "AST (Abstract Syntax Tree)", "ast module", "Bytecode", "dis module", "Code objects", "Frame objects", "Reference counting", "Garbage collector gc module", "Memory allocator pymalloc"] },
+      { type: "h2", text: "## Python Implementations" },
+      { type: "pills", color: "purple", items: ["CPython", "PyPy (JIT)", "Jython", "IronPython", "GraalPy", "MicroPython", "Cython (transpiler)", "Numba JIT", "mypyc"] },
+      { type: "h3", text: "### Performance Optimization" },
+      { type: "pills", color: "green", items: ["Avoid globals", "Local var lookup speed", "__slots__", "String interning sys.intern()", "Lazy imports", "C extensions with ctypes cffi", "Writing C extensions", "Choosing right algorithm", "Profiling first then optimize"] },
+      { type: "h4", text: "#### Memory Management" },
+      { type: "pills", color: "orange", items: ["sys.getsizeof()", "tracemalloc", "memory_profiler", "object.__sizeof__()", "weakref.ref()", "weakref.WeakValueDictionary", "Circular reference detection", "gc.collect() gc.disable()"] },
+    ]
+  },
+ 
+  // ── PHASE 10: DAYS 46-50 ──────────────────────────────────
+  {
+    day: 46, level: "expert", time: "6 hrs",
+    title: "DevOps: Docker, CI/CD & Deployment",
+    topics: [
+      { type: "h1", text: "# DevOps with Python" },
+      { type: "h2", text: "## Docker for Python" },
+      { type: "pills", color: "cyan", items: ["Dockerfile for Python", "FROM python:3.12-slim", "COPY RUN CMD ENTRYPOINT", "requirements.txt in Docker", "Multi-stage builds", "docker-compose.yml", "volumes networks", "Environment variables", ".dockerignore"] },
+      { type: "h2", text: "## CI/CD Pipelines" },
+      { type: "pills", color: "purple", items: ["GitHub Actions workflow YAML", "on: push pull_request", "jobs steps", "actions/checkout", "actions/setup-python", "pip install pytest", "pytest --cov", "codecov", "GitLab CI .gitlab-ci.yml", "Jenkins Jenkinsfile"] },
+      { type: "h3", text: "### Cloud Deployment" },
+      { type: "pills", color: "green", items: ["Heroku Procfile", "Railway / Render", "AWS: EC2 Lambda Elastic Beanstalk", "GCP: Cloud Run App Engine", "Azure: App Service Functions", "DigitalOcean App Platform", "Fly.io", "WSGI vs ASGI"] },
+      { type: "h4", text: "#### Infrastructure as Code" },
+      { type: "pills", color: "orange", items: ["Terraform (with Python)", "Pulumi Python SDK", "AWS CDK (Python)", "Boto3 AWS SDK", "Google Cloud Python SDK", "Azure SDK for Python", "Kubernetes python-client"] },
+    ]
+  },
+  {
+    day: 47, level: "expert", time: "5-6 hrs",
+    title: "Advanced asyncio & Microservices",
+    topics: [
+      { type: "h1", text: "# Microservices & Advanced Async" },
+      { type: "h2", text: "## Message Queues" },
+      { type: "pills", color: "cyan", items: ["Celery task queue", "Redis as broker", "RabbitMQ with pika", "Kafka with kafka-python / confluent-kafka", "AWS SQS with boto3", "Task retries backoff", "Beat scheduler", "Flower monitoring"] },
+      { type: "h2", text: "## Microservices Patterns" },
+      { type: "pills", color: "purple", items: ["Service decomposition", "API Gateway", "Service mesh", "Circuit breaker pattern", "Saga pattern", "Event sourcing", "CQRS", "Service discovery (Consul)", "gRPC with grpcio", "Protobuf"] },
+      { type: "h3", text: "### Advanced asyncio Patterns" },
+      { type: "pills", color: "green", items: ["asyncio.TaskGroup (3.11+)", "Structured concurrency", "anyio library", "Trio framework", "Async generators streaming", "Backpressure", "Rate limiting async", "Connection pooling (asyncpg aiomysql)"] },
+      { type: "h4", text: "#### Observability" },
+      { type: "pills", color: "orange", items: ["Prometheus metrics (prometheus-client)", "Grafana integration", "OpenTelemetry Python", "Distributed tracing (Jaeger)", "Health check endpoints", "Sentry error tracking", "Datadog APM Python", "ELK stack logging"] },
+    ]
+  },
+  {
+    day: 48, level: "expert", time: "6 hrs",
+    title: "Security, Cryptography & Auth",
+    topics: [
+      { type: "h1", text: "# Security in Python" },
+      { type: "h2", text: "## Web Security" },
+      { type: "pills", color: "cyan", items: ["SQL injection prevention", "XSS prevention", "CSRF protection", "Input validation/sanitization", "parameterized queries", "Content Security Policy", "HTTPS enforcement", "OWASP Top 10"] },
+      { type: "h2", text: "## Authentication & Authorization" },
+      { type: "pills", color: "purple", items: ["JWT tokens", "OAuth 2.0 flow", "OpenID Connect", "Session management", "Cookie security (HttpOnly Secure SameSite)", "2FA TOTP (pyotp)", "SSO integration", "RBAC / ABAC", "Casbin Python"] },
+      { type: "h3", text: "### Cryptography" },
+      { type: "pills", color: "green", items: ["hashlib: md5 sha1 sha256 sha512", "hmac module", "Fernet symmetric encryption", "RSA asymmetric (cryptography library)", "ECDSA", "bcrypt argon2 for passwords", "Secrets module", "SSL/TLS certificates"] },
+      { type: "h4", text: "#### Security Scanning & Testing" },
+      { type: "pills", color: "orange", items: ["bandit (SAST)", "safety (dependency scan)", "OWASP ZAP (DAST)", "Burp Suite scripting", "Penetration testing basics", "CVE databases", "Dependency pinning", "Lockfiles"] },
+    ]
+  },
+  {
+    day: 49, level: "expert", time: "5-6 hrs",
+    title: "Advanced Python Patterns & Libraries",
+    topics: [
+      { type: "h1", text: "# Expert-Level Python" },
+      { type: "h2", text: "## Protocol & Structural Subtyping" },
+      { type: "pills", color: "cyan", items: ["typing.Protocol", "runtime_checkable", "Structural subtyping vs nominal", "Abstract vs Protocol", "Protocols for duck typing"] },
+      { type: "h2", text: "## attrs & Pydantic V2" },
+      { type: "pills", color: "purple", items: ["attrs @define @frozen", "Validators converters", "Slot classes", "Pydantic V2 model_validator", "Computed fields", "Custom serializers", "Model Config", "RootModel"] },
+      { type: "h3", text: "### Dependency Injection" },
+      { type: "pills", color: "green", items: ["Manual DI", "dependency-injector library", "punq", "kink", "FastAPI Depends()", "Wireup framework", "IoC container pattern"] },
+      { type: "h4", text: "#### Event-Driven Python" },
+      { type: "pills", color: "orange", items: ["PyDispatcher", "blinker library", "EventEmitter pattern", "Observer pattern", "Reactive extensions (RxPY)", "Webhooks", "Server-Sent Events (SSE)", "WebSocket pub/sub"] },
+    ]
+  },
+  {
+    day: 50, level: "project", time: "8 hrs",
+    title: "🎯 PROJECT DAY — Full-Stack Python App",
+    topics: [
+      { type: "h1", text: "# Project: Full-Stack Python Application" },
+      { type: "desc", text: "Build a production-quality application using FastAPI/Flask + database + async + Docker." },
+      { type: "h2", text: "## Project Ideas" },
+      { type: "pills", color: "gold", items: ["REST API with auth (FastAPI + PostgreSQL + JWT)", "Real-time chat (FastAPI + WebSockets + Redis)", "Task management app (Flask + SQLAlchemy + Celery)", "Blog platform (FastAPI + MongoDB + Docker)", "URL shortener with analytics", "E-commerce backend API", "File upload & processing service", "Job board scraper + API"] },
+      { type: "h3", text: "## Technical Requirements" },
+      { type: "pills", color: "cyan", items: ["Async endpoints", "Database ORM", "Authentication", "Rate limiting", "Dockerized", "CI/CD pipeline", "80%+ test coverage", "API documentation"] },
+    ]
+  },
+ 
+  // ── PHASE 11: DAYS 51-55 ──────────────────────────────────
+  {
+    day: 51, level: "expert", time: "6 hrs",
+    title: "Python C Extensions & Cython",
+    topics: [
+      { type: "h1", text: "# Extending Python with C/C++" },
+      { type: "h2", text: "## ctypes Module" },
+      { type: "pills", color: "cyan", items: ["ctypes.CDLL()", "ctypes.WinDLL()", "c_int c_double c_char_p", "POINTER()", "byref()", "Structure class", "Union class", "Callback functions", "Loading shared libraries"] },
+      { type: "h2", text: "## cffi Library" },
+      { type: "pills", color: "purple", items: ["FFI()", "cdef()", "dlopen()", "ABI vs API mode", "Building extensions", "cffi vs ctypes comparison"] },
+      { type: "h3", text: "### Cython" },
+      { type: "pills", color: "green", items: ["cdef declarations", ".pyx files", "cimport", "Static typing in Cython", "C types in Cython", "setup.py for Cython", "Nogil", "Memory views", "Cython classes"] },
+      { type: "h4", text: "#### Python C API" },
+      { type: "pills", color: "orange", items: ["PyObject*", "Python.h include", "Py_INCREF Py_DECREF", "Module definition", "Method tables", "PyArg_ParseTuple()", "Py_BuildValue()", "Writing setup.py ext_modules"] },
+    ]
+  },
+  {
+    day: 52, level: "expert", time: "5-6 hrs",
+    title: "Advanced Concurrency & Distributed Computing",
+    topics: [
+      { type: "h1", text: "# Distributed Systems with Python" },
+      { type: "h2", text: "## Distributed Task Queues" },
+      { type: "pills", color: "cyan", items: ["Celery advanced: Canvas", "chain() group() chord()", "Priority queues", "Task routing", "Task rate limits", "Celery beat crontab()", "Celery signals", "Result backends", "Redis Sentinel / Cluster"] },
+      { type: "h2", text: "## Dask for Big Data" },
+      { type: "pills", color: "purple", items: ["dask.array", "dask.dataframe", "dask.bag", "Lazy evaluation graph", "compute()", "persist()", "Dask distributed", "Client Scheduler Workers", "dask.delayed"] },
+      { type: "h3", text: "### Ray Framework" },
+      { type: "pills", color: "green", items: ["ray.init()", "@ray.remote decorator", "ray.get() ray.put()", "Actor class", "Distributed training", "Ray Tune (hyperparameter)", "Ray Serve (model serving)", "Ray Data pipeline"] },
+      { type: "h4", text: "#### Apache Spark with PySpark" },
+      { type: "pills", color: "orange", items: ["SparkContext SparkSession", "RDD operations", "DataFrame API", "spark.read.csv/json/parquet()", "Transformations: map filter select", "Actions: collect show count", "groupBy() agg()", "SQL with createOrReplaceTempView()", "MLlib basics"] },
+    ]
+  },
+  {
+    day: 53, level: "expert", time: "6 hrs",
+    title: "MLOps & Model Deployment",
+    topics: [
+      { type: "h1", text: "# MLOps & Model Serving" },
+      { type: "h2", text: "## Experiment Tracking" },
+      { type: "pills", color: "cyan", items: ["MLflow tracking", "mlflow.log_param() log_metric()", "mlflow.sklearn.log_model()", "Experiment & Run concept", "Model registry", "W&B (Weights & Biases)", "DVC (Data Version Control)", "Neptune.ai"] },
+      { type: "h2", text: "## Model Serving" },
+      { type: "pills", color: "purple", items: ["FastAPI model endpoint", "BentoML", "Seldon Core", "TorchServe", "TensorFlow Serving", "ONNX export & inference", "Triton Inference Server", "MLflow serve"] },
+      { type: "h3", text: "### ML Pipelines" },
+      { type: "pills", color: "green", items: ["Apache Airflow", "Prefect (Python-native)", "Kedro", "ZenML", "Metaflow (Netflix)", "Kubeflow Pipelines", "SageMaker Pipelines", "Feature stores (Feast)"] },
+      { type: "h4", text: "#### Model Monitoring" },
+      { type: "pills", color: "orange", items: ["Evidently AI drift detection", "Data drift concept", "Concept drift", "Model performance monitoring", "Shadow deployment", "A/B testing models", "Canary deployments", "Prometheus + Grafana for ML"] },
+    ]
+  },
+  {
+    day: 54, level: "expert", time: "5-6 hrs",
+    title: "Package Development & Publishing",
+    topics: [
+      { type: "h1", text: "# Building & Publishing Python Packages" },
+      { type: "h2", text: "## Project Structure" },
+      { type: "pills", color: "cyan", items: ["src layout", "pyproject.toml", "setup.cfg (legacy)", "MANIFEST.in", "__init__.py", "__version__", "py.typed marker", "Package namespaces"] },
+      { type: "h2", text: "## Build Systems" },
+      { type: "pills", color: "purple", items: ["setuptools", "flit", "hatchling", "poetry", "pdm", "meson-python", "wheel", "sdist", "build frontend (pip build)", "Cython extensions in packages"] },
+      { type: "h3", text: "### PyPI Publishing" },
+      { type: "pills", color: "green", items: ["TestPyPI", "twine upload", "API tokens", "Trusted publishing (OIDC)", "GitHub Actions release workflow", "Versioning (semver, calver)", "Changelog (Keep a Changelog)", "Automated releases (semantic-release)"] },
+      { type: "h4", text: "#### Documentation" },
+      { type: "pills", color: "orange", items: ["Sphinx autodoc", "ReadTheDocs hosting", "MkDocs + Material theme", "mkdocstrings", "Docstring styles: Google NumPy reStructuredText", "API reference generation", "Changelog docs", "Badges in README"] },
+    ]
+  },
+  {
+    day: 55, level: "expert", time: "5 hrs",
+    title: "Python in AI/LLM Era",
+    topics: [
+      { type: "h1", text: "# Python for AI & LLM Development" },
+      { type: "h2", text: "## LLM Frameworks" },
+      { type: "pills", color: "cyan", items: ["OpenAI Python SDK", "anthropic Python SDK", "Mistral AI SDK", "google-generativeai", "LangChain", "LlamaIndex", "Semantic Kernel", "DSPy"] },
+      { type: "h2", text: "## Agentic AI Patterns" },
+      { type: "pills", color: "purple", items: ["ReAct agent pattern", "Tool use / function calling", "Chain-of-thought prompting", "RAG (Retrieval-Augmented Generation)", "Vector databases: Chroma Pinecone Weaviate Qdrant", "Embeddings: OpenAI text-embedding", "Streaming responses", "Structured outputs"] },
+      { type: "h3", text: "### AI App Development" },
+      { type: "pills", color: "green", items: ["Streamlit for AI apps", "Gradio", "FastAPI + LLM", "WebSocket streaming", "Token counting", "Context window management", "Prompt templating", "Few-shot examples"] },
+      { type: "h4", text: "#### Fine-tuning & Local Models" },
+      { type: "pills", color: "orange", items: ["Ollama Python client", "llama.cpp Python bindings", "HuggingFace PEFT/LoRA", "QLoRA fine-tuning", "vLLM serving", "llamafile", "LM Studio API", "Modal serverless GPU"] },
+    ]
+  },
+ 
+  // ── PHASE 12: DAYS 56-60 ──────────────────────────────────
+  {
+    day: 56, level: "expert", time: "5-6 hrs",
+    title: "Game Development & GUI",
+    topics: [
+      { type: "h1", text: "# GUI & Game Development" },
+      { type: "h2", text: "## Tkinter (Built-in GUI)" },
+      { type: "pills", color: "cyan", items: ["Tk() root window", "Widgets: Label Entry Button Frame Canvas", "pack() grid() place()", "Event binding command=", "StringVar IntVar DoubleVar BooleanVar", "Menu Menubar", "Dialogs messagebox filedialog", "ttk themed widgets", "CustomTkinter library"] },
+      { type: "h2", text: "## PyQt6 / PySide6" },
+      { type: "pills", color: "purple", items: ["QApplication QMainWindow", "Widgets: QPushButton QLabel QLineEdit", "QLayout: QVBoxLayout QHBoxLayout QGridLayout", "Signals & slots", "Qt Designer .ui files", "pyuic6 code generation", "QThread for background tasks", "Model-View Architecture", "QSqlDatabase"] },
+      { type: "h3", text: "### Pygame" },
+      { type: "pills", color: "green", items: ["pygame.init()", "Display Surface", "Game loop pattern", "Event handling KEYDOWN MOUSEBUTTONDOWN", "Drawing: rect circle polygon", "Sprites & Sprite groups", "Collision detection", "Sound & music", "Clock & FPS", "Tilemap basics"] },
+      { type: "h4", text: "#### Arcade & Godot-Python" },
+      { type: "pills", color: "orange", items: ["arcade.Window", "on_draw() on_update()", "SpriteList PhysicsEngine", "Tiled map support", "Godot 4 GDScript vs Python", "godot-python bindings", "wxPython", "Dear PyGui"] },
+    ]
+  },
+  {
+    day: 57, level: "expert", time: "6 hrs",
+    title: "Advanced Data Engineering",
+    topics: [
+      { type: "h1", text: "# Data Engineering with Python" },
+      { type: "h2", text: "## ETL Pipelines" },
+      { type: "pills", color: "cyan", items: ["Extract Transform Load concept", "Apache Airflow DAGs", "Prefect flows & tasks", "Polars for fast ETL", "SQLAlchemy bulk operations", "Chunked processing", "Incremental loading", "Data quality checks (Great Expectations)"] },
+      { type: "h2", text: "## Data Formats & Storage" },
+      { type: "pills", color: "purple", items: ["Parquet with PyArrow", "Avro with fastavro", "ORC format", "HDF5 with h5py", "Feather format", "Delta Lake with delta-rs", "Apache Iceberg (pyiceberg)", "Data lakehouse patterns"] },
+      { type: "h3", text: "### Streaming Data" },
+      { type: "pills", color: "green", items: ["Apache Kafka producers/consumers", "Faust stream processing", "Apache Flink (PyFlink)", "Apache Pulsar Python client", "AWS Kinesis boto3", "Real-time aggregations", "Windowing tumbling/sliding/session"] },
+      { type: "h4", text: "#### Cloud Data Services" },
+      { type: "pills", color: "orange", items: ["BigQuery with google-cloud-bigquery", "Snowflake connector", "Redshift with boto3", "Databricks SDK", "dbt (data build tool) Python models", "DuckDB (in-process OLAP)", "ClickHouse Python driver", "Pandas-GBQ"] },
+    ]
+  },
+  {
+    day: 58, level: "expert", time: "5-6 hrs",
+    title: "Python Automation & Scripting",
+    topics: [
+      { type: "h1", text: "# Automation & Scripting" },
+      { type: "h2", text: "## Desktop Automation" },
+      { type: "pills", color: "cyan", items: ["pyautogui", "move() click() typewrite()", "screenshot() locateonscreen()", "keyboard shortcuts", "pynput mouse keyboard", "pygetwindow", "screeninfo", "clipboard with pyperclip"] },
+      { type: "h2", text: "## Document Automation" },
+      { type: "pills", color: "purple", items: ["python-docx (Word)", "openpyxl (Excel)", "xlrd xlwt xlwings", "pypdf / PyPDF2", "reportlab (PDF generation)", "Pillow (images)", "pytesseract (OCR)", "pdfplumber tables", "qrcode barcode"] },
+      { type: "h3", text: "### Email & Calendar Automation" },
+      { type: "pills", color: "green", items: ["smtplib + email", "MIME attachments", "Gmail API (google-api-python-client)", "Outlook with win32com", "caldav library", "Google Calendar API", "icalendar library", "Twilio SMS API"] },
+      { type: "h4", text: "#### Social Media & API Automation" },
+      { type: "pills", color: "orange", items: ["Tweepy (Twitter/X API)", "python-telegram-bot", "discord.py", "slack_sdk", "Instagram Basic Display API", "LinkedIn API", "Reddit PRAW", "GitHub PyGithub"] },
+    ]
+  },
+  {
+    day: 59, level: "expert", time: "5 hrs",
+    title: "Python Best Practices & Architecture",
+    topics: [
+      { type: "h1", text: "# Software Architecture & Best Practices" },
+      { type: "h2", text: "## Clean Architecture in Python" },
+      { type: "pills", color: "cyan", items: ["Domain-Driven Design (DDD)", "Entities Value Objects", "Repositories pattern", "Use cases / Interactors", "Domain services", "Application services", "Ports & Adapters (Hexagonal)", "Clean architecture layers"] },
+      { type: "h2", text: "## Code Quality" },
+      { type: "pills", color: "purple", items: ["SOLID in Python", "Code smell detection", "Refactoring techniques", "Boy Scout rule", "Dependency injection", "Inversion of control", "Interface segregation via Protocol", "Domain events"] },
+      { type: "h3", text: "### Python Project Structure" },
+      { type: "pills", color: "green", items: ["Monorepo vs multi-repo", "src/ layout pros/cons", "Modular design", "Configuration management", "Environment-based configs", "12-Factor app methodology", "Makefile for automation", "pyproject.toml complete setup"] },
+      { type: "h4", text: "#### Performance Architecture" },
+      { type: "pills", color: "orange", items: ["Caching strategies", "CDN integration", "Database query optimization", "N+1 query problem", "Connection pooling", "Read replicas", "Horizontal vs vertical scaling", "Load balancing", "Rate limiting", "Circuit breaker"] },
+    ]
+  },
+  {
+    day: 60, level: "project", time: "8-10 hrs",
+    title: "🏆 FINAL PROJECT DAY — Capstone Application",
+    topics: [
+      { type: "h1", text: "# 🏆 CAPSTONE PROJECT" },
+      { type: "desc", text: "You've completed 60 days! Build your crowning achievement — a real-world Python application you can showcase to employers." },
+      { type: "h2", text: "## Capstone Project Ideas" },
+      { type: "pills", color: "gold", items: ["AI-powered chatbot with RAG (FastAPI + LangChain + Vector DB)", "Full-stack SaaS: billing auth dashboard (FastAPI + Stripe + PostgreSQL)", "Real-time data pipeline (Kafka + Airflow + Spark + Dashboard)", "ML platform: training serving monitoring (MLflow + BentoML)", "Browser automation suite (Playwright + Celery + reporting)", "Custom Python web framework (from scratch!)", "Distributed job scheduler (Redis + asyncio + CLI + API)", "Data lakehouse pipeline (DuckDB + Polars + Parquet + Streamlit)"] },
+      { type: "h3", text: "## Graduation Checklist" },
+      { type: "pills", color: "cyan", items: ["Clean architecture applied", "Async where appropriate", "Complete test suite (>80% cov)", "Docker + docker-compose", "CI/CD pipeline", "Full API docs", "Security hardened", "Performance profiled", "README + architecture diagram", "Deployed to cloud"] },
+      { type: "h4", text: "#### What's Next After 60 Days" },
+      { type: "pills", color: "green", items: ["Contribute to open source", "Build a portfolio of 3-5 projects", "Python certifications (PCEP PCAP)", "Deep dive one domain (ML/Backend/Data)", "Interview preparation (LeetCode)", "System design practice", "Technical blog writing", "Mentor others!"] },
+    ]
+  }
+];
+ 
+// ============================================================
+// RENDER
+// ============================================================
+const colors = ["cyan","purple","green","orange","pink","gold"];
+let completedDays = JSON.parse(localStorage.getItem('pythonRoadmapDone') || '[]');
+ 
+function getPillColor(color, i) {
+  if(color) return 'pill-'+color;
+  return 'pill-' + colors[i % colors.length];
+}
+ 
+function renderTopics(topics) {
+  return topics.map(t => {
+    if(t.type === "h1") return `<div class="h1-tag"><span class="h-marker">#</span>${t.text.replace(/^#\s*/,'')}</div>`;
+    if(t.type === "h2") return `<div class="h2-tag"><span class="h-marker">##</span>${t.text.replace(/^##\s*/,'')}</div>`;
+    if(t.type === "h3") return `<div class="h3-tag"><span class="h-marker">###</span>${t.text.replace(/^###\s*/,'')}</div>`;
+    if(t.type === "h4") return `<div class="h4-tag"><span class="h-marker">####</span>${t.text.replace(/^####\s*/,'')}</div>`;
+    if(t.type === "desc") return `<p class="section-desc">${t.text}</p>`;
+    if(t.type === "pills") {
+      const pills = t.items.map(item => `<span class="pill pill-${t.color||'cyan'}">${item}</span>`).join('');
+      return `<div class="subtopics">${pills}</div>`;
+    }
+    return '';
+  }).join('');
+}
+ 
+function renderDays(data) {
+  const container = document.getElementById('daysContainer');
+  container.innerHTML = '';
+ 
+  data.forEach((d, idx) => {
+    const isCompleted = completedDays.includes(d.day);
+    const div = document.createElement('div');
+    div.className = 'day-group';
+    div.style.animationDelay = (idx * 0.03) + 's';
+    div.dataset.search = (d.title + ' ' + d.topics.map(t=>t.text||t.items?.join(' ')||'').join(' ')).toLowerCase();
+ 
+    div.innerHTML = `
+      <div class="day-header" onclick="toggle(this)" data-day="${d.day}">
+        <div class="color-bar band-${d.level}" style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:16px 0 0 16px;"></div>
+        <span class="day-num num-${d.level}" style="margin-left:8px">DAY ${d.day}</span>
+        <span class="day-title">${d.title}</span>
+        <span class="day-time">⏱ ${d.time}</span>
+        <input type="checkbox" class="day-check" ${isCompleted?'checked':''} onclick="markDay(event, ${d.day})" style="accent-color:var(--accent4);cursor:pointer;width:16px;height:16px;" title="Mark complete">
+        <span class="chevron">▼</span>
+      </div>
+      <div class="day-content">
+        <div class="topic-block">${renderTopics(d.topics)}</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+  updateProgress();
+}
+ 
+function toggle(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+ 
+function markDay(e, day) {
+  e.stopPropagation();
+  if(e.target.checked) {
+    if(!completedDays.includes(day)) completedDays.push(day);
+  } else {
+    completedDays = completedDays.filter(d => d !== day);
+  }
+  localStorage.setItem('pythonRoadmapDone', JSON.stringify(completedDays));
+  updateProgress();
+}
+ 
+function updateProgress() {
+  const pct = Math.round((completedDays.length / 60) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${completedDays.length} / 60 days completed`;
+  document.getElementById('completedCount').textContent = `✅ ${completedDays.length} completed`;
+}
+ 
+function expandAll() {
+  document.querySelectorAll('.day-header').forEach(h => h.classList.add('open'));
+  document.querySelectorAll('.day-content').forEach(c => c.classList.add('open'));
+}
+ 
+function collapseAll() {
+  document.querySelectorAll('.day-header').forEach(h => h.classList.remove('open'));
+  document.querySelectorAll('.day-content').forEach(c => c.classList.remove('open'));
+}
+ 
+function resetProgress() {
+  if(confirm('Reset all progress?')) {
+    completedDays = [];
+    localStorage.removeItem('pythonRoadmapDone');
+    document.querySelectorAll('.day-check').forEach(c => c.checked = false);
+    updateProgress();
+  }
+}
+ 
+// Search
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  document.querySelectorAll('.day-group').forEach(g => {
+    if(!q || g.dataset.search.includes(q)) {
+      g.style.display = '';
+      if(q) {
+        g.querySelector('.day-header').classList.add('open');
+        g.querySelector('.day-content').classList.add('open');
+      }
+    } else {
+      g.style.display = 'none';
+    }
+  });
+});
+ 
+// Scroll top
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+});
+ 
+// Particles
+function createParticles() {
+  const container = document.getElementById('particles');
+  const colors_p = ['#b200ff','#00f0ff','#39ff14','#ff6b35','#ff2d78','#ffd700'];
+  for(let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    p.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%;
+      background: ${colors_p[Math.floor(Math.random()*colors_p.length)]};
+      animation-duration: ${Math.random() * 15 + 8}s;
+      animation-delay: ${Math.random() * 10}s;
+      filter: blur(${Math.random()*1}px);
+      box-shadow: 0 0 ${size*2}px currentColor;
+    `;
+    container.appendChild(p);
+  }
+}
+ 
+// Init
+renderDays(roadmap);
+createParticles();
+</script>
+</body>
+</html>

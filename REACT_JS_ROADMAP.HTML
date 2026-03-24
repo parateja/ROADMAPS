@@ -1,0 +1,1607 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React JS Complete Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0015;
+    --bg2: #0d0025;
+    --glass: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.12);
+    --glass-hover: rgba(255,255,255,0.09);
+    --accent1: #00f5ff;
+    --accent2: #bf00ff;
+    --accent3: #ff6b35;
+    --accent4: #39ff14;
+    --accent5: #ffdd00;
+    --accent6: #ff1493;
+    --text: #e8e8f0;
+    --text-dim: #9090b0;
+    --h1-color: #00f5ff;
+    --h2-color: #ff6b35;
+    --h3-color: #bf00ff;
+    --h4-color: #39ff14;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+ 
+  /* Animated BG */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(191,0,255,0.13) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0,245,255,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,107,53,0.06) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+    animation: bgPulse 12s ease-in-out infinite alternate;
+  }
+ 
+  @keyframes bgPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+ 
+  /* Floating particles */
+  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--accent1);
+    animation: float linear infinite;
+    opacity: 0.4;
+  }
+ 
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
+  }
+ 
+  /* Header */
+  .hero {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+ 
+  .hero-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent1);
+    border: 1px solid rgba(0,245,255,0.3);
+    padding: 6px 18px;
+    border-radius: 20px;
+    background: rgba(0,245,255,0.06);
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s ease;
+  }
+ 
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: var(--h1-color);
+    text-shadow: 0 0 40px rgba(0,245,255,0.5), 0 0 80px rgba(0,245,255,0.2);
+    letter-spacing: 3px;
+    animation: fadeInDown 1s ease 0.2s both;
+    line-height: 1.1;
+  }
+ 
+  .hero h1 span {
+    color: var(--accent2);
+    text-shadow: 0 0 40px rgba(191,0,255,0.6);
+  }
+ 
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    margin-top: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    animation: fadeInDown 1s ease 0.4s both;
+  }
+ 
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease 0.6s both;
+  }
+ 
+  .stat-chip {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+  }
+ 
+  .stat-chip .val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent5);
+  }
+ 
+  .stat-chip .lbl {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+ 
+  /* Timeline container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+    position: relative; z-index: 10;
+  }
+ 
+  /* Phase */
+  .phase {
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s ease both;
+  }
+ 
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 20px 28px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .phase-header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--phase-color, var(--accent1));
+    border-radius: 4px 0 0 4px;
+  }
+ 
+  .phase-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--phase-color, var(--accent1));
+    text-shadow: 0 0 20px currentColor;
+    min-width: 52px;
+  }
+ 
+  .phase-title {
+    flex: 1;
+  }
+ 
+  /* H1 style */
+  .phase-title .h1-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 900;
+    color: var(--h1-color);
+    text-shadow: 0 0 20px rgba(0,245,255,0.4);
+    letter-spacing: 2px;
+  }
+ 
+  .phase-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+ 
+  .phase-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    color: var(--phase-color, var(--accent1));
+    white-space: nowrap;
+  }
+ 
+  /* Topics grid */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+ 
+  .topic-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .topic-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+ 
+  .topic-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 0 1px var(--card-accent, var(--accent1));
+    background: var(--glass-hover);
+    border-color: var(--card-accent, var(--accent1));
+  }
+ 
+  .topic-card .card-accent-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--card-accent, var(--accent1)), transparent);
+    border-radius: 16px 16px 0 0;
+  }
+ 
+  /* H2 style - topic title */
+  .topic-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--h2-color);
+    text-shadow: 0 0 12px rgba(255,107,53,0.4);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .topic-icon {
+    font-size: 1.2rem;
+  }
+ 
+  /* Subtopics */
+  .subtopics { list-style: none; }
+ 
+  .subtopic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+ 
+  .subtopic-item:last-child { border-bottom: none; }
+ 
+  .subtopic-item::before {
+    content: '▸';
+    color: var(--card-accent, var(--accent1));
+    font-size: 0.75rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+ 
+  /* H3 style - subtopic heading */
+  .subtopic-h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--h3-color);
+    text-shadow: 0 0 8px rgba(191,0,255,0.3);
+    letter-spacing: 0.5px;
+  }
+ 
+  /* H4 style - mini heading */
+  .subtopic-h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--h4-color);
+    text-shadow: 0 0 8px rgba(57,255,20,0.3);
+  }
+ 
+  .time-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    background: rgba(255,221,0,0.1);
+    border: 1px solid rgba(255,221,0,0.25);
+    color: var(--accent5);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+ 
+  /* Section label */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+  }
+ 
+  /* Day marker */
+  .day-marker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(57,255,20,0.08);
+    border: 1px solid rgba(57,255,20,0.2);
+    border-radius: 8px;
+    padding: 5px 14px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent4);
+  }
+ 
+  /* Progress bar decorative */
+  .phase-progress {
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    margin-top: 14px;
+    overflow: hidden;
+  }
+ 
+  .phase-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--phase-color, var(--accent1)), rgba(255,255,255,0.3));
+    animation: progressFill 1.5s ease both;
+    transform-origin: left;
+  }
+ 
+  @keyframes progressFill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+ 
+  /* Full-width card */
+  .topic-card.full {
+    grid-column: 1 / -1;
+  }
+ 
+  /* Animations */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    position: relative; z-index: 10;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+ 
+  .footer span { color: var(--accent1); }
+ 
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg1); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,245,255,0.3); border-radius: 3px; }
+ 
+  /* Responsive */
+  @media (max-width: 700px) {
+    .topics-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 12px; }
+    .phase-header { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+ 
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">⚛ Complete Learning Path 2024–2025</div>
+  <h1>React JS <span>Roadmap</span></h1>
+  <div class="hero-sub">From Zero to Expert · All Topics & Subtopics · Time-Estimated</div>
+  <div class="hero-stats">
+    <div class="stat-chip"><div class="val">10</div><div class="lbl">Phases</div></div>
+    <div class="stat-chip"><div class="val">90+</div><div class="lbl">Topics</div></div>
+    <div class="stat-chip"><div class="val">~120</div><div class="lbl">Days Total</div></div>
+    <div class="stat-chip"><div class="val">300+</div><div class="lbl">Subtopics</div></div>
+  </div>
+</div>
+ 
+<div class="container">
+ 
+  <!-- ===== PHASE 0 ===== -->
+  <div class="phase" style="animation-delay:0.1s">
+    <div class="phase-header" style="--phase-color:#ffdd00">
+      <div class="phase-number" style="color:#ffdd00">00</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Prerequisites & Foundations</div>
+        <div class="phase-meta">Before diving into React — essential groundwork</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background: linear-gradient(90deg,#ffdd00,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ffdd00">⏱ Days 1–10</div>
+    </div>
+ 
+    <div class="day-marker">📅 Days 1–3 · HTML & CSS Essentials</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🌐</span>HTML5 Essentials</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Semantic Elements</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>header, nav, main, section, article, aside, footer</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Forms & Inputs</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>input types, validation attributes, form events</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Meta & SEO Tags</span></li>
+          <li class="subtopic-item"><span>viewport, charset, og tags, title, description</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Accessibility (a11y)</span></li>
+          <li class="subtopic-item"><span>ARIA roles, alt text, tab index, semantic markup</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Media Elements</span></li>
+          <li class="subtopic-item"><span>audio, video, canvas, svg basics</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎨</span>CSS3 & Styling</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Box Model & Selectors</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>margin, padding, border, content, specificity</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Flexbox</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>flex-direction, justify-content, align-items, flex-wrap, gap</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">CSS Grid</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>grid-template, grid-area, auto-fill, minmax, fr units</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Responsive Design</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>Media queries, mobile-first, breakpoints, fluid typography</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">CSS Variables & Custom Properties</span></li>
+          <li class="subtopic-item"><span>--var, :root scope, theming with variables</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Animations & Transitions</span></li>
+          <li class="subtopic-item"><span>@keyframes, transition, transform, animation shorthand</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Pseudo Classes & Elements</span></li>
+          <li class="subtopic-item"><span>:hover, :focus, :nth-child, ::before, ::after</span></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="day-marker" style="margin-top:20px">📅 Days 4–10 · JavaScript Fundamentals</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">⚡</span>JavaScript Core</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Variables & Data Types</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>var, let, const, string, number, boolean, null, undefined, symbol, BigInt</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Functions</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>function declarations, expressions, arrow functions, IIFE, default params</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Objects & Arrays</span><span class="time-tag">5h</span></li>
+          <li class="subtopic-item"><span>object literals, destructuring, spread, rest, Array methods (map, filter, reduce, find, every, some, flat)</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Scope & Closures</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>lexical scope, function scope, block scope, closure patterns, IIFE</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Prototypes & Classes</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>prototype chain, class syntax, inheritance, static methods, getters/setters</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔄</span>Modern JS (ES6+)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Promises & Async/Await</span><span class="time-tag">5h</span></li>
+          <li class="subtopic-item"><span>Promise.all, Promise.race, Promise.allSettled, async functions, try/catch</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Modules (ES Modules)</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>import/export, named exports, default exports, dynamic import()</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Template Literals</span></li>
+          <li class="subtopic-item"><span>tagged templates, multi-line strings, expression interpolation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Iterators & Generators</span></li>
+          <li class="subtopic-item"><span>for...of, Symbol.iterator, generator functions, yield</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Map, Set, WeakMap, WeakSet</span></li>
+          <li class="subtopic-item"><span>use cases, differences from plain objects/arrays</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Optional Chaining & Nullish Coalescing</span></li>
+          <li class="subtopic-item"><span>?., ??, ??=, logical assignment operators</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### DOM & Events</span></li>
+          <li class="subtopic-item"><span>querySelector, addEventListener, event delegation, bubbling, capturing</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Fetch API & HTTP</span></li>
+          <li class="subtopic-item"><span>fetch(), headers, GET/POST/PUT/DELETE, JSON parsing</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 1 ===== -->
+  <div class="phase" style="animation-delay:0.2s">
+    <div class="phase-header" style="--phase-color:#00f5ff">
+      <div class="phase-number" style="color:#00f5ff">01</div>
+      <div class="phase-title">
+        <div class="h1-tag"># React Fundamentals</div>
+        <div class="phase-meta">Core React concepts — the essential building blocks</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#00f5ff">⏱ Days 11–25</div>
+    </div>
+ 
+    <div class="day-marker">📅 Days 11–13 · Setup & JSX</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🚀</span>Environment Setup</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Node.js & npm/yarn/pnpm</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>installing Node, npm basics, package.json, scripts</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Create React App (CRA)</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>npx create-react-app, project structure, scripts</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Vite Setup (Modern)</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>npm create vite@latest, faster HMR, configuration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Project Structure</span></li>
+          <li class="subtopic-item"><span>src/, public/, components/, hooks/, utils/, assets/</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### VS Code Extensions</span></li>
+          <li class="subtopic-item"><span>ES7 React snippets, Prettier, ESLint, GitLens, Auto Rename Tag</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📝</span>JSX Deep Dive</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">JSX Syntax Rules</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>single root, className vs class, self-closing tags, camelCase attributes</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Expressions in JSX</span></li>
+          <li class="subtopic-item"><span>{ } curly braces, ternary operator, short-circuit evaluation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">JSX vs React.createElement</span></li>
+          <li class="subtopic-item"><span>how JSX compiles, Babel transformation, virtual DOM node creation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Fragments</span></li>
+          <li class="subtopic-item"><span>&lt;&gt;&lt;/&gt; shorthand, React.Fragment, key on Fragment</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Conditional Rendering</span></li>
+          <li class="subtopic-item"><span>if/else, ternary, &&, switch patterns, null returns</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Lists & Keys</span></li>
+          <li class="subtopic-item"><span>Array.map(), unique key prop, why keys matter, index as key pitfalls</span></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="day-marker" style="margin-top:20px">📅 Days 14–18 · Components & Props</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🧩</span>Components</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Functional Components</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>arrow functions, function declarations, return JSX</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Class Components (Legacy)</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>extends Component, render(), this.state, lifecycle methods</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Component Composition</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>nesting components, slot pattern, children prop composition</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Component Naming Conventions</span></li>
+          <li class="subtopic-item"><span>PascalCase, single-responsibility, file naming, barrel exports</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Pure Components</span></li>
+          <li class="subtopic-item"><span>React.PureComponent, React.memo, shallow comparison</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📦</span>Props System</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Passing Props</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>string, number, boolean, object, array, function props</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Props Destructuring</span></li>
+          <li class="subtopic-item"><span>{ name, age } = props, default values, nested destructuring</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">children Prop</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>React.Children, Children.map, Children.count, slot pattern</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">PropTypes Validation</span></li>
+          <li class="subtopic-item"><span>PropTypes.string, .number, .shape, .arrayOf, .isRequired</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Default Props</span></li>
+          <li class="subtopic-item"><span>defaultProps, default parameter values in destructuring</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Prop Drilling Problem</span></li>
+          <li class="subtopic-item"><span>understanding the issue, when to avoid it, Context as solution</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎯</span>Events & Handling</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Synthetic Events</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>onClick, onChange, onSubmit, onKeyDown, onMouseOver</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Event Object</span></li>
+          <li class="subtopic-item"><span>e.target, e.preventDefault(), e.stopPropagation(), e.currentTarget</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Passing Arguments to Handlers</span></li>
+          <li class="subtopic-item"><span>arrow function in JSX, bind method, curried functions</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Form Events</span></li>
+          <li class="subtopic-item"><span>controlled vs uncontrolled forms, onSubmit, input validation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Custom Events & Callbacks</span></li>
+          <li class="subtopic-item"><span>lifting state up, callback props, event bus patterns</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 2 ===== -->
+  <div class="phase" style="animation-delay:0.3s">
+    <div class="phase-header" style="--phase-color:#39ff14">
+      <div class="phase-number" style="color:#39ff14">02</div>
+      <div class="phase-title">
+        <div class="h1-tag"># React Hooks — Complete Guide</div>
+        <div class="phase-meta">All built-in hooks with patterns and best practices</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#39ff14,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#39ff14">⏱ Days 26–40</div>
+    </div>
+ 
+    <div class="day-marker">📅 Days 26–28 · Core State & Effect Hooks</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔵</span>useState</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Basic State</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>const [state, setState] = useState(initialValue)</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">State with Objects & Arrays</span></li>
+          <li class="subtopic-item"><span>immutability, spread operator, never mutate state directly</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Functional State Updates</span></li>
+          <li class="subtopic-item"><span>setState(prev => prev + 1), stale closure problem</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Lazy Initialization</span></li>
+          <li class="subtopic-item"><span>useState(() => computeExpensiveInitialValue())</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Batching State Updates (React 18)</span></li>
+          <li class="subtopic-item"><span>automatic batching, flushSync, concurrent mode</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">⚙️</span>useEffect</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Effect Basics</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>side effects, dependency array, cleanup function</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Dependency Array Patterns</span></li>
+          <li class="subtopic-item"><span>[] once on mount, [dep] on change, no array every render</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Cleanup & Subscriptions</span></li>
+          <li class="subtopic-item"><span>return () => cleanup(), event listeners, timers, subscriptions</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Data Fetching Pattern</span></li>
+          <li class="subtopic-item"><span>fetch in useEffect, AbortController, race conditions</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useEffect vs useLayoutEffect</span></li>
+          <li class="subtopic-item"><span>timing differences, DOM mutations, flicker prevention</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Common Pitfalls</span></li>
+          <li class="subtopic-item"><span>missing dependencies, infinite loops, stale closures</span></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="day-marker" style="margin-top:20px">📅 Days 29–32 · Performance & Reference Hooks</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🧠</span>useMemo & useCallback</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">useMemo</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>memoizing expensive computations, dependency array, when to use</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useCallback</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>memoizing function references, prevents child re-renders</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Performance Anti-patterns</span></li>
+          <li class="subtopic-item"><span>over-memoization, premature optimization, profiling first</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### React.memo + useCallback Combo</span></li>
+          <li class="subtopic-item"><span>preventing unnecessary re-renders in child components</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔗</span>useRef</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">DOM References</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>ref={myRef}, myRef.current, accessing DOM elements</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Mutable Values (No Re-render)</span></li>
+          <li class="subtopic-item"><span>storing previous values, timer IDs, non-state persisted data</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">forwardRef</span></li>
+          <li class="subtopic-item"><span>React.forwardRef, passing refs to child components</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useImperativeHandle</span></li>
+          <li class="subtopic-item"><span>customizing exposed ref API, focus/blur/scroll control</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📊</span>useReducer</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Reducer Pattern</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>const [state, dispatch] = useReducer(reducer, initialState)</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Actions & Action Types</span></li>
+          <li class="subtopic-item"><span>{ type, payload }, action creators, constants</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Complex State Logic</span></li>
+          <li class="subtopic-item"><span>when to prefer over useState, multi-step forms, shopping cart</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useReducer + Context</span></li>
+          <li class="subtopic-item"><span>Redux-like pattern without Redux, global state management</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Immer with useReducer</span></li>
+          <li class="subtopic-item"><span>produce(), draft state mutations, immutable updates simplified</span></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="day-marker" style="margin-top:20px">📅 Days 33–36 · Context & Advanced Hooks</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🌍</span>useContext</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Creating Context</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>React.createContext(), Provider, default value</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Consuming Context</span></li>
+          <li class="subtopic-item"><span>useContext(MyContext), Context.Consumer, static contextType</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Multiple Contexts</span></li>
+          <li class="subtopic-item"><span>nesting providers, composition, avoiding hell</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Context Performance</span></li>
+          <li class="subtopic-item"><span>splitting contexts, memoizing values, preventing re-renders</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Theme, Auth & Language Context</span></li>
+          <li class="subtopic-item"><span>practical real-world context patterns</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎪</span>Other Built-in Hooks</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">useLayoutEffect</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>synchronous DOM mutations, measure DOM, flicker-free updates</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useDebugValue</span></li>
+          <li class="subtopic-item"><span>labeling custom hooks in React DevTools</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useId (React 18)</span></li>
+          <li class="subtopic-item"><span>unique IDs for accessibility, SSR-safe IDs</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useTransition (React 18)</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>startTransition, isPending, non-urgent state updates</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useDeferredValue (React 18)</span></li>
+          <li class="subtopic-item"><span>deferring expensive re-renders, concurrent features</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useSyncExternalStore (React 18)</span></li>
+          <li class="subtopic-item"><span>subscribing to external stores, getSnapshot, subscribe</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### useInsertionEffect (React 18)</span></li>
+          <li class="subtopic-item"><span>CSS-in-JS libraries, before DOM mutations</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔧</span>Custom Hooks</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Building Custom Hooks</span><span class="time-tag">5h</span></li>
+          <li class="subtopic-item"><span>use prefix convention, composing hooks, sharing logic</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useFetch / useData</span></li>
+          <li class="subtopic-item"><span>data fetching abstraction, loading/error/data states</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useLocalStorage</span></li>
+          <li class="subtopic-item"><span>syncing state with localStorage, serialization</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useDebounce & useThrottle</span></li>
+          <li class="subtopic-item"><span>search input optimization, scroll event throttling</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useWindowSize / useMediaQuery</span></li>
+          <li class="subtopic-item"><span>responsive JS logic, window resize listener</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useOnClickOutside</span></li>
+          <li class="subtopic-item"><span>modal/dropdown close on outside click</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Hook Testing</span></li>
+          <li class="subtopic-item"><span>@testing-library/react-hooks, renderHook, act()</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 3 ===== -->
+  <div class="phase" style="animation-delay:0.35s">
+    <div class="phase-header" style="--phase-color:#ff6b35">
+      <div class="phase-number" style="color:#ff6b35">03</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Styling in React</div>
+        <div class="phase-meta">All modern styling approaches for React apps</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#ff6b35,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ff6b35">⏱ Days 41–47</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">💅</span>CSS Modules</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Setup & Usage</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>Component.module.css, styles.className, local scoping</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Composing Classes</span></li>
+          <li class="subtopic-item"><span>composes keyword, global vs local, :global selector</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Dynamic Class Names</span></li>
+          <li class="subtopic-item"><span>classnames library, template literals for conditional classes</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎨</span>Styled Components</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Tagged Template Literals</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>styled.div`...`, styled components composition</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Props-based Styling</span></li>
+          <li class="subtopic-item"><span>${props => props.primary ? '...' : '...'} interpolation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">ThemeProvider</span></li>
+          <li class="subtopic-item"><span>theme object, useTheme hook, dark/light mode</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Global Styles</span></li>
+          <li class="subtopic-item"><span>createGlobalStyle, CSS resets, body styles</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### keyframes & Animations</span></li>
+          <li class="subtopic-item"><span>keyframes helper, animation interpolations</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🌊</span>Tailwind CSS in React</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Setup with Vite/CRA</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>tailwind.config.js, postcss, content paths</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Utility-First Workflow</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>responsive prefixes, hover/focus states, dark mode</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">@apply & Components</span></li>
+          <li class="subtopic-item"><span>extracting component classes, @layer components</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Custom Design System</span></li>
+          <li class="subtopic-item"><span>extend theme, custom colors, fonts, spacing scales</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### clsx / tw-merge</span></li>
+          <li class="subtopic-item"><span>conditional Tailwind classes, merging class conflicts</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎭</span>Emotion & Other CSS-in-JS</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">@emotion/react & @emotion/styled</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>css prop, styled API, theming, SSR support</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Inline Styles</span></li>
+          <li class="subtopic-item"><span>style prop, camelCase properties, dynamic values</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Vanilla Extract</span></li>
+          <li class="subtopic-item"><span>zero-runtime CSS-in-JS, type-safe styles</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Choosing a Styling Solution</span></li>
+          <li class="subtopic-item"><span>performance comparison, bundle size, DX trade-offs</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 4 ===== -->
+  <div class="phase" style="animation-delay:0.4s">
+    <div class="phase-header" style="--phase-color:#bf00ff">
+      <div class="phase-number" style="color:#bf00ff">04</div>
+      <div class="phase-title">
+        <div class="h1-tag"># React Router & Navigation</div>
+        <div class="phase-meta">Client-side routing, navigation, and URL management</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#bf00ff,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#bf00ff">⏱ Days 48–55</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🗺️</span>React Router v6 Core</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">BrowserRouter & Routes</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>BrowserRouter, HashRouter, MemoryRouter, Routes, Route</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Route Configuration</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>path="/", exact matching, index routes, catch-all routes (*)</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Link & NavLink</span></li>
+          <li class="subtopic-item"><span>to prop, activeClassName, isActive, style callback</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">URL Parameters</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>:paramName, useParams(), optional params</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Nested Routes</span></li>
+          <li class="subtopic-item"><span>child Route, Outlet component, relative paths</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useNavigate Hook</span></li>
+          <li class="subtopic-item"><span>programmatic navigation, navigate(-1), navigate with state</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### useLocation & useSearchParams</span></li>
+          <li class="subtopic-item"><span>location object, query strings, search param manipulation</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔐</span>Advanced Routing</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Protected Routes</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>auth guard pattern, redirect to login, role-based routes</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Lazy Loading Routes</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>React.lazy(), Suspense, dynamic import, code splitting</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Route Loaders & Actions (v6.4+)</span></li>
+          <li class="subtopic-item"><span>createBrowserRouter, loader, action, useLoaderData</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Error Boundaries in Routes</span></li>
+          <li class="subtopic-item"><span>errorElement, useRouteError, error pages</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Scroll Restoration</span></li>
+          <li class="subtopic-item"><span>ScrollRestoration, useScrollRestoration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Navigation Guards</span></li>
+          <li class="subtopic-item"><span>before navigation callbacks, unsaved changes confirmation</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 5 ===== -->
+  <div class="phase" style="animation-delay:0.45s">
+    <div class="phase-header" style="--phase-color:#ff1493">
+      <div class="phase-number" style="color:#ff1493">05</div>
+      <div class="phase-title">
+        <div class="h1-tag"># State Management</div>
+        <div class="phase-meta">From local state to global — all major solutions</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#ff1493,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ff1493">⏱ Days 56–68</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🏪</span>Redux Toolkit (RTK)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Redux Core Concepts</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>store, reducer, action, dispatch, selector, middleware</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">configureStore</span></li>
+          <li class="subtopic-item"><span>setup, devTools, middleware, rootReducer</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">createSlice</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>name, initialState, reducers, actions auto-generated</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">createAsyncThunk</span></li>
+          <li class="subtopic-item"><span>async actions, pending/fulfilled/rejected states</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">RTK Query</span><span class="time-tag">5h</span></li>
+          <li class="subtopic-item"><span>createApi, endpoints, useGetQuery, useMutation, caching</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useSelector & useDispatch</span></li>
+          <li class="subtopic-item"><span>typed selectors, shallowEqual, dispatch with thunks</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Redux DevTools</span></li>
+          <li class="subtopic-item"><span>time-travel debugging, action history, state snapshots</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🐻</span>Zustand</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Store Creation</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>create(), set(), get(), actions in store</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Selectors & Subscriptions</span></li>
+          <li class="subtopic-item"><span>useStore(selector), shallow comparison, devtools</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Middleware</span></li>
+          <li class="subtopic-item"><span>persist, devtools, immer middleware</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Slices & Splitting</span></li>
+          <li class="subtopic-item"><span>combining stores, slice pattern, modular state</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Async Actions in Zustand</span></li>
+          <li class="subtopic-item"><span>async set, loading states, error handling pattern</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">⚛️</span>Jotai & Recoil</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Jotai Atoms</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>atom(), useAtom(), derived atoms, async atoms</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Jotai DevTools & Persistence</span></li>
+          <li class="subtopic-item"><span>atomWithStorage, atomWithReset, debugging</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Recoil Basics</span></li>
+          <li class="subtopic-item"><span>RecoilRoot, atom, selector, useRecoilState</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Choosing State Solution</span></li>
+          <li class="subtopic-item"><span>comparison matrix: Redux vs Zustand vs Jotai vs Context</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📡</span>React Query (TanStack Query)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">QueryClient & Provider</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>QueryClientProvider, QueryClient, global configuration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useQuery</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>queryKey, queryFn, isLoading, isError, data, refetch</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useMutation</span></li>
+          <li class="subtopic-item"><span>mutate, onSuccess, onError, optimistic updates</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Caching & Invalidation</span></li>
+          <li class="subtopic-item"><span>staleTime, cacheTime, invalidateQueries, refetchOnWindowFocus</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Pagination & Infinite Queries</span></li>
+          <li class="subtopic-item"><span>useInfiniteQuery, fetchNextPage, hasNextPage, getNextPageParam</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Prefetching & SSR</span></li>
+          <li class="subtopic-item"><span>prefetchQuery, dehydrate, HydrationBoundary</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 6 ===== -->
+  <div class="phase" style="animation-delay:0.5s">
+    <div class="phase-header" style="--phase-color:#00f5ff">
+      <div class="phase-number" style="color:#00f5ff">06</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Forms & Data Management</div>
+        <div class="phase-meta">Form handling, validation, and data flow patterns</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#00f5ff">⏱ Days 69–74</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📋</span>React Hook Form</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">useForm Setup</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>register, handleSubmit, formState, reset, watch</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Validation Rules</span></li>
+          <li class="subtopic-item"><span>required, minLength, maxLength, pattern, validate fn</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Controller Component</span></li>
+          <li class="subtopic-item"><span>controlled inputs, MUI/Antd integration, render prop</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">useFieldArray</span></li>
+          <li class="subtopic-item"><span>dynamic form fields, append, remove, move, insert</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### DevTools & Performance</span></li>
+          <li class="subtopic-item"><span>@hookform/devtools, minimal re-renders by design</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">✅</span>Validation Libraries</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Zod</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>z.object(), z.string(), z.number(), .min(), .max(), .email(), .parse()</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">RHF + Zod (zodResolver)</span></li>
+          <li class="subtopic-item"><span>@hookform/resolvers, schema validation integration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Yup</span></li>
+          <li class="subtopic-item"><span>yup.object(), .shape(), .string().required(), async validation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Custom Validation Logic</span></li>
+          <li class="subtopic-item"><span>cross-field validation, async remote validation</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎛️</span>Formik (Alternative)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Formik Basics</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>useFormik(), Formik, Form, Field, ErrorMessage components</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">FieldArray</span></li>
+          <li class="subtopic-item"><span>dynamic arrays, push, remove, replace operations</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Yup Schema Integration</span></li>
+          <li class="subtopic-item"><span>validationSchema prop, touched, errors objects</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Formik vs RHF Comparison</span></li>
+          <li class="subtopic-item"><span>performance, re-renders, bundle size, DX comparison</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 7 ===== -->
+  <div class="phase" style="animation-delay:0.55s">
+    <div class="phase-header" style="--phase-color:#ffdd00">
+      <div class="phase-number" style="color:#ffdd00">07</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Performance Optimization</div>
+        <div class="phase-meta">Making React apps blazing fast</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#ffdd00,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ffdd00">⏱ Days 75–80</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">⚡</span>Rendering Optimization</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">React.memo</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>preventing unnecessary renders, custom comparison function</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Virtualization</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>react-window, react-virtual, TanStack Virtual, windowing concept</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Code Splitting</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>React.lazy, Suspense, dynamic import, route-based splitting</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Concurrent Features (React 18)</span></li>
+          <li class="subtopic-item"><span>useTransition, useDeferredValue, startTransition</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Avoiding Re-render Pitfalls</span></li>
+          <li class="subtopic-item"><span>object references, inline objects/functions, context splitting</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔍</span>Profiling & Measurement</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">React DevTools Profiler</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>recording, flame graph, ranked chart, component renders</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Profiler API</span></li>
+          <li class="subtopic-item"><span>&lt;Profiler&gt; component, onRender callback, performance metrics</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Chrome DevTools</span></li>
+          <li class="subtopic-item"><span>Performance tab, Lighthouse, LCP/FID/CLS core web vitals</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Bundle Analysis</span></li>
+          <li class="subtopic-item"><span>webpack-bundle-analyzer, rollup-plugin-visualizer, size-limit</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Web Vitals in React</span></li>
+          <li class="subtopic-item"><span>reportWebVitals, measuring LCP, FID, CLS in production</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🏎️</span>Asset & Load Optimization</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Image Optimization</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>lazy loading, WebP, srcset, blur placeholder, next/image</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Font Loading</span></li>
+          <li class="subtopic-item"><span>font-display: swap, preload, system font stacks, variable fonts</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Tree Shaking</span></li>
+          <li class="subtopic-item"><span>ES modules, sideEffects in package.json, named imports</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Service Workers & PWA</span></li>
+          <li class="subtopic-item"><span>Workbox, caching strategies, offline support, manifest.json</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Compression & CDN</span></li>
+          <li class="subtopic-item"><span>gzip/brotli, CDN deployment, cache headers</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 8 ===== -->
+  <div class="phase" style="animation-delay:0.6s">
+    <div class="phase-header" style="--phase-color:#39ff14">
+      <div class="phase-number" style="color:#39ff14">08</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Testing in React</div>
+        <div class="phase-meta">Unit, integration, and E2E testing strategies</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#39ff14,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#39ff14">⏱ Days 81–88</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🧪</span>Jest</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Jest Setup & Configuration</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>jest.config.js, transform, moduleNameMapper, coverage</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Test Blocks</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>describe, it/test, beforeEach, afterEach, beforeAll, afterAll</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Matchers</span></li>
+          <li class="subtopic-item"><span>toBe, toEqual, toContain, toThrow, toHaveBeenCalled</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Mocking</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>jest.fn(), jest.mock(), jest.spyOn(), mock return values</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Snapshot Testing</span></li>
+          <li class="subtopic-item"><span>toMatchSnapshot(), updating snapshots, when to use</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔬</span>React Testing Library</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">render & screen</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>render(), screen.getByRole, getByText, getByTestId</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Queries</span></li>
+          <li class="subtopic-item"><span>getBy, queryBy, findBy, getAllBy, queryAllBy, findAllBy</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">User Events</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>userEvent.click, userEvent.type, userEvent.selectOptions</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Async Testing</span></li>
+          <li class="subtopic-item"><span>waitFor, findBy, act(), async/await in tests</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Mocking API Calls</span></li>
+          <li class="subtopic-item"><span>MSW (Mock Service Worker), jest.mock fetch</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Testing Custom Hooks</span></li>
+          <li class="subtopic-item"><span>renderHook from @testing-library/react, act wrapper</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🎭</span>Cypress & Playwright (E2E)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Cypress Setup</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>cypress open, cypress run, cypress.config.js</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Cypress Commands</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>cy.visit, cy.get, cy.click, cy.type, cy.should, cy.intercept</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Component Testing</span></li>
+          <li class="subtopic-item"><span>Cypress component test runner, mounting components</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Playwright Basics</span></li>
+          <li class="subtopic-item"><span>page.goto, page.click, page.fill, expect(locator).toBeVisible</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Visual Regression Testing</span></li>
+          <li class="subtopic-item"><span>Percy, Chromatic, screenshot diffing, baseline images</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 9 ===== -->
+  <div class="phase" style="animation-delay:0.65s">
+    <div class="phase-header" style="--phase-color:#ff6b35">
+      <div class="phase-number" style="color:#ff6b35">09</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Advanced React Patterns</div>
+        <div class="phase-meta">Design patterns, architecture, TypeScript & accessibility</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#ff6b35,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ff6b35">⏱ Days 89–100</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🏗️</span>Component Patterns</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Higher-Order Components (HOC)</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>withAuth, withLogger, enhancing components, pitfalls</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Render Props</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>function as children, render prop pattern, sharing logic</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Compound Components</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>Tab/TabList/TabPanel pattern, Context sharing, flexible APIs</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Controlled & Uncontrolled</span></li>
+          <li class="subtopic-item"><span>value + onChange vs ref, defaultValue, form state ownership</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Headless Components</span></li>
+          <li class="subtopic-item"><span>logic without UI, Radix UI, Headless UI, Downshift</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Provider Pattern</span></li>
+          <li class="subtopic-item"><span>wrapping context in custom provider, encapsulated state</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔷</span>TypeScript with React</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">TS Setup for React</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>tsconfig.json, @types/react, strict mode, .tsx files</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Typing Props & State</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>interface vs type, React.FC&lt;Props&gt;, PropsWithChildren</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Typing Hooks</span></li>
+          <li class="subtopic-item"><span>useState&lt;T&gt;, useRef&lt;HTMLDivElement&gt;, custom hook return types</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Typing Events</span></li>
+          <li class="subtopic-item"><span>React.MouseEvent, React.ChangeEvent&lt;HTMLInputElement&gt;</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Generic Components</span></li>
+          <li class="subtopic-item"><span>function Component&lt;T&gt;, constrained generics, utility types</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Discriminated Unions</span></li>
+          <li class="subtopic-item"><span>variant props, exhaustive checks, type narrowing</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">♿</span>Accessibility (a11y)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">ARIA in React</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>aria-label, aria-describedby, role, aria-live, aria-expanded</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Focus Management</span></li>
+          <li class="subtopic-item"><span>focus-trap, skip links, tabIndex, programmatic focus</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Keyboard Navigation</span></li>
+          <li class="subtopic-item"><span>onKeyDown, Enter/Space/Escape/Arrow keys, WCAG 2.1</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Screen Reader Testing</span></li>
+          <li class="subtopic-item"><span>NVDA, JAWS, VoiceOver, axe-core, jest-axe</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Color Contrast & Motion</span></li>
+          <li class="subtopic-item"><span>prefers-reduced-motion, WCAG contrast ratios, focus indicators</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔌</span>React Portals & Error Boundaries</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">createPortal</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>modals, tooltips, dropdowns outside DOM hierarchy</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Event Bubbling with Portals</span></li>
+          <li class="subtopic-item"><span>events still bubble through React tree, not DOM tree</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Error Boundaries</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>componentDidCatch, getDerivedStateFromError, react-error-boundary</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Suspense Boundaries</span></li>
+          <li class="subtopic-item"><span>Suspense fallback, streaming SSR, lazy loading</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Concurrent Mode Patterns</span></li>
+          <li class="subtopic-item"><span>startTransition, SuspenseList, tearing problem</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ===== PHASE 10 ===== -->
+  <div class="phase" style="animation-delay:0.7s">
+    <div class="phase-header" style="--phase-color:#ff1493">
+      <div class="phase-number" style="color:#ff1493">10</div>
+      <div class="phase-title">
+        <div class="h1-tag"># Ecosystem & Next.js / SSR</div>
+        <div class="phase-meta">Full-stack React, deployment, and production readiness</div>
+        <div class="phase-progress"><div class="phase-progress-fill" style="width:100%; background:linear-gradient(90deg,#ff1493,rgba(255,255,255,0.3))"></div></div>
+      </div>
+      <div class="phase-badge" style="color:#ff1493">⏱ Days 101–120</div>
+    </div>
+ 
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ff1493">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">▲</span>Next.js (App Router)</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">App Router Architecture</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>app/, page.tsx, layout.tsx, loading.tsx, error.tsx, not-found.tsx</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Server vs Client Components</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>"use client" directive, RSC advantages, serializable props</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Data Fetching in Next.js</span></li>
+          <li class="subtopic-item"><span>async Server Components, fetch() with cache/revalidate, Route Handlers</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Server Actions</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>"use server", form actions, progressive enhancement</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Metadata API</span></li>
+          <li class="subtopic-item"><span>generateMetadata, static metadata, OG images, robots.txt</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Static Generation & ISR</span></li>
+          <li class="subtopic-item"><span>generateStaticParams, revalidate, on-demand revalidation</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Middleware & Edge Runtime</span></li>
+          <li class="subtopic-item"><span>middleware.ts, NextResponse, geolocation, A/B testing</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#39ff14">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🚀</span>Build & Deployment</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Build Process</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>npm run build, output analysis, environment variables</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Vercel Deployment</span><span class="time-tag">1h</span></li>
+          <li class="subtopic-item"><span>Git integration, preview deployments, environment vars</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Docker for React</span></li>
+          <li class="subtopic-item"><span>multi-stage Dockerfile, nginx serving, .dockerignore</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">CI/CD Pipelines</span></li>
+          <li class="subtopic-item"><span>GitHub Actions, lint + test + build + deploy workflow</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Environment Variables</span></li>
+          <li class="subtopic-item"><span>.env, .env.local, VITE_/NEXT_PUBLIC_ prefixes, secrets management</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Monitoring & Error Tracking</span></li>
+          <li class="subtopic-item"><span>Sentry, LogRocket, Datadog RUM, error reporting</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🌐</span>API Integration</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">REST API Best Practices</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>axios vs fetch, interceptors, base URL, error handling, retry</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">GraphQL with React</span><span class="time-tag">4h</span></li>
+          <li class="subtopic-item"><span>Apollo Client, useQuery, useMutation, fragments, cache</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">WebSockets & Real-time</span></li>
+          <li class="subtopic-item"><span>Socket.io, native WebSocket, useWebSocket hook, reconnection</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Authentication Patterns</span></li>
+          <li class="subtopic-item"><span>JWT, cookies, OAuth, NextAuth.js, Clerk, Auth0 integration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### tRPC</span></li>
+          <li class="subtopic-item"><span>end-to-end type safety, router, procedures, React integration</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📦</span>Popular UI Libraries</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">shadcn/ui</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>copy-paste components, Radix primitives, Tailwind integration</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Material UI (MUI)</span></li>
+          <li class="subtopic-item"><span>ThemeProvider, sx prop, components, breakpoints, CssBaseline</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Ant Design</span></li>
+          <li class="subtopic-item"><span>enterprise components, Form, Table, Modal, ConfigProvider</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Chakra UI</span></li>
+          <li class="subtopic-item"><span>ChakraProvider, style props, responsive arrays, dark mode</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Radix UI Primitives</span></li>
+          <li class="subtopic-item"><span>unstyled accessible components, Dialog, Popover, Select</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Animation Libraries</span></li>
+          <li class="subtopic-item"><span>Framer Motion, React Spring, AutoAnimate, GSAP with React</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#bf00ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🗄️</span>Data Visualization & Tables</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">Recharts</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>LineChart, BarChart, PieChart, ResponsiveContainer</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Chart.js with React</span></li>
+          <li class="subtopic-item"><span>react-chartjs-2, Chart.js v4, register components</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">TanStack Table (React Table)</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>useReactTable, column def, sorting, filtering, pagination</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">D3.js Integration</span></li>
+          <li class="subtopic-item"><span>D3 + React ref patterns, SVG rendering, custom viz</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### React Maps</span></li>
+          <li class="subtopic-item"><span>react-leaflet, Google Maps React, Mapbox GL JS</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#ff6b35">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔒</span>Security in React</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">XSS Prevention</span><span class="time-tag">2h</span></li>
+          <li class="subtopic-item"><span>dangerouslySetInnerHTML risks, DOMPurify sanitization</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">CSRF Protection</span></li>
+          <li class="subtopic-item"><span>SameSite cookies, CSRF tokens, double-submit pattern</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Secure Headers</span></li>
+          <li class="subtopic-item"><span>CSP, X-Frame-Options, HSTS, Referrer-Policy</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Sensitive Data Handling</span></li>
+          <li class="subtopic-item"><span>never store tokens in localStorage, secure httpOnly cookies</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Dependency Security</span></li>
+          <li class="subtopic-item"><span>npm audit, Snyk, Dependabot, lockfile integrity</span></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <!-- Tools section -->
+    <div class="section-label">🛠 Essential Developer Tooling</div>
+    <div class="topics-grid">
+      <div class="topic-card" style="--card-accent:#ffdd00">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">🔧</span>Dev Tools & DX</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">ESLint for React</span></li>
+          <li class="subtopic-item"><span>eslint-plugin-react, eslint-plugin-react-hooks, rules-of-hooks</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Prettier</span></li>
+          <li class="subtopic-item"><span>format on save, .prettierrc, integration with ESLint</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Husky & lint-staged</span></li>
+          <li class="subtopic-item"><span>pre-commit hooks, running lint/tests before commits</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Storybook</span><span class="time-tag">3h</span></li>
+          <li class="subtopic-item"><span>component isolation, stories, args, decorators, docs addon</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### Turborepo / Nx (Monorepo)</span></li>
+          <li class="subtopic-item"><span>workspace packages, shared libs, caching, pipelines</span></li>
+        </ul>
+      </div>
+ 
+      <div class="topic-card" style="--card-accent:#00f5ff">
+        <div class="card-accent-bar"></div>
+        <div class="topic-title"><span class="topic-icon">📱</span>React Native & Cross-Platform</div>
+        <ul class="subtopics">
+          <li class="subtopic-item"><span class="subtopic-h3">React Native Basics</span><span class="time-tag">5h</span></li>
+          <li class="subtopic-item"><span>View, Text, StyleSheet, Touchables, FlatList, ScrollView</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Expo Framework</span></li>
+          <li class="subtopic-item"><span>expo-router, managed workflow, native modules, EAS Build</span></li>
+          <li class="subtopic-item"><span class="subtopic-h3">Shared Code Strategies</span></li>
+          <li class="subtopic-item"><span>platform-specific files, .native.ts, shared hooks/utils</span></li>
+          <li class="subtopic-item"><span class="subtopic-h4">#### React Native vs Web Differences</span></li>
+          <li class="subtopic-item"><span>no DOM, flexbox defaults, navigation patterns, styling</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Summary Table -->
+  <div class="section-label" style="margin-top: 40px">📊 Complete Timeline Summary</div>
+  <div class="topic-card full" style="--card-accent:#ffdd00; padding: 28px 32px;">
+    <div class="card-accent-bar"></div>
+    <div class="topic-title" style="font-size:1.1rem; color: var(--h2-color); margin-bottom: 20px">## Roadmap At a Glance — Time Breakdown</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;">
+      <div style="background: rgba(255,221,0,0.06); border: 1px solid rgba(255,221,0,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ffdd00; margin-bottom:6px">Phase 0 · Prerequisites</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 1–10 · ~50 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">HTML, CSS, JavaScript, ES6+</div>
+      </div>
+      <div style="background: rgba(0,245,255,0.06); border: 1px solid rgba(0,245,255,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#00f5ff; margin-bottom:6px">Phase 1 · React Fundamentals</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 11–25 · ~70 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">JSX, Components, Props, Events</div>
+      </div>
+      <div style="background: rgba(57,255,20,0.06); border: 1px solid rgba(57,255,20,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#39ff14; margin-bottom:6px">Phase 2 · Hooks</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 26–40 · ~80 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">All hooks + Custom Hooks</div>
+      </div>
+      <div style="background: rgba(255,107,53,0.06); border: 1px solid rgba(255,107,53,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ff6b35; margin-bottom:6px">Phase 3 · Styling</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 41–47 · ~35 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">CSS Modules, Tailwind, Styled</div>
+      </div>
+      <div style="background: rgba(191,0,255,0.06); border: 1px solid rgba(191,0,255,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#bf00ff; margin-bottom:6px">Phase 4 · Routing</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 48–55 · ~40 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">React Router v6, Protected Routes</div>
+      </div>
+      <div style="background: rgba(255,20,147,0.06); border: 1px solid rgba(255,20,147,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ff1493; margin-bottom:6px">Phase 5 · State Mgmt</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 56–68 · ~65 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">Redux, Zustand, TanStack Query</div>
+      </div>
+      <div style="background: rgba(0,245,255,0.06); border: 1px solid rgba(0,245,255,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#00f5ff; margin-bottom:6px">Phase 6 · Forms</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 69–74 · ~30 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">RHF, Formik, Zod, Yup</div>
+      </div>
+      <div style="background: rgba(255,221,0,0.06); border: 1px solid rgba(255,221,0,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ffdd00; margin-bottom:6px">Phase 7 · Performance</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 75–80 · ~30 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">Memo, Profiling, Code Splitting</div>
+      </div>
+      <div style="background: rgba(57,255,20,0.06); border: 1px solid rgba(57,255,20,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#39ff14; margin-bottom:6px">Phase 8 · Testing</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 81–88 · ~40 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">Jest, RTL, Cypress, Playwright</div>
+      </div>
+      <div style="background: rgba(255,107,53,0.06); border: 1px solid rgba(255,107,53,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ff6b35; margin-bottom:6px">Phase 9 · Advanced Patterns</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 89–100 · ~60 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">HOC, TypeScript, a11y, Portals</div>
+      </div>
+      <div style="background: rgba(255,20,147,0.06); border: 1px solid rgba(255,20,147,0.2); border-radius: 10px; padding: 14px 18px;">
+        <div style="font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ff1493; margin-bottom:6px">Phase 10 · Ecosystem</div>
+        <div style="font-size:0.82rem; color: var(--text-dim)">Days 101–120 · ~100 hours</div>
+        <div style="font-size:0.78rem; color: var(--text); margin-top:4px">Next.js, Deployment, APIs, Security</div>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+ 
+<!-- Footer -->
+<footer class="footer">
+  <p>⚛ React JS Complete Roadmap · <span>~120 Days</span> · 300+ Subtopics · Built with ❤️ for Developers</p>
+  <p style="margin-top: 8px; font-size: 0.7rem">Phases 0–10 · All Topics Covered · Glassmorphism UI</p>
+</footer>
+ 
+<script>
+  // Generate particles
+  const container = document.getElementById('particles');
+  const colors = ['#00f5ff','#bf00ff','#ff6b35','#39ff14','#ffdd00','#ff1493'];
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      animation-duration: ${Math.random() * 20 + 15}s;
+      animation-delay: ${Math.random() * 20}s;
+    `;
+    container.appendChild(p);
+  }
+ 
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+ 
+  document.querySelectorAll('.phase, .topic-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

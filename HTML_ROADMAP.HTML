@@ -1,0 +1,1920 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete HTML Roadmap 2024</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0015;
+    --bg2: #0d001f;
+    --glass: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.15);
+    --glass-hover: rgba(255,255,255,0.1);
+    --accent1: #ff6bff;
+    --accent2: #00e5ff;
+    --accent3: #ffe066;
+    --accent4: #7affc4;
+    --accent5: #ff7a59;
+    --h1-color: #ff6bff;
+    --h2-color: #00e5ff;
+    --h3-color: #ffe066;
+    --h4-color: #7affc4;
+    --text: rgba(255,255,255,0.88);
+    --subtext: rgba(255,255,255,0.6);
+    --day-colors: #ff6bff, #00e5ff, #ffe066, #7affc4, #ff7a59, #a78bfa, #f472b6;
+  }
+ 
+  * { margin:0; padding:0; box-sizing:border-box; }
+ 
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+ 
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180,0,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,200,255,0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 60% 20%, rgba(255,200,0,0.07) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  /* Floating orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatOrb 14s ease-in-out infinite alternate;
+  }
+  .orb1 { width:500px;height:500px;background:#b400ff;top:-150px;left:-100px;animation-delay:0s; }
+  .orb2 { width:400px;height:400px;background:#00e5ff;bottom:-100px;right:-80px;animation-delay:-5s; }
+  .orb3 { width:300px;height:300px;background:#ffe066;top:40%;left:60%;animation-delay:-9s; }
+ 
+  @keyframes floatOrb {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(40px,60px) scale(1.12); }
+  }
+ 
+  /* Sticky header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(10,0,21,0.75);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+ 
+  header .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff6bff, #00e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+ 
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--subtext);
+  }
+  .progress-bar-outer {
+    width: 200px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6bff, #00e5ff);
+    border-radius: 99px;
+    transition: width 0.5s;
+    width: 0%;
+  }
+ 
+  /* Hero */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 80px 40px 50px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,107,255,0.12);
+    border: 1px solid rgba(255,107,255,0.35);
+    border-radius: 99px;
+    padding: 6px 20px;
+    font-size: 0.78rem;
+    font-family: 'Space Mono', monospace;
+    color: #ff6bff;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ff6bff 0%, #00e5ff 50%, #ffe066 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 18px;
+  }
+  .hero p {
+    color: var(--subtext);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+ 
+  /* Stats row */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .stat-pill {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 99px;
+    padding: 8px 22px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(12px);
+  }
+  .stat-pill span { font-weight: 700; color: var(--accent2); }
+ 
+  /* Filter tabs */
+  .filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 40px 30px;
+    position: relative;
+    z-index: 1;
+  }
+  .filter-tab {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 99px;
+    padding: 7px 20px;
+    font-size: 0.82rem;
+    font-family: 'Exo 2', sans-serif;
+    color: var(--subtext);
+    cursor: pointer;
+    transition: all 0.25s;
+    backdrop-filter: blur(8px);
+  }
+  .filter-tab:hover, .filter-tab.active {
+    background: rgba(255,107,255,0.18);
+    border-color: #ff6bff;
+    color: #fff;
+  }
+ 
+  /* Main container */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+ 
+  /* Day card */
+  .day-card {
+    margin-bottom: 36px;
+    border-radius: 24px;
+    overflow: hidden;
+    backdrop-filter: blur(18px) saturate(160%);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 48px rgba(0,0,0,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.6s both;
+  }
+  .day-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+ 
+  .day-card:nth-child(1) { animation-delay: 0.05s; }
+  .day-card:nth-child(2) { animation-delay: 0.1s; }
+  .day-card:nth-child(3) { animation-delay: 0.15s; }
+  .day-card:nth-child(4) { animation-delay: 0.2s; }
+  .day-card:nth-child(5) { animation-delay: 0.25s; }
+  .day-card:nth-child(6) { animation-delay: 0.3s; }
+  .day-card:nth-child(7) { animation-delay: 0.35s; }
+ 
+  /* Day header */
+  .day-header {
+    padding: 22px 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .day-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--day-bg, rgba(255,107,255,0.08));
+    transition: opacity 0.3s;
+  }
+  .day-header:hover::before { opacity: 1.4; }
+ 
+  .day-left { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
+ 
+  .day-badge {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    background: var(--day-accent, #ff6bff);
+    color: #000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+ 
+  .day-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--day-accent, #ff6bff);
+  }
+ 
+  .day-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .day-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--subtext);
+  }
+  .day-chevron {
+    font-size: 1.2rem;
+    color: var(--subtext);
+    transition: transform 0.3s;
+  }
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+ 
+  /* Day body */
+  .day-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .day-card.open .day-body { max-height: 6000px; }
+ 
+  .day-inner { padding: 0 32px 28px; }
+ 
+  /* Section headings */
+  .sec-h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--h1-color);
+    margin: 28px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-h1::before { content: '#'; opacity: 0.5; }
+ 
+  .sec-h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--h2-color);
+    margin: 22px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-h2::before { content: '##'; opacity: 0.45; font-size: 0.85em; }
+ 
+  .sec-h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--h3-color);
+    margin: 16px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-h3::before { content: '###'; opacity: 0.4; font-size: 0.8em; }
+ 
+  .sec-h4 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--h4-color);
+    margin: 12px 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-h4::before { content: '####'; opacity: 0.35; font-size: 0.8em; }
+ 
+  /* Topic grid */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 10px 0 6px;
+  }
+ 
+  .topic-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 0.84rem;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.4;
+  }
+  .topic-item:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(255,255,255,0.22);
+    transform: translateX(3px);
+  }
+  .topic-item.done {
+    background: rgba(122,255,196,0.08);
+    border-color: rgba(122,255,196,0.3);
+    color: rgba(255,255,255,0.5);
+    text-decoration: line-through;
+  }
+  .topic-item .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--item-dot, #ff6bff);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: background 0.2s;
+  }
+  .topic-item.done .dot { background: #7affc4; }
+ 
+  /* Code tag */
+  .code-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: 6px;
+    padding: 1px 8px;
+    color: #00e5ff;
+    margin: 2px;
+  }
+ 
+  /* Time estimate pill */
+  .time-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,224,102,0.1);
+    border: 1px solid rgba(255,224,102,0.25);
+    border-radius: 99px;
+    padding: 4px 12px;
+    font-size: 0.77rem;
+    color: #ffe066;
+    font-family: 'Space Mono', monospace;
+    margin: 6px 4px 6px 0;
+  }
+ 
+  /* Note box */
+  .note-box {
+    background: rgba(255,107,255,0.07);
+    border-left: 3px solid #ff6bff;
+    border-radius: 0 12px 12px 0;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+  }
+ 
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    margin: 20px 0;
+  }
+ 
+  /* Complete day btn */
+  .day-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .btn-complete {
+    padding: 9px 22px;
+    border-radius: 99px;
+    border: 1px solid;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.83rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: transparent;
+  }
+  .btn-complete.primary {
+    border-color: #7affc4;
+    color: #7affc4;
+  }
+  .btn-complete.primary:hover {
+    background: rgba(122,255,196,0.15);
+  }
+  .btn-reset {
+    padding: 9px 22px;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.83rem;
+    cursor: pointer;
+    color: var(--subtext);
+    transition: all 0.25s;
+  }
+  .btn-reset:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: #fff;
+  }
+ 
+  /* Footer */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 30px;
+    color: var(--subtext);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--glass-border);
+  }
+  footer span { color: #ff6bff; }
+ 
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,107,255,0.35); border-radius: 99px; }
+ 
+  /* Responsive */
+  @media(max-width:600px){
+    .day-header { padding: 16px 18px; }
+    .day-inner { padding: 0 18px 20px; }
+    .hero { padding: 50px 20px 30px; }
+    header { padding: 14px 20px; }
+    .filter-tabs { padding: 0 20px 20px; }
+  }
+</style>
+</head>
+<body>
+ 
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+ 
+<!-- Header -->
+<header>
+  <div class="logo">HTML ROADMAP</div>
+  <div class="progress-wrap">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar"></div>
+    </div>
+    <span id="progressText">0% Complete</span>
+  </div>
+</header>
+ 
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">🚀 Complete Learning Path</div>
+  <h1>Complete HTML Roadmap</h1>
+  <p>A structured, day-wise learning plan from absolute basics to advanced HTML5 — covering every essential topic and subtopic with estimated time.</p>
+  <div class="stats">
+    <div class="stat-pill">📅 <span>7 Days</span> Plan</div>
+    <div class="stat-pill">⏱ <span>~35 Hours</span> Total</div>
+    <div class="stat-pill">📚 <span>150+</span> Topics</div>
+    <div class="stat-pill">🎯 <span>Beginner → Pro</span></div>
+  </div>
+</div>
+ 
+<!-- Filter Tabs -->
+<div class="filter-tabs">
+  <button class="filter-tab active" onclick="filterDays('all',this)">All Days</button>
+  <button class="filter-tab" onclick="filterDays('day1',this)">Day 1</button>
+  <button class="filter-tab" onclick="filterDays('day2',this)">Day 2</button>
+  <button class="filter-tab" onclick="filterDays('day3',this)">Day 3</button>
+  <button class="filter-tab" onclick="filterDays('day4',this)">Day 4</button>
+  <button class="filter-tab" onclick="filterDays('day5',this)">Day 5</button>
+  <button class="filter-tab" onclick="filterDays('day6',this)">Day 6</button>
+  <button class="filter-tab" onclick="filterDays('day7',this)">Day 7</button>
+</div>
+ 
+<div class="container" id="mainContainer">
+ 
+<!-- ======================== DAY 1 ======================== -->
+<div class="day-card" id="day1" style="--day-bg: rgba(255,107,255,0.08); --day-accent: #ff6bff;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#ff6bff;">Day 1</span>
+      <div>
+        <div class="day-title">HTML Fundamentals & Document Structure</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">Introduction to HTML</div>
+      <div class="time-pill">⏱ 30 min</div>
+      <div class="topic-grid" style="--item-dot:#ff6bff;">
+        <div class="topic-item"><span class="dot"></span>What is HTML?</div>
+        <div class="topic-item"><span class="dot"></span>History of HTML (HTML1 → HTML5)</div>
+        <div class="topic-item"><span class="dot"></span>How browsers render HTML</div>
+        <div class="topic-item"><span class="dot"></span>HTML vs CSS vs JavaScript roles</div>
+        <div class="topic-item"><span class="dot"></span>Setting up a code editor (VS Code)</div>
+        <div class="topic-item"><span class="dot"></span>Live Server extension setup</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Document Structure</div>
+      <div class="time-pill">⏱ 45 min</div>
+ 
+      <div class="sec-h2">Basic Boilerplate</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;!DOCTYPE html&gt;</code> declaration</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;html lang=""&gt;</code> root element</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;head&gt;</code> section</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;body&gt;</code> section</div>
+      </div>
+ 
+      <div class="sec-h2">Head Elements</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;meta charset&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;meta viewport&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;title&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;link&gt;</code> - stylesheets</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;script&gt;</code> placement</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;style&gt;</code> inline CSS</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;base&gt;</code> tag</div>
+      </div>
+ 
+      <div class="sec-h2">Meta Tags Deep Dive</div>
+      <div class="sec-h3">SEO Meta Tags</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>description</div>
+        <div class="topic-item"><span class="dot"></span>keywords</div>
+        <div class="topic-item"><span class="dot"></span>robots</div>
+        <div class="topic-item"><span class="dot"></span>author</div>
+      </div>
+      <div class="sec-h3">Open Graph Meta Tags</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>og:title</div>
+        <div class="topic-item"><span class="dot"></span>og:description</div>
+        <div class="topic-item"><span class="dot"></span>og:image</div>
+        <div class="topic-item"><span class="dot"></span>og:url</div>
+        <div class="topic-item"><span class="dot"></span>og:type</div>
+      </div>
+      <div class="sec-h3">Twitter Card Meta Tags</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>twitter:card</div>
+        <div class="topic-item"><span class="dot"></span>twitter:title</div>
+        <div class="topic-item"><span class="dot"></span>twitter:description</div>
+        <div class="topic-item"><span class="dot"></span>twitter:image</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Syntax & Rules</div>
+      <div class="time-pill">⏱ 30 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Tags, elements & attributes</div>
+        <div class="topic-item"><span class="dot"></span>Opening & closing tags</div>
+        <div class="topic-item"><span class="dot"></span>Self-closing / void elements</div>
+        <div class="topic-item"><span class="dot"></span>Nesting rules</div>
+        <div class="topic-item"><span class="dot"></span>Case sensitivity</div>
+        <div class="topic-item"><span class="dot"></span>Attribute syntax (name="value")</div>
+        <div class="topic-item"><span class="dot"></span>Boolean attributes</div>
+        <div class="topic-item"><span class="dot"></span>HTML comments <code class="code-tag">&lt;!-- --&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Whitespace handling</div>
+        <div class="topic-item"><span class="dot"></span>HTML entities (&amp;amp; &amp;lt; etc.)</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Text & Headings</div>
+      <div class="time-pill">⏱ 45 min</div>
+ 
+      <div class="sec-h2">Headings</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;h1&gt;</code> to <code class="code-tag">&lt;h6&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Heading hierarchy best practices</div>
+        <div class="topic-item"><span class="dot"></span>One h1 per page rule</div>
+      </div>
+ 
+      <div class="sec-h2">Paragraphs & Text Formatting</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;p&gt;</code> paragraph</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;br&gt;</code> line break</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;hr&gt;</code> horizontal rule</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;strong&gt;</code> bold (semantic)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;b&gt;</code> bold (presentational)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;em&gt;</code> italic (semantic)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;i&gt;</code> italic (presentational)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;u&gt;</code> underline</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;s&gt;</code> strikethrough</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;mark&gt;</code> highlight</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;small&gt;</code> smaller text</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;big&gt;</code> larger text</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;sub&gt;</code> subscript</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;sup&gt;</code> superscript</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;ins&gt;</code> inserted text</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;del&gt;</code> deleted text</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;abbr&gt;</code> abbreviation</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;cite&gt;</code> citation</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dfn&gt;</code> definition</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;kbd&gt;</code> keyboard input</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;samp&gt;</code> sample output</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;var&gt;</code> variable</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;code&gt;</code> inline code</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;pre&gt;</code> preformatted text</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;blockquote&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;q&gt;</code> inline quote</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;address&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;bdi&gt;</code> bidirectional isolation</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;bdo&gt;</code> bidirectional override</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;ruby&gt;</code> <code class="code-tag">&lt;rt&gt;</code> <code class="code-tag">&lt;rp&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;wbr&gt;</code> word break opportunity</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;time&gt;</code> datetime</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;data&gt;</code></div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Links & Navigation</div>
+      <div class="time-pill">⏱ 45 min</div>
+      <div class="sec-h2">Anchor Tag</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;a href&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Absolute vs relative URLs</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">target="_blank"</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">rel="noopener noreferrer"</code></div>
+        <div class="topic-item"><span class="dot"></span>Email links <code class="code-tag">mailto:</code></div>
+        <div class="topic-item"><span class="dot"></span>Phone links <code class="code-tag">tel:</code></div>
+        <div class="topic-item"><span class="dot"></span>Anchor links (same page <code class="code-tag">#id</code>)</div>
+        <div class="topic-item"><span class="dot"></span>Download attribute</div>
+        <div class="topic-item"><span class="dot"></span>Link states (hover, visited, active)</div>
+        <div class="topic-item"><span class="dot"></span>Image as link</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Lists</div>
+      <div class="time-pill">⏱ 30 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;ul&gt;</code> unordered list</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;ol&gt;</code> ordered list</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;li&gt;</code> list item</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dl&gt;</code> definition list</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dt&gt;</code> definition term</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dd&gt;</code> definition description</div>
+        <div class="topic-item"><span class="dot"></span>Nested lists</div>
+        <div class="topic-item"><span class="dot"></span>ol type attribute (1, A, a, I, i)</div>
+        <div class="topic-item"><span class="dot"></span>ol start & reversed attributes</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Images & Media Basics</div>
+      <div class="time-pill">⏱ 45 min</div>
+      <div class="sec-h2">Images</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;img&gt;</code> tag</div>
+        <div class="topic-item"><span class="dot"></span>src, alt attributes (mandatory)</div>
+        <div class="topic-item"><span class="dot"></span>width & height attributes</div>
+        <div class="topic-item"><span class="dot"></span>loading="lazy"</div>
+        <div class="topic-item"><span class="dot"></span>decoding attribute</div>
+        <div class="topic-item"><span class="dot"></span>Image formats (JPG, PNG, GIF, WebP, SVG, AVIF)</div>
+        <div class="topic-item"><span class="dot"></span>Responsive images with srcset</div>
+        <div class="topic-item"><span class="dot"></span>sizes attribute</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;figure&gt;</code> & <code class="code-tag">&lt;figcaption&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;picture&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;source&gt;</code> within picture</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Build a personal profile page using headings, paragraphs, lists, links and one image using all Day 1 topics.</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day1',this)">✓ Mark Day 1 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day1')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 2 ======================== -->
+<div class="day-card" id="day2" style="--day-bg: rgba(0,229,255,0.07); --day-accent: #00e5ff;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#00e5ff;">Day 2</span>
+      <div>
+        <div class="day-title">Tables, Forms & Input Elements</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5.5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">HTML Tables</div>
+      <div class="time-pill">⏱ 1.5 hr</div>
+ 
+      <div class="sec-h2">Table Structure</div>
+      <div class="topic-grid" style="--item-dot:#00e5ff;">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;table&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;thead&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;tbody&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;tfoot&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;tr&gt;</code> table row</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;th&gt;</code> header cell</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;td&gt;</code> data cell</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;caption&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;colgroup&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;col&gt;</code></div>
+      </div>
+ 
+      <div class="sec-h2">Table Attributes</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>colspan</div>
+        <div class="topic-item"><span class="dot"></span>rowspan</div>
+        <div class="topic-item"><span class="dot"></span>scope (col, row, colgroup, rowgroup)</div>
+        <div class="topic-item"><span class="dot"></span>headers attribute</div>
+        <div class="topic-item"><span class="dot"></span>summary (deprecated, accessibility)</div>
+      </div>
+ 
+      <div class="sec-h2">Accessible Tables</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Using scope for screen readers</div>
+        <div class="topic-item"><span class="dot"></span>aria-label on tables</div>
+        <div class="topic-item"><span class="dot"></span>Complex table headers (id + headers)</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Forms</div>
+      <div class="time-pill">⏱ 2 hr</div>
+ 
+      <div class="sec-h2">Form Element</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;form&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>action attribute</div>
+        <div class="topic-item"><span class="dot"></span>method (GET vs POST)</div>
+        <div class="topic-item"><span class="dot"></span>enctype (multipart, urlencoded, text/plain)</div>
+        <div class="topic-item"><span class="dot"></span>novalidate</div>
+        <div class="topic-item"><span class="dot"></span>autocomplete (on/off)</div>
+        <div class="topic-item"><span class="dot"></span>target attribute</div>
+      </div>
+ 
+      <div class="sec-h2">Input Types</div>
+      <div class="sec-h3">Text Inputs</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>type="text"</div>
+        <div class="topic-item"><span class="dot"></span>type="password"</div>
+        <div class="topic-item"><span class="dot"></span>type="email"</div>
+        <div class="topic-item"><span class="dot"></span>type="tel"</div>
+        <div class="topic-item"><span class="dot"></span>type="url"</div>
+        <div class="topic-item"><span class="dot"></span>type="search"</div>
+        <div class="topic-item"><span class="dot"></span>type="number"</div>
+        <div class="topic-item"><span class="dot"></span>type="textarea" via &lt;textarea&gt;</div>
+      </div>
+      <div class="sec-h3">Date & Time Inputs</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>type="date"</div>
+        <div class="topic-item"><span class="dot"></span>type="time"</div>
+        <div class="topic-item"><span class="dot"></span>type="datetime-local"</div>
+        <div class="topic-item"><span class="dot"></span>type="month"</div>
+        <div class="topic-item"><span class="dot"></span>type="week"</div>
+      </div>
+      <div class="sec-h3">Choice Inputs</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>type="radio"</div>
+        <div class="topic-item"><span class="dot"></span>type="checkbox"</div>
+        <div class="topic-item"><span class="dot"></span>type="range"</div>
+        <div class="topic-item"><span class="dot"></span>type="color"</div>
+      </div>
+      <div class="sec-h3">File & Button Inputs</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>type="file"</div>
+        <div class="topic-item"><span class="dot"></span>type="submit"</div>
+        <div class="topic-item"><span class="dot"></span>type="reset"</div>
+        <div class="topic-item"><span class="dot"></span>type="button"</div>
+        <div class="topic-item"><span class="dot"></span>type="image"</div>
+        <div class="topic-item"><span class="dot"></span>type="hidden"</div>
+      </div>
+ 
+      <div class="sec-h2">Input Attributes</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>name</div>
+        <div class="topic-item"><span class="dot"></span>id</div>
+        <div class="topic-item"><span class="dot"></span>value</div>
+        <div class="topic-item"><span class="dot"></span>placeholder</div>
+        <div class="topic-item"><span class="dot"></span>required</div>
+        <div class="topic-item"><span class="dot"></span>disabled</div>
+        <div class="topic-item"><span class="dot"></span>readonly</div>
+        <div class="topic-item"><span class="dot"></span>autofocus</div>
+        <div class="topic-item"><span class="dot"></span>autocomplete</div>
+        <div class="topic-item"><span class="dot"></span>min, max, step</div>
+        <div class="topic-item"><span class="dot"></span>minlength, maxlength</div>
+        <div class="topic-item"><span class="dot"></span>pattern (regex)</div>
+        <div class="topic-item"><span class="dot"></span>multiple</div>
+        <div class="topic-item"><span class="dot"></span>accept (file types)</div>
+        <div class="topic-item"><span class="dot"></span>checked</div>
+        <div class="topic-item"><span class="dot"></span>selected</div>
+        <div class="topic-item"><span class="dot"></span>size</div>
+        <div class="topic-item"><span class="dot"></span>form attribute</div>
+        <div class="topic-item"><span class="dot"></span>list (datalist)</div>
+        <div class="topic-item"><span class="dot"></span>inputmode</div>
+        <div class="topic-item"><span class="dot"></span>tabindex</div>
+      </div>
+ 
+      <div class="sec-h2">Form Helper Elements</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;label&gt;</code> for attribute</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;fieldset&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;legend&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;select&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;option&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;optgroup&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;datalist&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;textarea&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;button&gt;</code> (types: submit, reset, button)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;output&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;meter&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;progress&gt;</code></div>
+      </div>
+ 
+      <div class="sec-h2">HTML5 Form Validation</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Built-in validation</div>
+        <div class="topic-item"><span class="dot"></span>Constraint Validation API</div>
+        <div class="topic-item"><span class="dot"></span>setCustomValidity()</div>
+        <div class="topic-item"><span class="dot"></span>:valid / :invalid CSS pseudo-classes</div>
+        <div class="topic-item"><span class="dot"></span>novalidate for custom validation</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Build a complete registration + login form with all input types, validation, fieldsets and accessible labels.</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day2',this)">✓ Mark Day 2 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day2')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 3 ======================== -->
+<div class="day-card" id="day3" style="--day-bg: rgba(255,224,102,0.06); --day-accent: #ffe066;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#ffe066;color:#000;">Day 3</span>
+      <div>
+        <div class="day-title">Semantic HTML5 & Accessibility</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">Semantic HTML5 Elements</div>
+      <div class="time-pill">⏱ 1.5 hr</div>
+ 
+      <div class="sec-h2">Document Layout Elements</div>
+      <div class="topic-grid" style="--item-dot:#ffe066;">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;header&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;nav&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;main&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;footer&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;aside&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;section&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;article&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;div&gt;</code> (non-semantic fallback)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;span&gt;</code> (inline non-semantic)</div>
+      </div>
+ 
+      <div class="sec-h2">Content Elements</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;figure&gt;</code> & <code class="code-tag">&lt;figcaption&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;details&gt;</code> & <code class="code-tag">&lt;summary&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dialog&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;template&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;slot&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;search&gt;</code> (HTML5.3)</div>
+        <div class="topic-item"><span class="dot"></span>div vs section vs article (when to use)</div>
+        <div class="topic-item"><span class="dot"></span>Semantic vs presentational elements</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Accessibility (a11y)</div>
+      <div class="time-pill">⏱ 2 hr</div>
+ 
+      <div class="sec-h2">WAI-ARIA Roles</div>
+      <div class="sec-h3">Landmark Roles</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>role="banner"</div>
+        <div class="topic-item"><span class="dot"></span>role="navigation"</div>
+        <div class="topic-item"><span class="dot"></span>role="main"</div>
+        <div class="topic-item"><span class="dot"></span>role="contentinfo"</div>
+        <div class="topic-item"><span class="dot"></span>role="complementary"</div>
+        <div class="topic-item"><span class="dot"></span>role="region"</div>
+        <div class="topic-item"><span class="dot"></span>role="search"</div>
+        <div class="topic-item"><span class="dot"></span>role="form"</div>
+      </div>
+ 
+      <div class="sec-h3">Widget Roles</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>role="button"</div>
+        <div class="topic-item"><span class="dot"></span>role="checkbox"</div>
+        <div class="topic-item"><span class="dot"></span>role="dialog"</div>
+        <div class="topic-item"><span class="dot"></span>role="menu"</div>
+        <div class="topic-item"><span class="dot"></span>role="menuitem"</div>
+        <div class="topic-item"><span class="dot"></span>role="tab"</div>
+        <div class="topic-item"><span class="dot"></span>role="tabpanel"</div>
+        <div class="topic-item"><span class="dot"></span>role="tooltip"</div>
+        <div class="topic-item"><span class="dot"></span>role="alert"</div>
+        <div class="topic-item"><span class="dot"></span>role="alertdialog"</div>
+      </div>
+ 
+      <div class="sec-h2">ARIA Attributes</div>
+      <div class="sec-h3">State Attributes</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>aria-expanded</div>
+        <div class="topic-item"><span class="dot"></span>aria-selected</div>
+        <div class="topic-item"><span class="dot"></span>aria-checked</div>
+        <div class="topic-item"><span class="dot"></span>aria-disabled</div>
+        <div class="topic-item"><span class="dot"></span>aria-hidden</div>
+        <div class="topic-item"><span class="dot"></span>aria-pressed</div>
+        <div class="topic-item"><span class="dot"></span>aria-busy</div>
+        <div class="topic-item"><span class="dot"></span>aria-current</div>
+      </div>
+      <div class="sec-h3">Property Attributes</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>aria-label</div>
+        <div class="topic-item"><span class="dot"></span>aria-labelledby</div>
+        <div class="topic-item"><span class="dot"></span>aria-describedby</div>
+        <div class="topic-item"><span class="dot"></span>aria-controls</div>
+        <div class="topic-item"><span class="dot"></span>aria-owns</div>
+        <div class="topic-item"><span class="dot"></span>aria-flowto</div>
+        <div class="topic-item"><span class="dot"></span>aria-live (off, polite, assertive)</div>
+        <div class="topic-item"><span class="dot"></span>aria-atomic</div>
+        <div class="topic-item"><span class="dot"></span>aria-relevant</div>
+        <div class="topic-item"><span class="dot"></span>aria-required</div>
+        <div class="topic-item"><span class="dot"></span>aria-invalid</div>
+        <div class="topic-item"><span class="dot"></span>aria-errormessage</div>
+        <div class="topic-item"><span class="dot"></span>aria-placeholder</div>
+        <div class="topic-item"><span class="dot"></span>aria-multiline</div>
+        <div class="topic-item"><span class="dot"></span>aria-multiselectable</div>
+        <div class="topic-item"><span class="dot"></span>aria-readonly</div>
+        <div class="topic-item"><span class="dot"></span>aria-haspopup</div>
+        <div class="topic-item"><span class="dot"></span>aria-level</div>
+        <div class="topic-item"><span class="dot"></span>aria-orientation</div>
+        <div class="topic-item"><span class="dot"></span>aria-posinset</div>
+        <div class="topic-item"><span class="dot"></span>aria-setsize</div>
+        <div class="topic-item"><span class="dot"></span>aria-valuemin/max/now/text</div>
+        <div class="topic-item"><span class="dot"></span>aria-sort</div>
+        <div class="topic-item"><span class="dot"></span>aria-colspan / aria-rowspan</div>
+      </div>
+ 
+      <div class="sec-h2">Accessibility Best Practices</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Focus management</div>
+        <div class="topic-item"><span class="dot"></span>Skip navigation links</div>
+        <div class="topic-item"><span class="dot"></span>Keyboard navigation (tabindex)</div>
+        <div class="topic-item"><span class="dot"></span>Focus trap in modals</div>
+        <div class="topic-item"><span class="dot"></span>Color contrast ratios (WCAG AA/AAA)</div>
+        <div class="topic-item"><span class="dot"></span>alt text for images</div>
+        <div class="topic-item"><span class="dot"></span>Decorative images (alt="")</div>
+        <div class="topic-item"><span class="dot"></span>Form label association</div>
+        <div class="topic-item"><span class="dot"></span>Error messages accessibility</div>
+        <div class="topic-item"><span class="dot"></span>Heading structure for screen readers</div>
+        <div class="topic-item"><span class="dot"></span>lang attribute on html</div>
+        <div class="topic-item"><span class="dot"></span>hreflang attribute</div>
+        <div class="topic-item"><span class="dot"></span>WCAG 2.1 principles (POUR)</div>
+        <div class="topic-item"><span class="dot"></span>Testing with screen readers (NVDA, JAWS, VoiceOver)</div>
+        <div class="topic-item"><span class="dot"></span>axe DevTools usage</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Global HTML Attributes</div>
+      <div class="time-pill">⏱ 45 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>id</div>
+        <div class="topic-item"><span class="dot"></span>class</div>
+        <div class="topic-item"><span class="dot"></span>style</div>
+        <div class="topic-item"><span class="dot"></span>title</div>
+        <div class="topic-item"><span class="dot"></span>lang</div>
+        <div class="topic-item"><span class="dot"></span>dir (ltr, rtl, auto)</div>
+        <div class="topic-item"><span class="dot"></span>tabindex</div>
+        <div class="topic-item"><span class="dot"></span>accesskey</div>
+        <div class="topic-item"><span class="dot"></span>contenteditable</div>
+        <div class="topic-item"><span class="dot"></span>draggable</div>
+        <div class="topic-item"><span class="dot"></span>hidden</div>
+        <div class="topic-item"><span class="dot"></span>spellcheck</div>
+        <div class="topic-item"><span class="dot"></span>translate</div>
+        <div class="topic-item"><span class="dot"></span>data-* custom attributes</div>
+        <div class="topic-item"><span class="dot"></span>slot</div>
+        <div class="topic-item"><span class="dot"></span>is</div>
+        <div class="topic-item"><span class="dot"></span>part</div>
+        <div class="topic-item"><span class="dot"></span>exportparts</div>
+        <div class="topic-item"><span class="dot"></span>nonce</div>
+        <div class="topic-item"><span class="dot"></span>autocapitalize</div>
+        <div class="topic-item"><span class="dot"></span>enterkeyhint</div>
+        <div class="topic-item"><span class="dot"></span>inert (HTML5.3)</div>
+        <div class="topic-item"><span class="dot"></span>popover (new)</div>
+        <div class="topic-item"><span class="dot"></span>popovertarget (new)</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Rebuild a news article page using only semantic HTML5 elements. Run it through an accessibility checker.</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day3',this)">✓ Mark Day 3 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day3')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 4 ======================== -->
+<div class="day-card" id="day4" style="--day-bg: rgba(122,255,196,0.06); --day-accent: #7affc4;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#7affc4;color:#000;">Day 4</span>
+      <div>
+        <div class="day-title">HTML5 Multimedia & Embedded Content</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">HTML5 Audio & Video</div>
+      <div class="time-pill">⏱ 1.5 hr</div>
+ 
+      <div class="sec-h2">Video Element</div>
+      <div class="topic-grid" style="--item-dot:#7affc4;">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;video&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>src attribute</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;source&gt;</code> with type</div>
+        <div class="topic-item"><span class="dot"></span>controls attribute</div>
+        <div class="topic-item"><span class="dot"></span>autoplay attribute</div>
+        <div class="topic-item"><span class="dot"></span>loop attribute</div>
+        <div class="topic-item"><span class="dot"></span>muted attribute</div>
+        <div class="topic-item"><span class="dot"></span>poster attribute</div>
+        <div class="topic-item"><span class="dot"></span>preload (none, metadata, auto)</div>
+        <div class="topic-item"><span class="dot"></span>width & height</div>
+        <div class="topic-item"><span class="dot"></span>playsinline (mobile)</div>
+        <div class="topic-item"><span class="dot"></span>Video formats (MP4, WebM, OGV)</div>
+        <div class="topic-item"><span class="dot"></span>Fallback content</div>
+      </div>
+ 
+      <div class="sec-h2">Audio Element</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;audio&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>src, controls, autoplay, loop, muted</div>
+        <div class="topic-item"><span class="dot"></span>preload attribute</div>
+        <div class="topic-item"><span class="dot"></span>Audio formats (MP3, OGG, WAV, AAC)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;source&gt;</code> multiple formats</div>
+      </div>
+ 
+      <div class="sec-h2">Tracks & Subtitles</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;track&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>kind (subtitles, captions, descriptions, chapters, metadata)</div>
+        <div class="topic-item"><span class="dot"></span>src, srclang, label attributes</div>
+        <div class="topic-item"><span class="dot"></span>default attribute</div>
+        <div class="topic-item"><span class="dot"></span>WebVTT format basics</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Embedded Content</div>
+      <div class="time-pill">⏱ 1 hr</div>
+ 
+      <div class="sec-h2">iframe</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;iframe&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>src attribute</div>
+        <div class="topic-item"><span class="dot"></span>width & height</div>
+        <div class="topic-item"><span class="dot"></span>title (accessibility)</div>
+        <div class="topic-item"><span class="dot"></span>sandbox attribute & values</div>
+        <div class="topic-item"><span class="dot"></span>allow attribute (permissions policy)</div>
+        <div class="topic-item"><span class="dot"></span>loading="lazy"</div>
+        <div class="topic-item"><span class="dot"></span>referrerpolicy</div>
+        <div class="topic-item"><span class="dot"></span>allowfullscreen</div>
+        <div class="topic-item"><span class="dot"></span>Embedding YouTube, Maps, Codepen</div>
+        <div class="topic-item"><span class="dot"></span>Security concerns (clickjacking)</div>
+      </div>
+ 
+      <div class="sec-h2">Object & Embed (Legacy)</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;object&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;param&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;embed&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>When to use vs iframe</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML5 Canvas</div>
+      <div class="time-pill">⏱ 1 hr</div>
+      <div class="sec-h2">Canvas Basics</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;canvas&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>width & height attributes</div>
+        <div class="topic-item"><span class="dot"></span>getContext('2d')</div>
+        <div class="topic-item"><span class="dot"></span>getContext('webgl')</div>
+        <div class="topic-item"><span class="dot"></span>Fallback content</div>
+      </div>
+      <div class="sec-h2">2D Drawing Context</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>fillRect, strokeRect, clearRect</div>
+        <div class="topic-item"><span class="dot"></span>beginPath, moveTo, lineTo</div>
+        <div class="topic-item"><span class="dot"></span>arc, arcTo, quadraticCurveTo, bezierCurveTo</div>
+        <div class="topic-item"><span class="dot"></span>fillStyle, strokeStyle, lineWidth</div>
+        <div class="topic-item"><span class="dot"></span>fillText, strokeText</div>
+        <div class="topic-item"><span class="dot"></span>font, textAlign, textBaseline</div>
+        <div class="topic-item"><span class="dot"></span>drawImage</div>
+        <div class="topic-item"><span class="dot"></span>Transformations (translate, rotate, scale, transform)</div>
+        <div class="topic-item"><span class="dot"></span>save & restore</div>
+        <div class="topic-item"><span class="dot"></span>Gradients (linear, radial)</div>
+        <div class="topic-item"><span class="dot"></span>Patterns & shadows</div>
+        <div class="topic-item"><span class="dot"></span>Pixel manipulation (getImageData, putImageData)</div>
+        <div class="topic-item"><span class="dot"></span>toDataURL, toBlob</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">SVG in HTML</div>
+      <div class="time-pill">⏱ 45 min</div>
+      <div class="sec-h2">Inline SVG</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;svg&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>viewBox & viewport</div>
+        <div class="topic-item"><span class="dot"></span>Basic shapes: rect, circle, ellipse, line, polyline, polygon, path</div>
+        <div class="topic-item"><span class="dot"></span>SVG text</div>
+        <div class="topic-item"><span class="dot"></span>SVG groups <code class="code-tag">&lt;g&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>SVG defs & use</div>
+        <div class="topic-item"><span class="dot"></span>SVG gradients & patterns</div>
+        <div class="topic-item"><span class="dot"></span>SVG filters & masks</div>
+        <div class="topic-item"><span class="dot"></span>SVG accessibility (title, desc, role)</div>
+        <div class="topic-item"><span class="dot"></span>Inline SVG vs img SVG vs CSS background</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">MathML in HTML5</div>
+      <div class="time-pill">⏱ 20 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;math&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>mrow, mn, mo, mi, mfrac, msqrt, mroot, msup, msub</div>
+        <div class="topic-item"><span class="dot"></span>display attribute (inline vs block)</div>
+        <div class="topic-item"><span class="dot"></span>MathML browser support</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Build a media-rich page: embed a video with tracks, draw a bar chart on Canvas, and add an inline SVG icon system.</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day4',this)">✓ Mark Day 4 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day4')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 5 ======================== -->
+<div class="day-card" id="day5" style="--day-bg: rgba(255,122,89,0.07); --day-accent: #ff7a59;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#ff7a59;">Day 5</span>
+      <div>
+        <div class="day-title">HTML APIs, Storage & Performance</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">HTML5 Web Storage APIs</div>
+      <div class="time-pill">⏱ 45 min</div>
+ 
+      <div class="sec-h2">localStorage</div>
+      <div class="topic-grid" style="--item-dot:#ff7a59;">
+        <div class="topic-item"><span class="dot"></span>setItem, getItem, removeItem, clear</div>
+        <div class="topic-item"><span class="dot"></span>Storage limits (~5MB)</div>
+        <div class="topic-item"><span class="dot"></span>Persistence across sessions</div>
+        <div class="topic-item"><span class="dot"></span>JSON.stringify / JSON.parse</div>
+        <div class="topic-item"><span class="dot"></span>StorageEvent (cross-tab sync)</div>
+      </div>
+ 
+      <div class="sec-h2">sessionStorage</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Tab-scoped storage</div>
+        <div class="topic-item"><span class="dot"></span>Same API as localStorage</div>
+        <div class="topic-item"><span class="dot"></span>When to use sessionStorage vs localStorage</div>
+      </div>
+ 
+      <div class="sec-h2">IndexedDB (overview)</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>What is IndexedDB?</div>
+        <div class="topic-item"><span class="dot"></span>Object stores & indexes</div>
+        <div class="topic-item"><span class="dot"></span>Transactions</div>
+        <div class="topic-item"><span class="dot"></span>IDBOpenDBRequest basics</div>
+      </div>
+ 
+      <div class="sec-h2">Cookies</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>document.cookie API</div>
+        <div class="topic-item"><span class="dot"></span>Expires vs Max-Age</div>
+        <div class="topic-item"><span class="dot"></span>Secure, HttpOnly, SameSite flags</div>
+        <div class="topic-item"><span class="dot"></span>Cookie vs localStorage vs sessionStorage</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML5 Browser APIs</div>
+      <div class="time-pill">⏱ 2 hr</div>
+ 
+      <div class="sec-h2">Geolocation API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>navigator.geolocation</div>
+        <div class="topic-item"><span class="dot"></span>getCurrentPosition()</div>
+        <div class="topic-item"><span class="dot"></span>watchPosition()</div>
+        <div class="topic-item"><span class="dot"></span>clearWatch()</div>
+        <div class="topic-item"><span class="dot"></span>Position object (coords, timestamp)</div>
+        <div class="topic-item"><span class="dot"></span>Error handling</div>
+        <div class="topic-item"><span class="dot"></span>HTTPS requirement</div>
+      </div>
+ 
+      <div class="sec-h2">Drag & Drop API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>draggable attribute</div>
+        <div class="topic-item"><span class="dot"></span>dragstart, drag, dragend events</div>
+        <div class="topic-item"><span class="dot"></span>dragenter, dragover, dragleave, drop events</div>
+        <div class="topic-item"><span class="dot"></span>dataTransfer object</div>
+        <div class="topic-item"><span class="dot"></span>setData & getData</div>
+        <div class="topic-item"><span class="dot"></span>effectAllowed & dropEffect</div>
+      </div>
+ 
+      <div class="sec-h2">History API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>history.pushState()</div>
+        <div class="topic-item"><span class="dot"></span>history.replaceState()</div>
+        <div class="topic-item"><span class="dot"></span>history.back(), forward(), go()</div>
+        <div class="topic-item"><span class="dot"></span>popstate event</div>
+        <div class="topic-item"><span class="dot"></span>hashchange event</div>
+        <div class="topic-item"><span class="dot"></span>SPA routing concepts</div>
+      </div>
+ 
+      <div class="sec-h2">Notification API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Notification.requestPermission()</div>
+        <div class="topic-item"><span class="dot"></span>new Notification()</div>
+        <div class="topic-item"><span class="dot"></span>Options: body, icon, badge, image</div>
+        <div class="topic-item"><span class="dot"></span>click, close, error events</div>
+      </div>
+ 
+      <div class="sec-h2">Clipboard API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>navigator.clipboard.writeText()</div>
+        <div class="topic-item"><span class="dot"></span>navigator.clipboard.readText()</div>
+        <div class="topic-item"><span class="dot"></span>Clipboard permissions</div>
+        <div class="topic-item"><span class="dot"></span>execCommand (deprecated)</div>
+      </div>
+ 
+      <div class="sec-h2">Web Workers (overview)</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>new Worker()</div>
+        <div class="topic-item"><span class="dot"></span>postMessage & onmessage</div>
+        <div class="topic-item"><span class="dot"></span>Dedicated vs Shared Workers</div>
+        <div class="topic-item"><span class="dot"></span>Service Workers (overview)</div>
+      </div>
+ 
+      <div class="sec-h2">Intersection Observer API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>new IntersectionObserver()</div>
+        <div class="topic-item"><span class="dot"></span>observe(), unobserve(), disconnect()</div>
+        <div class="topic-item"><span class="dot"></span>threshold & rootMargin options</div>
+        <div class="topic-item"><span class="dot"></span>Lazy loading images</div>
+        <div class="topic-item"><span class="dot"></span>Infinite scroll</div>
+      </div>
+ 
+      <div class="sec-h2">MutationObserver API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>new MutationObserver(callback)</div>
+        <div class="topic-item"><span class="dot"></span>observe() options (attributes, childList, subtree)</div>
+        <div class="topic-item"><span class="dot"></span>disconnect()</div>
+        <div class="topic-item"><span class="dot"></span>MutationRecord properties</div>
+      </div>
+ 
+      <div class="sec-h2">ResizeObserver API</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>new ResizeObserver(callback)</div>
+        <div class="topic-item"><span class="dot"></span>observe, unobserve, disconnect</div>
+        <div class="topic-item"><span class="dot"></span>ResizeObserverEntry</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Performance & Optimization</div>
+      <div class="time-pill">⏱ 1.5 hr</div>
+ 
+      <div class="sec-h2">Resource Loading</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>defer attribute on scripts</div>
+        <div class="topic-item"><span class="dot"></span>async attribute on scripts</div>
+        <div class="topic-item"><span class="dot"></span>type="module" for ES modules</div>
+        <div class="topic-item"><span class="dot"></span>Preload: <code class="code-tag">&lt;link rel="preload"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Prefetch: <code class="code-tag">&lt;link rel="prefetch"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Preconnect: <code class="code-tag">&lt;link rel="preconnect"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>DNS-prefetch: <code class="code-tag">&lt;link rel="dns-prefetch"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>modulepreload</div>
+        <div class="topic-item"><span class="dot"></span>Render-blocking resources</div>
+        <div class="topic-item"><span class="dot"></span>Critical path CSS</div>
+      </div>
+ 
+      <div class="sec-h2">Image Performance</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Native lazy loading (loading="lazy")</div>
+        <div class="topic-item"><span class="dot"></span>fetchpriority attribute</div>
+        <div class="topic-item"><span class="dot"></span>Responsive images (srcset, sizes)</div>
+        <div class="topic-item"><span class="dot"></span>WebP & AVIF formats</div>
+        <div class="topic-item"><span class="dot"></span>Image CDN concepts</div>
+        <div class="topic-item"><span class="dot"></span>width & height to prevent CLS</div>
+      </div>
+ 
+      <div class="sec-h2">Core Web Vitals</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>LCP (Largest Contentful Paint)</div>
+        <div class="topic-item"><span class="dot"></span>FID / INP (Interaction to Next Paint)</div>
+        <div class="topic-item"><span class="dot"></span>CLS (Cumulative Layout Shift)</div>
+        <div class="topic-item"><span class="dot"></span>TTFB (Time to First Byte)</div>
+        <div class="topic-item"><span class="dot"></span>FCP (First Contentful Paint)</div>
+        <div class="topic-item"><span class="dot"></span>Lighthouse audit</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Build a drag-and-drop to-do list using the Drag & Drop API, with state saved to localStorage. Audit with Lighthouse.</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day5',this)">✓ Mark Day 5 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day5')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 6 ======================== -->
+<div class="day-card" id="day6" style="--day-bg: rgba(167,139,250,0.07); --day-accent: #a78bfa;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#a78bfa;">Day 6</span>
+      <div>
+        <div class="day-title">SEO, PWA, Web Components & Security</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">SEO with HTML</div>
+      <div class="time-pill">⏱ 1 hr</div>
+ 
+      <div class="sec-h2">On-Page SEO Elements</div>
+      <div class="topic-grid" style="--item-dot:#a78bfa;">
+        <div class="topic-item"><span class="dot"></span>Title tag optimization</div>
+        <div class="topic-item"><span class="dot"></span>Meta description</div>
+        <div class="topic-item"><span class="dot"></span>Canonical URL <code class="code-tag">&lt;link rel="canonical"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>Heading hierarchy (h1-h6)</div>
+        <div class="topic-item"><span class="dot"></span>Alt text for images</div>
+        <div class="topic-item"><span class="dot"></span>Descriptive link text</div>
+        <div class="topic-item"><span class="dot"></span>robots meta tag</div>
+        <div class="topic-item"><span class="dot"></span>noindex, nofollow</div>
+        <div class="topic-item"><span class="dot"></span>hreflang for multilingual</div>
+        <div class="topic-item"><span class="dot"></span>XML sitemaps (referenced in HTML)</div>
+      </div>
+ 
+      <div class="sec-h2">Structured Data (Schema.org)</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>JSON-LD (recommended)</div>
+        <div class="topic-item"><span class="dot"></span>Microdata</div>
+        <div class="topic-item"><span class="dot"></span>RDFa</div>
+        <div class="topic-item"><span class="dot"></span>Article schema</div>
+        <div class="topic-item"><span class="dot"></span>Product schema</div>
+        <div class="topic-item"><span class="dot"></span>BreadcrumbList schema</div>
+        <div class="topic-item"><span class="dot"></span>FAQPage schema</div>
+        <div class="topic-item"><span class="dot"></span>Organization schema</div>
+        <div class="topic-item"><span class="dot"></span>Google Rich Results Test</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Progressive Web Apps (PWA)</div>
+      <div class="time-pill">⏱ 1.5 hr</div>
+ 
+      <div class="sec-h2">Web App Manifest</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;link rel="manifest"&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>name & short_name</div>
+        <div class="topic-item"><span class="dot"></span>icons array</div>
+        <div class="topic-item"><span class="dot"></span>start_url</div>
+        <div class="topic-item"><span class="dot"></span>display (standalone, fullscreen, minimal-ui, browser)</div>
+        <div class="topic-item"><span class="dot"></span>theme_color & background_color</div>
+        <div class="topic-item"><span class="dot"></span>orientation</div>
+        <div class="topic-item"><span class="dot"></span>screenshots</div>
+        <div class="topic-item"><span class="dot"></span>shortcuts</div>
+        <div class="topic-item"><span class="dot"></span>related_applications</div>
+      </div>
+ 
+      <div class="sec-h2">Service Worker</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Registering a service worker</div>
+        <div class="topic-item"><span class="dot"></span>install, activate, fetch events</div>
+        <div class="topic-item"><span class="dot"></span>Cache API</div>
+        <div class="topic-item"><span class="dot"></span>Cache strategies (cache-first, network-first)</div>
+        <div class="topic-item"><span class="dot"></span>Offline support</div>
+        <div class="topic-item"><span class="dot"></span>Background sync</div>
+        <div class="topic-item"><span class="dot"></span>Push notifications</div>
+        <div class="topic-item"><span class="dot"></span>Workbox library overview</div>
+      </div>
+ 
+      <div class="sec-h2">PWA Features</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Install prompt (beforeinstallprompt)</div>
+        <div class="topic-item"><span class="dot"></span>App install badge</div>
+        <div class="topic-item"><span class="dot"></span>Splash screen</div>
+        <div class="topic-item"><span class="dot"></span>Standalone mode detection</div>
+        <div class="topic-item"><span class="dot"></span>Apple PWA meta tags</div>
+        <div class="topic-item"><span class="dot"></span>apple-touch-icon</div>
+        <div class="topic-item"><span class="dot"></span>Lighthouse PWA audit</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Web Components</div>
+      <div class="time-pill">⏱ 1 hr</div>
+ 
+      <div class="sec-h2">Custom Elements</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>customElements.define()</div>
+        <div class="topic-item"><span class="dot"></span>Autonomous custom elements</div>
+        <div class="topic-item"><span class="dot"></span>Customized built-in elements</div>
+        <div class="topic-item"><span class="dot"></span>Lifecycle callbacks (connectedCallback, disconnectedCallback, attributeChangedCallback)</div>
+        <div class="topic-item"><span class="dot"></span>observedAttributes</div>
+        <div class="topic-item"><span class="dot"></span>adoptedCallback</div>
+      </div>
+ 
+      <div class="sec-h2">Shadow DOM</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>attachShadow({ mode: 'open'/'closed' })</div>
+        <div class="topic-item"><span class="dot"></span>Shadow root</div>
+        <div class="topic-item"><span class="dot"></span>Style encapsulation</div>
+        <div class="topic-item"><span class="dot"></span>::part() CSS pseudo-element</div>
+        <div class="topic-item"><span class="dot"></span>CSS custom properties in shadow DOM</div>
+      </div>
+ 
+      <div class="sec-h2">HTML Templates & Slots</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;template&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>template.content.cloneNode(true)</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;slot&gt;</code> element</div>
+        <div class="topic-item"><span class="dot"></span>Named slots</div>
+        <div class="topic-item"><span class="dot"></span>Slot fallback content</div>
+        <div class="topic-item"><span class="dot"></span>slotchange event</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Security</div>
+      <div class="time-pill">⏱ 45 min</div>
+ 
+      <div class="sec-h2">Content Security Policy (CSP)</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>CSP via meta tag</div>
+        <div class="topic-item"><span class="dot"></span>default-src, script-src, style-src</div>
+        <div class="topic-item"><span class="dot"></span>img-src, font-src, connect-src</div>
+        <div class="topic-item"><span class="dot"></span>'none', 'self', 'unsafe-inline'</div>
+        <div class="topic-item"><span class="dot"></span>nonce-based CSP</div>
+        <div class="topic-item"><span class="dot"></span>report-uri / report-to</div>
+      </div>
+ 
+      <div class="sec-h2">XSS Prevention</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>innerHTML vs textContent vs innerText</div>
+        <div class="topic-item"><span class="dot"></span>HTML encoding/escaping</div>
+        <div class="topic-item"><span class="dot"></span>DOMPurify library</div>
+        <div class="topic-item"><span class="dot"></span>sanitizeHTML proposal</div>
+        <div class="topic-item"><span class="dot"></span>Trusted Types API</div>
+      </div>
+ 
+      <div class="sec-h2">Other Security Attributes</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>sandbox on iframes</div>
+        <div class="topic-item"><span class="dot"></span>rel="noopener noreferrer"</div>
+        <div class="topic-item"><span class="dot"></span>Referrer-Policy meta tag</div>
+        <div class="topic-item"><span class="dot"></span>HTTPS enforcement</div>
+        <div class="topic-item"><span class="dot"></span>Subresource Integrity (SRI) - integrity & crossorigin</div>
+        <div class="topic-item"><span class="dot"></span>CORS with crossorigin attribute</div>
+      </div>
+ 
+      <div class="note-box">💡 <strong>Practice:</strong> Create a PWA (offline-capable) with a web app manifest, service worker. Build one custom web component (e.g., a star-rating component).</div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day6',this)">✓ Mark Day 6 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day6')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ======================== DAY 7 ======================== -->
+<div class="day-card" id="day7" style="--day-bg: rgba(244,114,182,0.07); --day-accent: #f472b6;">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-left">
+      <span class="day-badge" style="background:#f472b6;">Day 7</span>
+      <div>
+        <div class="day-title">Advanced HTML5, Best Practices & Capstone</div>
+      </div>
+    </div>
+    <div class="day-meta">
+      <div class="day-time">⏱ ~5 Hours</div>
+      <div class="day-chevron">▼</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="day-inner">
+ 
+      <div class="sec-h1">Advanced HTML5 Features</div>
+      <div class="time-pill">⏱ 1 hr</div>
+ 
+      <div class="sec-h2">Popover API (New)</div>
+      <div class="topic-grid" style="--item-dot:#f472b6;">
+        <div class="topic-item"><span class="dot"></span>popover attribute</div>
+        <div class="topic-item"><span class="dot"></span>popovertarget attribute</div>
+        <div class="topic-item"><span class="dot"></span>popovertargetaction</div>
+        <div class="topic-item"><span class="dot"></span>:popover-open CSS pseudo-class</div>
+        <div class="topic-item"><span class="dot"></span>showPopover(), hidePopover(), togglePopover()</div>
+        <div class="topic-item"><span class="dot"></span>beforetoggle, toggle events</div>
+        <div class="topic-item"><span class="dot"></span>Auto vs manual popover</div>
+      </div>
+ 
+      <div class="sec-h2">Dialog Element</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dialog&gt;</code></div>
+        <div class="topic-item"><span class="dot"></span>open attribute</div>
+        <div class="topic-item"><span class="dot"></span>showModal() vs show()</div>
+        <div class="topic-item"><span class="dot"></span>close() method</div>
+        <div class="topic-item"><span class="dot"></span>returnValue</div>
+        <div class="topic-item"><span class="dot"></span>close event</div>
+        <div class="topic-item"><span class="dot"></span>::backdrop pseudo-element</div>
+      </div>
+ 
+      <div class="sec-h2">Details & Summary</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;details&gt;</code> open attribute</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;summary&gt;</code> as toggle</div>
+        <div class="topic-item"><span class="dot"></span>toggle event</div>
+        <div class="topic-item"><span class="dot"></span>Accordion pattern</div>
+        <div class="topic-item"><span class="dot"></span>name attribute (exclusive accordion)</div>
+      </div>
+ 
+      <div class="sec-h2">Lazy Loading & Resource Hints</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>loading="lazy" on img & iframe</div>
+        <div class="topic-item"><span class="dot"></span>loading="eager"</div>
+        <div class="topic-item"><span class="dot"></span>fetchpriority="high/low/auto"</div>
+        <div class="topic-item"><span class="dot"></span>decoding="async"</div>
+        <div class="topic-item"><span class="dot"></span>importance attribute</div>
+      </div>
+ 
+      <div class="sec-h2">Content Editability</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>contenteditable attribute</div>
+        <div class="topic-item"><span class="dot"></span>contenteditable="plaintext-only"</div>
+        <div class="topic-item"><span class="dot"></span>spellcheck</div>
+        <div class="topic-item"><span class="dot"></span>document.execCommand() (deprecated)</div>
+        <div class="topic-item"><span class="dot"></span>Selection API</div>
+        <div class="topic-item"><span class="dot"></span>Range API</div>
+        <div class="topic-item"><span class="dot"></span>designMode</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Internationalization (i18n)</div>
+      <div class="time-pill">⏱ 30 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>lang attribute (BCP47 tags)</div>
+        <div class="topic-item"><span class="dot"></span>dir attribute (ltr, rtl, auto)</div>
+        <div class="topic-item"><span class="dot"></span>hreflang on links</div>
+        <div class="topic-item"><span class="dot"></span>charset="UTF-8"</div>
+        <div class="topic-item"><span class="dot"></span>Unicode & emoji in HTML</div>
+        <div class="topic-item"><span class="dot"></span>HTML entities for special chars</div>
+        <div class="topic-item"><span class="dot"></span>RTL layout considerations</div>
+        <div class="topic-item"><span class="dot"></span>translate attribute</div>
+        <div class="topic-item"><span class="dot"></span>Intl API (JS, triggered from HTML)</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Best Practices & Standards</div>
+      <div class="time-pill">⏱ 45 min</div>
+ 
+      <div class="sec-h2">Code Quality</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>HTML validation (W3C Validator)</div>
+        <div class="topic-item"><span class="dot"></span>Consistent indentation</div>
+        <div class="topic-item"><span class="dot"></span>Lowercase tags & attributes</div>
+        <div class="topic-item"><span class="dot"></span>Quoting attribute values</div>
+        <div class="topic-item"><span class="dot"></span>Avoiding inline styles</div>
+        <div class="topic-item"><span class="dot"></span>Avoiding deprecated elements</div>
+        <div class="topic-item"><span class="dot"></span>HTML linters (HTMLHint)</div>
+        <div class="topic-item"><span class="dot"></span>Prettier formatting</div>
+      </div>
+ 
+      <div class="sec-h2">Document Organization</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Logical source order</div>
+        <div class="topic-item"><span class="dot"></span>Separation of concerns (HTML/CSS/JS)</div>
+        <div class="topic-item"><span class="dot"></span>Avoiding table layouts</div>
+        <div class="topic-item"><span name="dot"></span>Meaningful class & id naming</div>
+        <div class="topic-item"><span class="dot"></span>BEM naming convention</div>
+        <div class="topic-item"><span class="dot"></span>DRY principles in HTML (templates)</div>
+      </div>
+ 
+      <div class="sec-h2">HTML & CSS Integration</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>External stylesheets (preferred)</div>
+        <div class="topic-item"><span class="dot"></span>Critical CSS inline</div>
+        <div class="topic-item"><span class="dot"></span>CSS-in-HTML pitfalls</div>
+        <div class="topic-item"><span class="dot"></span>Stylesheet media queries</div>
+        <div class="topic-item"><span class="dot"></span>print stylesheets</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">HTML Email Basics</div>
+      <div class="time-pill">⏱ 30 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Table-based layouts for email</div>
+        <div class="topic-item"><span class="dot"></span>Inline styles requirement</div>
+        <div class="topic-item"><span class="dot"></span>MSO conditional comments</div>
+        <div class="topic-item"><span class="dot"></span>Email-safe fonts</div>
+        <div class="topic-item"><span class="dot"></span>Responsive email (media queries)</div>
+        <div class="topic-item"><span class="dot"></span>CAN-SPAM compliance</div>
+        <div class="topic-item"><span class="dot"></span>Email testing tools (Litmus, Email on Acid)</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Deprecated & Removed HTML Elements</div>
+      <div class="time-pill">⏱ 20 min</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;center&gt;</code> → use CSS</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;font&gt;</code> → use CSS</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;marquee&gt;</code> → use CSS animations</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;blink&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;frame&gt;</code> <code class="code-tag">&lt;frameset&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;applet&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;acronym&gt;</code> → use &lt;abbr&gt;</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;basefont&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;dir&gt;</code> → use &lt;ul&gt;</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;isindex&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;listing&gt;</code> → removed</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;menu&gt;</code> → use &lt;ul&gt; or nav</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;nobr&gt;</code> → use CSS white-space</div>
+        <div class="topic-item"><span class="dot"></span><code class="code-tag">&lt;noembed&gt;</code> → removed</div>
+      </div>
+ 
+      <div class="divider"></div>
+ 
+      <div class="sec-h1">Capstone Project</div>
+      <div class="time-pill">⏱ 2 hr</div>
+      <div class="note-box">🎯 <strong>Build a Full Portfolio Website</strong> using every concept learned across 7 days. Requirements below:</div>
+ 
+      <div class="sec-h2">Required Features Checklist</div>
+      <div class="topic-grid">
+        <div class="topic-item"><span class="dot"></span>Proper HTML5 boilerplate</div>
+        <div class="topic-item"><span class="dot"></span>Full semantic structure (header, nav, main, footer, aside)</div>
+        <div class="topic-item"><span class="dot"></span>All relevant meta tags (SEO + OG)</div>
+        <div class="topic-item"><span class="dot"></span>Responsive images with srcset</div>
+        <div class="topic-item"><span class="dot"></span>Complete contact form with all input types & validation</div>
+        <div class="topic-item"><span class="dot"></span>Data table (skills/experience)</div>
+        <div class="topic-item"><span class="dot"></span>Embedded video with track</div>
+        <div class="topic-item"><span class="dot"></span>Canvas animation (hero section)</div>
+        <div class="topic-item"><span class="dot"></span>Inline SVG icons</div>
+        <div class="topic-item"><span class="dot"></span>Custom web component (e.g., skill-bar)</div>
+        <div class="topic-item"><span class="dot"></span>PWA manifest + service worker</div>
+        <div class="topic-item"><span class="dot"></span>ARIA landmarks & roles</div>
+        <div class="topic-item"><span class="dot"></span>localStorage for dark/light mode preference</div>
+        <div class="topic-item"><span class="dot"></span>JSON-LD structured data</div>
+        <div class="topic-item"><span class="dot"></span>SRI on external resources</div>
+        <div class="topic-item"><span class="dot"></span>Lighthouse score 90+ on all metrics</div>
+        <div class="topic-item"><span class="dot"></span>W3C Validator — zero errors</div>
+        <div class="topic-item"><span class="dot"></span>axe accessibility audit — zero violations</div>
+      </div>
+ 
+      <div class="day-actions">
+        <button class="btn-complete primary" onclick="markDayComplete('day7',this)">🎉 Mark Day 7 Complete</button>
+        <button class="btn-reset" onclick="resetDay('day7')">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+</div><!-- end .container -->
+ 
+<footer>
+  Built with 💜 for HTML learners — <span>Complete HTML5 Roadmap 2024</span> — Cover every topic, miss nothing.
+</footer>
+ 
+<script>
+// Toggle Day
+function toggleDay(header) {
+  const card = header.closest('.day-card');
+  card.classList.toggle('open');
+}
+ 
+// Mark day complete
+function markDayComplete(dayId, btn) {
+  const card = document.getElementById(dayId);
+  const items = card.querySelectorAll('.topic-item');
+  items.forEach(item => item.classList.add('done'));
+  btn.textContent = '✓ Completed!';
+  btn.style.background = 'rgba(122,255,196,0.2)';
+  saveProgress();
+  updateProgress();
+}
+ 
+// Reset day
+function resetDay(dayId) {
+  const card = document.getElementById(dayId);
+  const items = card.querySelectorAll('.topic-item');
+  items.forEach(item => item.classList.remove('done'));
+  const btn = card.querySelector('.btn-complete.primary');
+  if (btn) {
+    btn.textContent = btn.textContent.replace('✓ Completed!', '✓ Mark ' + dayId.replace('day','Day ') + ' Complete');
+    btn.style.background = '';
+  }
+  saveProgress();
+  updateProgress();
+}
+ 
+// Individual topic toggle
+document.addEventListener('click', function(e) {
+  const item = e.target.closest('.topic-item');
+  if (item && !e.target.closest('.btn-complete') && !e.target.closest('.btn-reset')) {
+    item.classList.toggle('done');
+    saveProgress();
+    updateProgress();
+  }
+});
+ 
+// Progress
+function updateProgress() {
+  const all = document.querySelectorAll('.topic-item').length;
+  const done = document.querySelectorAll('.topic-item.done').length;
+  const pct = Math.round((done / all) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '% Complete';
+}
+ 
+// Save/load (sessionStorage safe)
+function saveProgress() {
+  try {
+    const doneIds = [];
+    document.querySelectorAll('.topic-item.done').forEach((el,i) => {
+      doneIds.push(el.closest('.day-card').id + '-' + Array.from(el.closest('.day-card').querySelectorAll('.topic-item')).indexOf(el));
+    });
+    sessionStorage.setItem('htmlRoadmapProgress', JSON.stringify(doneIds));
+  } catch(e) {}
+}
+ 
+function loadProgress() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('htmlRoadmapProgress') || '[]');
+    saved.forEach(key => {
+      const parts = key.split('-');
+      const dayId = parts[0] + '-' + parts[1];
+      const idx = parseInt(parts[2]);
+      const card = document.getElementById(dayId);
+      if (card) {
+        const items = card.querySelectorAll('.topic-item');
+        if (items[idx]) items[idx].classList.add('done');
+      }
+    });
+  } catch(e) {}
+  updateProgress();
+}
+ 
+// Filter
+function filterDays(filter, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.day-card').forEach(card => {
+    if (filter === 'all' || card.id === filter) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+ 
+// Open first day by default
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.day-card').classList.add('open');
+  loadProgress();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1917 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Complete Roadmap – 45 Days</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060818;
+    --surface: rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.10);
+    --border-bright: rgba(255,255,255,0.22);
+    --text: #e8eaf6;
+    --text-dim: #8892b0;
+    --accent1: #7c3aed;
+    --accent2: #06b6d4;
+    --accent3: #f59e0b;
+    --accent4: #10b981;
+    --accent5: #f43f5e;
+    --accent6: #a855f7;
+    --h1c: #a78bfa;
+    --h2c: #67e8f9;
+    --h3c: #fde68a;
+    --h4c: #6ee7b7;
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+ 
+  /* Animated background blobs */
+  .bg-blobs {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: blobFloat 18s ease-in-out infinite alternate;
+  }
+  .blob1 { width: 600px; height: 600px; background: var(--accent1); top: -200px; left: -200px; animation-duration: 20s; }
+  .blob2 { width: 500px; height: 500px; background: var(--accent2); top: 30%; right: -150px; animation-duration: 16s; }
+  .blob3 { width: 400px; height: 400px; background: var(--accent5); bottom: -100px; left: 30%; animation-duration: 22s; }
+  .blob4 { width: 300px; height: 300px; background: var(--accent4); bottom: 20%; left: -100px; animation-duration: 14s; }
+  @keyframes blobFloat {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.1); }
+  }
+ 
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+ 
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 50px;
+    margin-bottom: 40px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(124,58,237,0.18);
+    border: 1px solid rgba(124,58,237,0.4);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent6);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #a78bfa 0%, #67e8f9 50%, #fde68a 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 18px;
+  }
+  .hero p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    padding: 14px 28px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem; font-weight: 800;
+    background: linear-gradient(135deg, #a78bfa, #67e8f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+ 
+  /* SEARCH + FILTER */
+  .controls {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 32px;
+    align-items: center;
+  }
+  .search-wrap {
+    flex: 1; min-width: 220px;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px 16px 12px 44px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--border-bright); }
+  .search-wrap input::placeholder { color: var(--text-dim); }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); font-size: 1rem;
+  }
+  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: var(--text-dim);
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--surface-hover);
+    border-color: var(--border-bright);
+    color: var(--text);
+  }
+  .filter-btn.active { color: var(--accent6); border-color: var(--accent1); }
+ 
+  /* PROGRESS BAR */
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .progress-label { font-size: 0.85rem; color: var(--text-dim); white-space: nowrap; }
+  .progress-bar-wrap { flex: 1; min-width: 160px; background: rgba(255,255,255,0.06); border-radius: 100px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent1), var(--accent2)); transition: width 0.4s ease; }
+  .progress-count { font-size: 0.85rem; font-weight: 600; color: var(--h1c); white-space: nowrap; }
+ 
+  /* DAY CARDS */
+  .days-grid { display: flex; flex-direction: column; gap: 20px; }
+ 
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .day-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+ 
+  .day-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .day-header:hover { background: var(--surface-hover); }
+ 
+  .day-num {
+    min-width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 800;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+ 
+  .day-meta { flex: 1; }
+  .day-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .day-sub {
+    font-size: 0.8rem; color: var(--text-dim);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .day-sub span { display: flex; align-items: center; gap: 4px; }
+ 
+  .day-chevron {
+    color: var(--text-dim); font-size: 1.1rem;
+    transition: transform 0.3s;
+  }
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+ 
+  .day-check {
+    width: 26px; height: 26px; border-radius: 8px;
+    border: 2px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+  }
+  .day-check.checked {
+    background: var(--accent4);
+    border-color: var(--accent4);
+    color: #000;
+  }
+ 
+  .day-body {
+    display: none;
+    padding: 0 24px 24px;
+  }
+  .day-card.open .day-body { display: block; }
+ 
+  /* Topics inside day */
+  .topic-block { margin-bottom: 22px; }
+  .topic-block:last-child { margin-bottom: 0; }
+ 
+  .topic-h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.45rem; font-weight: 800;
+    color: var(--h1c);
+    margin: 16px 0 10px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid rgba(167,139,250,0.2);
+    padding-bottom: 8px;
+  }
+  .topic-h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--h2c);
+    margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .topic-h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.98rem; font-weight: 700;
+    color: var(--h3c);
+    margin: 10px 0 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .topic-h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--h4c);
+    margin: 8px 0 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+ 
+  .topics-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .topics-list li {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    display: flex; align-items: flex-start; gap: 8px;
+    transition: background 0.18s, color 0.18s;
+  }
+  .topics-list li:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+  .topics-list li .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 5px;
+  }
+ 
+  .tip-box {
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.8rem;
+    color: #67e8f9;
+    margin-top: 12px;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .tip-box .tip-icon { flex-shrink: 0; }
+ 
+  /* Color themes per week */
+  .week1 .day-num { background: rgba(124,58,237,0.2); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.3); }
+  .week2 .day-num { background: rgba(6,182,212,0.2); color: #67e8f9; border: 1px solid rgba(6,182,212,0.3); }
+  .week3 .day-num { background: rgba(245,158,11,0.2); color: #fde68a; border: 1px solid rgba(245,158,11,0.3); }
+  .week4 .day-num { background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+  .week5 .day-num { background: rgba(244,63,94,0.2); color: #fda4af; border: 1px solid rgba(244,63,94,0.3); }
+  .week6 .day-num { background: rgba(168,85,247,0.2); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+  .week7 .day-num { background: rgba(251,146,60,0.2); color: #fed7aa; border: 1px solid rgba(251,146,60,0.3); }
+ 
+  /* Week separator */
+  .week-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 8px 0 4px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .week-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+ 
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 100px; }
+ 
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2rem; }
+    .day-header { padding: 14px 16px; }
+    .day-body { padding: 0 16px 18px; }
+    .topics-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+ 
+<div class="bg-blobs">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+</div>
+ 
+<div class="wrapper">
+ 
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">🎨 Complete Learning Path</div>
+    <h1>CSS Complete<br>Roadmap</h1>
+    <p>Master every CSS concept from absolute basics to advanced techniques — structured into a focused 45-day plan.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">45</div><div class="stat-label">Days</div></div>
+      <div class="stat"><div class="stat-num">180+</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Weeks</div></div>
+      <div class="stat"><div class="stat-num">~2–4h</div><div class="stat-label">Per Day</div></div>
+    </div>
+  </div>
+ 
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search topics, days, concepts...">
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="week1">Week 1</button>
+      <button class="filter-btn" data-filter="week2">Week 2</button>
+      <button class="filter-btn" data-filter="week3">Week 3</button>
+      <button class="filter-btn" data-filter="week4">Week 4</button>
+      <button class="filter-btn" data-filter="week5">Week 5</button>
+      <button class="filter-btn" data-filter="week6">Week 6</button>
+      <button class="filter-btn" data-filter="week7">Week 7</button>
+    </div>
+  </div>
+ 
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <span class="progress-label">📊 Overall Progress</span>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <span class="progress-count" id="progressCount">0 / 45 days</span>
+  </div>
+ 
+  <!-- DAYS -->
+  <div class="days-grid" id="daysGrid"></div>
+ 
+</div>
+ 
+<script>
+const days = [
+  // ── WEEK 1: Foundations ──────────────────────────────────────────────────
+  {
+    day: 1, week: 'week1',
+    title: 'Introduction to CSS',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># What is CSS?</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>History & evolution of CSS (CSS1, CSS2, CSS3, CSS4)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>How browsers render CSS</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS working group & specifications</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Role of CSS in web development</li>
+        </ul>
+        <div class="topic-h2">## Ways to Add CSS</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Inline CSS (style attribute)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Internal CSS (&lt;style&gt; tag)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>External CSS (&lt;link&gt; tag)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>@import rule</li>
+        </ul>
+        <div class="topic-h2">## CSS Syntax & Structure</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Selector { property: value; }</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Declaration block</li>
+          <li><span class="dot" style="background:#67e8f9"></span>CSS comments</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Case sensitivity rules</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Link an external CSS file to a basic HTML page and style headings and paragraphs.</div>
+      </div>`
+  },
+  {
+    day: 2, week: 'week1',
+    title: 'Selectors (Part 1)',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Selectors — Basic</div>
+        <div class="topic-h2">## Simple Selectors</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Universal selector (*)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Type / Element selector (div, p, h1…)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Class selector (.classname)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>ID selector (#idname)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Multiple class chaining (.a.b)</li>
+        </ul>
+        <div class="topic-h2">## Grouping & Combinators</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Grouping selector (A, B)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Descendant combinator (A B)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Child combinator (A > B)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Adjacent sibling combinator (A + B)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>General sibling combinator (A ~ B)</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Style a navigation menu using only combinators.</div>
+      </div>`
+  },
+  {
+    day: 3, week: 'week1',
+    title: 'Selectors (Part 2) — Attribute & Pseudo',
+    time: '3h', topics: 8,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Advanced Selectors</div>
+        <div class="topic-h2">## Attribute Selectors</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>[attr] – element has attribute</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr=value] – exact match</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr~=value] – space-separated list contains</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr|=value] – starts with value or value-</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr^=value] – starts with</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr$=value] – ends with</li>
+          <li><span class="dot" style="background:#a78bfa"></span>[attr*=value] – contains substring</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Case-insensitive flag [attr=val i]</li>
+        </ul>
+        <div class="topic-h2">## Pseudo-Classes (Structural)</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>:first-child / :last-child</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:nth-child(n) / :nth-last-child(n)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:nth-of-type(n)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:first-of-type / :last-of-type</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:only-child / :only-of-type</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:empty</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:root</li>
+        </ul>
+        <div class="topic-h2">## Pseudo-Classes (User Action)</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>:hover / :focus / :active</li>
+          <li><span class="dot" style="background:#fde68a"></span>:visited / :link</li>
+          <li><span class="dot" style="background:#fde68a"></span>:checked / :disabled / :enabled</li>
+          <li><span class="dot" style="background:#fde68a"></span>:required / :optional</li>
+          <li><span class="dot" style="background:#fde68a"></span>:valid / :invalid</li>
+          <li><span class="dot" style="background:#fde68a"></span>:placeholder-shown</li>
+          <li><span class="dot" style="background:#fde68a"></span>:focus-within / :focus-visible</li>
+        </ul>
+        <div class="topic-h2">## Pseudo-Elements</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>::before / ::after</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>::first-line / ::first-letter</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>::placeholder</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>::selection</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>::marker</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>::backdrop</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Style a form entirely using attribute and pseudo-class selectors without adding classes.</div>
+      </div>`
+  },
+  {
+    day: 4, week: 'week1',
+    title: 'Specificity, Cascade & Inheritance',
+    time: '3h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># The Cascade</div>
+        <div class="topic-h2">## Cascade Order</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Browser default styles</li>
+          <li><span class="dot" style="background:#a78bfa"></span>User stylesheets</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Author stylesheets</li>
+          <li><span class="dot" style="background:#a78bfa"></span>!important declarations</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Cascade layers (@layer)</li>
+        </ul>
+        <div class="topic-h2">## Specificity Calculation</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Inline styles (1,0,0,0)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>ID selectors (0,1,0,0)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Class / pseudo-class / attribute (0,0,1,0)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Type / pseudo-element (0,0,0,1)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Universal selector (0,0,0,0)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:is() / :not() specificity rules</li>
+          <li><span class="dot" style="background:#67e8f9"></span>:where() — zero specificity</li>
+        </ul>
+        <div class="topic-h2">## Inheritance</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Inherited vs non-inherited properties</li>
+          <li><span class="dot" style="background:#fde68a"></span>inherit keyword</li>
+          <li><span class="dot" style="background:#fde68a"></span>initial keyword</li>
+          <li><span class="dot" style="background:#fde68a"></span>unset keyword</li>
+          <li><span class="dot" style="background:#fde68a"></span>revert keyword</li>
+          <li><span class="dot" style="background:#fde68a"></span>all property shorthand</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Tip: Use browser DevTools to inspect specificity conflicts in real-time.</div>
+      </div>`
+  },
+  {
+    day: 5, week: 'week1',
+    title: 'Colors & Backgrounds',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Colors</div>
+        <div class="topic-h2">## Color Formats</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Named colors (140+ keywords)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Hexadecimal (#rrggbb, #rgb, #rrggbbaa)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>rgb() / rgba()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>hsl() / hsla()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>hwb() color function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>lab() / lch() / oklch() / oklab()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>color() function & color spaces</li>
+          <li><span class="dot" style="background:#a78bfa"></span>currentColor keyword</li>
+          <li><span class="dot" style="background:#a78bfa"></span>transparent keyword</li>
+        </ul>
+        <div class="topic-h2">## Background Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>background-color</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-image</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-repeat</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-size (cover, contain, px/%)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-position</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-attachment (fixed, scroll, local)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-origin</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background-clip</li>
+          <li><span class="dot" style="background:#67e8f9"></span>background shorthand</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Multiple backgrounds (layering)</li>
+        </ul>
+        <div class="topic-h2">## Gradients</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>linear-gradient()</li>
+          <li><span class="dot" style="background:#fde68a"></span>radial-gradient()</li>
+          <li><span class="dot" style="background:#fde68a"></span>conic-gradient()</li>
+          <li><span class="dot" style="background:#fde68a"></span>repeating-linear-gradient()</li>
+          <li><span class="dot" style="background:#fde68a"></span>repeating-radial-gradient()</li>
+          <li><span class="dot" style="background:#fde68a"></span>gradient color stops & hints</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Build a hero section with layered gradient backgrounds.</div>
+      </div>`
+  },
+  {
+    day: 6, week: 'week1',
+    title: 'Typography & Text',
+    time: '3h', topics: 7,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Typography</div>
+        <div class="topic-h2">## Font Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>font-family & font stacks</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-size (px, em, rem, vw, clamp)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-weight (100–900, bold, lighter)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-style (normal, italic, oblique)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-variant</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-stretch</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@font-face rule</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Google Fonts & self-hosted fonts</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Variable fonts & font-variation-settings</li>
+          <li><span class="dot" style="background:#a78bfa"></span>font-display (swap, block, fallback)</li>
+        </ul>
+        <div class="topic-h2">## Text Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>color</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-align (left, center, right, justify, start, end)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-decoration (underline, overline, line-through)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-decoration-color / style / thickness</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-transform (uppercase, lowercase, capitalize)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-indent</li>
+          <li><span class="dot" style="background:#67e8f9"></span>letter-spacing</li>
+          <li><span class="dot" style="background:#67e8f9"></span>word-spacing</li>
+          <li><span class="dot" style="background:#67e8f9"></span>line-height</li>
+          <li><span class="dot" style="background:#67e8f9"></span>white-space</li>
+          <li><span class="dot" style="background:#67e8f9"></span>word-break / overflow-wrap</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-overflow (ellipsis)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-shadow</li>
+          <li><span class="dot" style="background:#67e8f9"></span>text-stroke (webkit)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>writing-mode / direction</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 7, week: 'week1',
+    title: 'Units & Values',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Units</div>
+        <div class="topic-h2">## Absolute Units</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>px (pixels)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>pt, pc, cm, mm, in</li>
+        </ul>
+        <div class="topic-h2">## Relative Units</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>em (relative to parent font-size)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>rem (relative to :root font-size)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>% (percentage of parent)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>vw / vh (viewport width/height)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>vmin / vmax</li>
+          <li><span class="dot" style="background:#67e8f9"></span>svh / lvh / dvh (small/large/dynamic viewport)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>ex / ch</li>
+          <li><span class="dot" style="background:#67e8f9"></span>lh / rlh (line-height relative)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>cap / ic (advanced)</li>
+        </ul>
+        <div class="topic-h2">## CSS Functions for Values</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>calc() — arithmetic expressions</li>
+          <li><span class="dot" style="background:#fde68a"></span>min() / max()</li>
+          <li><span class="dot" style="background:#fde68a"></span>clamp(min, preferred, max)</li>
+          <li><span class="dot" style="background:#fde68a"></span>round() / mod() / rem() (CSS math)</li>
+          <li><span class="dot" style="background:#fde68a"></span>env() (environment variables)</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Best practice: Use rem for font sizes, em for spacing, % for layout widths.</div>
+      </div>`
+  },
+ 
+  // ── WEEK 2: Box Model & Layout Basics ────────────────────────────────────
+  {
+    day: 8, week: 'week2',
+    title: 'The Box Model',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Box Model</div>
+        <div class="topic-h2">## Box Model Components</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Content area</li>
+          <li><span class="dot" style="background:#67e8f9"></span>padding (top, right, bottom, left)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border (width, style, color)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>margin (top, right, bottom, left)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>outline vs border</li>
+        </ul>
+        <div class="topic-h2">## Box Sizing</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>content-box (default)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>border-box (recommended)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>inherit</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Universal border-box reset</li>
+        </ul>
+        <div class="topic-h2">## Width & Height</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>width / height</li>
+          <li><span class="dot" style="background:#fde68a"></span>min-width / max-width</li>
+          <li><span class="dot" style="background:#fde68a"></span>min-height / max-height</li>
+          <li><span class="dot" style="background:#fde68a"></span>fit-content / min-content / max-content</li>
+          <li><span class="dot" style="background:#fde68a"></span>aspect-ratio</li>
+        </ul>
+        <div class="topic-h2">## Margin Collapsing</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>Adjacent siblings collapsing</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Parent-child collapsing</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Empty block collapsing</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>How to prevent collapsing</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 9, week: 'week2',
+    title: 'Display & Visibility',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Display Property</div>
+        <div class="topic-h2">## display Values</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>block</li>
+          <li><span class="dot" style="background:#67e8f9"></span>inline</li>
+          <li><span class="dot" style="background:#67e8f9"></span>inline-block</li>
+          <li><span class="dot" style="background:#67e8f9"></span>none</li>
+          <li><span class="dot" style="background:#67e8f9"></span>contents</li>
+          <li><span class="dot" style="background:#67e8f9"></span>flow-root (new BFC)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>table, table-cell, table-row</li>
+          <li><span class="dot" style="background:#67e8f9"></span>list-item</li>
+        </ul>
+        <div class="topic-h2">## Visibility & Opacity</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>visibility: hidden vs display:none</li>
+          <li><span class="dot" style="background:#a78bfa"></span>opacity (0–1)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>pointer-events</li>
+          <li><span class="dot" style="background:#a78bfa"></span>clip-path for hiding</li>
+        </ul>
+        <div class="topic-h2">## Overflow</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>overflow: visible / hidden / scroll / auto / clip</li>
+          <li><span class="dot" style="background:#fde68a"></span>overflow-x / overflow-y</li>
+          <li><span class="dot" style="background:#fde68a"></span>overflow-block / overflow-inline</li>
+          <li><span class="dot" style="background:#fde68a"></span>text-overflow: ellipsis</li>
+          <li><span class="dot" style="background:#fde68a"></span>scrollbar styling</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 10, week: 'week2',
+    title: 'Positioning',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Positioning</div>
+        <div class="topic-h2">## Position Values</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>static (default)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>relative</li>
+          <li><span class="dot" style="background:#67e8f9"></span>absolute</li>
+          <li><span class="dot" style="background:#67e8f9"></span>fixed</li>
+          <li><span class="dot" style="background:#67e8f9"></span>sticky</li>
+        </ul>
+        <div class="topic-h2">## Offset Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>top / bottom / left / right / inset</li>
+          <li><span class="dot" style="background:#a78bfa"></span>inset shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Containing block concept</li>
+        </ul>
+        <div class="topic-h2">## Z-Index & Stacking Context</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>z-index values</li>
+          <li><span class="dot" style="background:#fde68a"></span>Stacking context creation rules</li>
+          <li><span class="dot" style="background:#fde68a"></span>Stacking order rules</li>
+          <li><span class="dot" style="background:#fde68a"></span>isolation: isolate</li>
+          <li><span class="dot" style="background:#fde68a"></span>Common z-index issues & fixes</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Build a sticky header, absolute badge overlay, and a fixed toast notification.</div>
+      </div>`
+  },
+  {
+    day: 11, week: 'week2',
+    title: 'Borders, Outlines & Shadows',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Borders</div>
+        <div class="topic-h2">## Border Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>border-width / border-style / border-color</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border shorthand</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border-top / right / bottom / left</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border-radius (all corners, individual)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Elliptical border-radius (x/y)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border-image</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border-image-slice / width / outset / repeat</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Border styles: solid, dashed, dotted, double, groove, ridge, inset, outset</li>
+        </ul>
+        <div class="topic-h2">## Outline</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>outline vs border</li>
+          <li><span class="dot" style="background:#a78bfa"></span>outline-width / style / color</li>
+          <li><span class="dot" style="background:#a78bfa"></span>outline-offset</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Accessibility: never remove focus outline</li>
+        </ul>
+        <div class="topic-h2">## Shadows</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>box-shadow (offset-x, offset-y, blur, spread, color)</li>
+          <li><span class="dot" style="background:#fde68a"></span>inset box-shadow</li>
+          <li><span class="dot" style="background:#fde68a"></span>Multiple box-shadows</li>
+          <li><span class="dot" style="background:#fde68a"></span>text-shadow</li>
+          <li><span class="dot" style="background:#fde68a"></span>filter: drop-shadow()</li>
+          <li><span class="dot" style="background:#fde68a"></span>Layered shadow techniques (neumorphism, elevation)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 12, week: 'week2',
+    title: 'Lists & Tables',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Lists</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>list-style-type (disc, circle, square, decimal, lower-alpha…)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>list-style-position (inside / outside)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>list-style-image</li>
+          <li><span class="dot" style="background:#a78bfa"></span>list-style shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>::marker pseudo-element</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@counter-style rule</li>
+        </ul>
+        <div class="topic-h1"># Tables</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>border-collapse (collapse / separate)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>border-spacing</li>
+          <li><span class="dot" style="background:#67e8f9"></span>caption-side</li>
+          <li><span class="dot" style="background:#67e8f9"></span>empty-cells</li>
+          <li><span class="dot" style="background:#67e8f9"></span>table-layout (fixed / auto)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>vertical-align in table cells</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Responsive table techniques</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 13, week: 'week2',
+    title: 'CSS Variables (Custom Properties)',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Custom Properties</div>
+        <div class="topic-h2">## Defining & Using Variables</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>--variable-name: value;</li>
+          <li><span class="dot" style="background:#67e8f9"></span>var(--variable-name)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Fallback values: var(--x, fallback)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Defining on :root vs component scope</li>
+        </ul>
+        <div class="topic-h2">## Scope & Cascade</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Global scope (:root)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Local / component scope</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Overriding in media queries</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Overriding with class modifiers</li>
+        </ul>
+        <div class="topic-h2">## Advanced Usage</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Theming systems (light/dark mode)</li>
+          <li><span class="dot" style="background:#fde68a"></span>Variables in calc()</li>
+          <li><span class="dot" style="background:#fde68a"></span>Reading/writing variables with JS</li>
+          <li><span class="dot" style="background:#fde68a"></span>CSS variable tricks (toggle, space toggle)</li>
+          <li><span class="dot" style="background:#fde68a"></span>@property rule (typed custom properties)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 14, week: 'week2',
+    title: 'Week 1–2 Review & Mini Project',
+    time: '3h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Review Day</div>
+        <div class="topic-h2">## Mini Project: Personal Profile Card</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>Semantic HTML structure</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Box model layout</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Typography hierarchy</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>CSS variables for theming</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Hover effects with pseudo-classes</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Gradient backgrounds</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Border-radius & shadows</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">🏆</span> Goal: Recreate a profile card UI from a design reference using only the CSS covered so far.</div>
+      </div>`
+  },
+ 
+  // ── WEEK 3: Flexbox & Grid ────────────────────────────────────────────────
+  {
+    day: 15, week: 'week3',
+    title: 'Flexbox (Part 1) — Container',
+    time: '3h', topics: 7,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Flexbox</div>
+        <div class="topic-h2">## Flex Container Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>display: flex / inline-flex</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex-direction (row, column, row-reverse, column-reverse)</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex-wrap (nowrap, wrap, wrap-reverse)</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex-flow shorthand</li>
+          <li><span class="dot" style="background:#fde68a"></span>justify-content (flex-start, flex-end, center, space-between, space-around, space-evenly)</li>
+          <li><span class="dot" style="background:#fde68a"></span>align-items (stretch, flex-start, flex-end, center, baseline)</li>
+          <li><span class="dot" style="background:#fde68a"></span>align-content (multi-line)</li>
+          <li><span class="dot" style="background:#fde68a"></span>gap / row-gap / column-gap</li>
+          <li><span class="dot" style="background:#fde68a"></span>place-content shorthand</li>
+          <li><span class="dot" style="background:#fde68a"></span>place-items shorthand</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Build a responsive navigation bar and a centered hero section using flexbox.</div>
+      </div>`
+  },
+  {
+    day: 16, week: 'week3',
+    title: 'Flexbox (Part 2) — Items',
+    time: '2h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Flex Item Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>flex-grow</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex-shrink</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex-basis</li>
+          <li><span class="dot" style="background:#fde68a"></span>flex shorthand (flex: 1, flex: auto, flex: none)</li>
+          <li><span class="dot" style="background:#fde68a"></span>align-self (overrides align-items)</li>
+          <li><span class="dot" style="background:#fde68a"></span>order property</li>
+          <li><span class="dot" style="background:#fde68a"></span>min-width: 0 on flex items (overflow fix)</li>
+        </ul>
+        <div class="topic-h2">## Common Flexbox Patterns</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Holy grail layout</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Card layout with equal heights</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Sticky footer</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Centered modal</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Responsive media object</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Practice: Build a pricing cards section with equal-height cards and stretched CTAs.</div>
+      </div>`
+  },
+  {
+    day: 17, week: 'week3',
+    title: 'CSS Grid (Part 1) — Basics',
+    time: '3h', topics: 8,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Grid</div>
+        <div class="topic-h2">## Grid Container</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>display: grid / inline-grid</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-template-columns</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-template-rows</li>
+          <li><span class="dot" style="background:#a78bfa"></span>fr unit (fractional)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>repeat() function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>auto-fill vs auto-fit</li>
+          <li><span class="dot" style="background:#a78bfa"></span>minmax() function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>gap / row-gap / column-gap</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-auto-flow (row, column, dense)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-auto-rows / grid-auto-columns</li>
+        </ul>
+        <div class="topic-h2">## Grid Lines & Areas</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>grid-template-areas</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Named grid lines</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Implicit vs explicit grid</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 18, week: 'week3',
+    title: 'CSS Grid (Part 2) — Placement',
+    time: '3h', topics: 7,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Grid Item Placement</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>grid-column-start / grid-column-end</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-row-start / grid-row-end</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-column shorthand (start / end)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-row shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>grid-area shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>span keyword</li>
+          <li><span class="dot" style="background:#a78bfa"></span>justify-self / align-self / place-self</li>
+          <li><span class="dot" style="background:#a78bfa"></span>justify-items / align-items / place-items</li>
+          <li><span class="dot" style="background:#a78bfa"></span>justify-content / align-content</li>
+        </ul>
+        <div class="topic-h2">## Advanced Grid Patterns</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Magazine / editorial layout</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Masonry-like layout</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Responsive grid without media queries</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Subgrid (grid-template-columns: subgrid)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>CSS Grid + Flexbox combination</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 19, week: 'week3',
+    title: 'Responsive Design & Media Queries',
+    time: '3h', topics: 7,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Responsive Web Design</div>
+        <div class="topic-h2">## Media Queries</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>@media syntax</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Media types (screen, print, all)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>width / min-width / max-width</li>
+          <li><span class="dot" style="background:#a78bfa"></span>height / min-height / max-height</li>
+          <li><span class="dot" style="background:#a78bfa"></span>orientation (portrait / landscape)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>resolution / device-pixel-ratio</li>
+          <li><span class="dot" style="background:#a78bfa"></span>prefers-color-scheme</li>
+          <li><span class="dot" style="background:#a78bfa"></span>prefers-reduced-motion</li>
+          <li><span class="dot" style="background:#a78bfa"></span>prefers-contrast</li>
+          <li><span class="dot" style="background:#a78bfa"></span>hover / pointer media features</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Media query logical operators (and, or, not)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Range syntax (width >= 768px)</li>
+        </ul>
+        <div class="topic-h2">## Responsive Strategies</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#67e8f9"></span>Mobile-first vs desktop-first</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Common breakpoints (sm/md/lg/xl/2xl)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Fluid typography (clamp)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Fluid spacing</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Responsive images (object-fit, srcset)</li>
+          <li><span class="dot" style="background:#67e8f9"></span>Viewport meta tag</li>
+        </ul>
+        <div class="topic-h2">## Container Queries</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>@container rule</li>
+          <li><span class="dot" style="background:#fde68a"></span>container-type (inline-size, size)</li>
+          <li><span class="dot" style="background:#fde68a"></span>container-name</li>
+          <li><span class="dot" style="background:#fde68a"></span>cqi / cqb / cqw / cqh units</li>
+          <li><span class="dot" style="background:#fde68a"></span>Container style queries</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 20, week: 'week3',
+    title: 'Transforms',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Transforms</div>
+        <div class="topic-h2">## 2D Transforms</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>translate(x, y) / translateX / translateY</li>
+          <li><span class="dot" style="background:#fde68a"></span>scale(x, y) / scaleX / scaleY</li>
+          <li><span class="dot" style="background:#fde68a"></span>rotate(angle)</li>
+          <li><span class="dot" style="background:#fde68a"></span>skew(x, y) / skewX / skewY</li>
+          <li><span class="dot" style="background:#fde68a"></span>matrix()</li>
+        </ul>
+        <div class="topic-h2">## 3D Transforms</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>translateZ / translate3d()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>rotateX / rotateY / rotateZ / rotate3d()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>scaleZ / scale3d()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>perspective property</li>
+          <li><span class="dot" style="background:#a78bfa"></span>perspective() function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>perspective-origin</li>
+          <li><span class="dot" style="background:#a78bfa"></span>transform-style: preserve-3d</li>
+          <li><span class="dot" style="background:#a78bfa"></span>backface-visibility</li>
+          <li><span class="dot" style="background:#a78bfa"></span>matrix3d()</li>
+        </ul>
+        <div class="topic-h2">## Transform Origin & Individual Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>transform-origin</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>translate property (individual)</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>rotate property (individual)</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>scale property (individual)</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transform-box</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 21, week: 'week3',
+    title: 'Week 3 Project: Responsive Layout',
+    time: '4h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Project Day</div>
+        <div class="topic-h2">## Build: Responsive Product Page</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>CSS Grid magazine layout</li>
+          <li><span class="dot" style="background:#fde68a"></span>Flexbox navigation</li>
+          <li><span class="dot" style="background:#fde68a"></span>Container queries for product cards</li>
+          <li><span class="dot" style="background:#fde68a"></span>Fluid typography with clamp()</li>
+          <li><span class="dot" style="background:#fde68a"></span>3D transform hover effects on cards</li>
+          <li><span class="dot" style="background:#fde68a"></span>CSS variables for theming</li>
+          <li><span class="dot" style="background:#fde68a"></span>Full mobile responsiveness</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">🏆</span> Deliverable: A fully responsive 3-column product listing that adapts to mobile, tablet, and desktop.</div>
+      </div>`
+  },
+ 
+  // ── WEEK 4: Animations & Visual Effects ──────────────────────────────────
+  {
+    day: 22, week: 'week4',
+    title: 'Transitions',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Transitions</div>
+        <div class="topic-h2">## Transition Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>transition-property</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transition-duration</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transition-timing-function</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transition-delay</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transition shorthand</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Multiple transitions</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>transition: all (performance considerations)</li>
+        </ul>
+        <div class="topic-h2">## Timing Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>ease, ease-in, ease-out, ease-in-out, linear</li>
+          <li><span class="dot" style="background:#a78bfa"></span>cubic-bezier(x1, y1, x2, y2)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>steps(n, start/end)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>step-start / step-end</li>
+        </ul>
+        <div class="topic-h2">## What Can Be Transitioned</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Animatable properties list</li>
+          <li><span class="dot" style="background:#fde68a"></span>display transitions (upcoming)</li>
+          <li><span class="dot" style="background:#fde68a"></span>discrete vs interpolatable</li>
+          <li><span class="dot" style="background:#fde68a"></span>Performance: only transform & opacity on GPU</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 23, week: 'week4',
+    title: 'CSS Animations (Part 1)',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Animations</div>
+        <div class="topic-h2">## @keyframes</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>@keyframes name { from {} to {} }</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Percentage keyframes (0%, 25%, 100%)</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Multiple properties per keyframe</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Naming conventions</li>
+        </ul>
+        <div class="topic-h2">## Animation Properties</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>animation-name</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-duration</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-timing-function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-delay</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-iteration-count (number / infinite)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-direction (normal, reverse, alternate, alternate-reverse)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-fill-mode (none, forwards, backwards, both)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-play-state (running / paused)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-timeline (scroll / view)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>animation-composition</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 24, week: 'week4',
+    title: 'CSS Animations (Part 2) — Scroll & Advanced',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Advanced Animations</div>
+        <div class="topic-h2">## Scroll-Driven Animations</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>scroll() timeline function</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>view() timeline function</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>@scroll-timeline</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>animation-timeline: scroll()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>animation-range</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Entry / exit animations</li>
+        </ul>
+        <div class="topic-h2">## View Transitions API</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>startViewTransition()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>::view-transition pseudo-elements</li>
+          <li><span class="dot" style="background:#a78bfa"></span>view-transition-name</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Cross-document view transitions</li>
+        </ul>
+        <div class="topic-h2">## Animation Performance</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>will-change property</li>
+          <li><span class="dot" style="background:#fde68a"></span>Compositor layer promotion</li>
+          <li><span class="dot" style="background:#fde68a"></span>Avoiding layout thrashing</li>
+          <li><span class="dot" style="background:#fde68a"></span>prefers-reduced-motion media query</li>
+          <li><span class="dot" style="background:#fde68a"></span>WAAPI (Web Animations API) integration</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 25, week: 'week4',
+    title: 'Filters & Blend Modes',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Filters</div>
+        <div class="topic-h2">## filter Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>blur()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>brightness()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>contrast()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>grayscale()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>hue-rotate()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>invert()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>opacity()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>saturate()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>sepia()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>drop-shadow()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>backdrop-filter</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Multiple filters</li>
+        </ul>
+        <div class="topic-h2">## Mix Blend Mode & Background Blend Mode</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>mix-blend-mode (multiply, screen, overlay, darken, lighten, color-dodge, color-burn, hard-light, soft-light, difference, exclusion, hue, saturation, color, luminosity)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>background-blend-mode</li>
+          <li><span class="dot" style="background:#a78bfa"></span>isolation: isolate</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 26, week: 'week4',
+    title: 'Clipping, Masking & Shapes',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Clip, Mask & Shapes</div>
+        <div class="topic-h2">## clip-path</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>inset()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>circle()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>ellipse()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>polygon()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>path() — SVG paths</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Animating clip-path</li>
+        </ul>
+        <div class="topic-h2">## mask</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>mask-image</li>
+          <li><span class="dot" style="background:#a78bfa"></span>mask-mode</li>
+          <li><span class="dot" style="background:#a78bfa"></span>mask-size / position / repeat</li>
+          <li><span class="dot" style="background:#a78bfa"></span>mask-composite</li>
+          <li><span class="dot" style="background:#a78bfa"></span>-webkit-mask-image</li>
+        </ul>
+        <div class="topic-h2">## CSS Shapes</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>shape-outside (float wrapping)</li>
+          <li><span class="dot" style="background:#fde68a"></span>shape-margin</li>
+          <li><span class="dot" style="background:#fde68a"></span>shape-image-threshold</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 27, week: 'week4',
+    title: 'CSS Functions & Math',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Functions</div>
+        <div class="topic-h2">## Math Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>calc()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>min() / max()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>clamp()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>round()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>mod() / rem()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>sin() / cos() / tan()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>asin() / acos() / atan() / atan2()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>pow() / sqrt() / hypot()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>log() / exp()</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>abs() / sign()</li>
+        </ul>
+        <div class="topic-h2">## Other CSS Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>url()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>var()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>env()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>attr() (experimental)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>counter() / counters()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>image-set()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>cross-fade()</li>
+          <li><span class="dot" style="background:#a78bfa"></span>element() (Firefox)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 28, week: 'week4',
+    title: 'Week 4 Project: Animated Landing Page',
+    time: '4h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Project Day</div>
+        <div class="topic-h2">## Build: Animated SaaS Landing Page</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>CSS keyframe animations for hero</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Scroll-driven reveal animations</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>backdrop-filter glassmorphism cards</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>clip-path wave dividers</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Hover transitions on CTA buttons</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>CSS filter on images</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>mix-blend-mode text effects</li>
+        </ul>
+      </div>`
+  },
+ 
+  // ── WEEK 5: Advanced Layout & Modern CSS ─────────────────────────────────
+  {
+    day: 29, week: 'week5',
+    title: 'Advanced Selectors & Logic',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Modern Selector Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>:is() — forgiving selector list</li>
+          <li><span class="dot" style="background:#fda4af"></span>:not() — negation</li>
+          <li><span class="dot" style="background:#fda4af"></span>:where() — zero-specificity is()</li>
+          <li><span class="dot" style="background:#fda4af"></span>:has() — relational pseudo-class (parent selector)</li>
+          <li><span class="dot" style="background:#fda4af"></span>:any-link</li>
+          <li><span class="dot" style="background:#fda4af"></span>:local-link / :scope</li>
+          <li><span class="dot" style="background:#fda4af"></span>:matches() (legacy)</li>
+          <li><span class="dot" style="background:#fda4af"></span>:dir(ltr/rtl)</li>
+          <li><span class="dot" style="background:#fda4af"></span>:lang()</li>
+          <li><span class="dot" style="background:#fda4af"></span>:target / :target-within</li>
+          <li><span class="dot" style="background:#fda4af"></span>:modal</li>
+          <li><span class="dot" style="background:#fda4af"></span>:state() (custom elements)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 30, week: 'week5',
+    title: 'CSS Logical Properties',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Logical Properties & Values</div>
+        <div class="topic-h2">## Flow-Relative Layout</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>inline-size / block-size (width/height equivalents)</li>
+          <li><span class="dot" style="background:#fda4af"></span>min/max-inline-size / block-size</li>
+          <li><span class="dot" style="background:#fda4af"></span>margin-inline / margin-block</li>
+          <li><span class="dot" style="background:#fda4af"></span>padding-inline / padding-block</li>
+          <li><span class="dot" style="background:#fda4af"></span>border-inline / border-block</li>
+          <li><span class="dot" style="background:#fda4af"></span>inset-inline / inset-block</li>
+          <li><span class="dot" style="background:#fda4af"></span>text-align: start / end</li>
+          <li><span class="dot" style="background:#fda4af"></span>float: inline-start / inline-end</li>
+          <li><span class="dot" style="background:#fda4af"></span>writing-mode influence</li>
+          <li><span class="dot" style="background:#fda4af"></span>direction property</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> Logical properties are essential for RTL / bidirectional (bidi) layouts.</div>
+      </div>`
+  },
+  {
+    day: 31, week: 'week5',
+    title: 'CSS Nesting & Cascade Layers',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Native CSS Nesting</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>Basic nesting syntax</li>
+          <li><span class="dot" style="background:#fda4af"></span>& parent selector in nesting</li>
+          <li><span class="dot" style="background:#fda4af"></span>Nesting pseudo-classes & pseudo-elements</li>
+          <li><span class="dot" style="background:#fda4af"></span>Nesting media / container queries</li>
+          <li><span class="dot" style="background:#fda4af"></span>Nesting vs SCSS nesting differences</li>
+        </ul>
+        <div class="topic-h1"># @layer (Cascade Layers)</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>@layer declaration</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Defining layer order</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Unlayered styles priority</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@layer inside @import</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Nested layers</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Practical layering architecture (reset / base / components / utilities)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 32, week: 'week5',
+    title: 'CSS Scoping & Houdini',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Scoping</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>@scope rule</li>
+          <li><span class="dot" style="background:#fda4af"></span>:scope pseudo-class</li>
+          <li><span class="dot" style="background:#fda4af"></span>Scoped styles vs shadow DOM</li>
+          <li><span class="dot" style="background:#fda4af"></span>Proximity-based specificity</li>
+        </ul>
+        <div class="topic-h1"># CSS Houdini APIs</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>@property (Custom property types)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS Typed OM (CSSStyleValue)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Paint API (CSS.paintWorklet)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Layout API</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Animation Worklet</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">💡</span> @property enables animating custom properties with typed interpolation.</div>
+      </div>`
+  },
+  {
+    day: 33, week: 'week5',
+    title: 'Floats, Multi-Column & Writing Modes',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Float Layout (Legacy)</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>float: left / right / none</li>
+          <li><span class="dot" style="background:#fda4af"></span>clear: both / left / right</li>
+          <li><span class="dot" style="background:#fda4af"></span>Clearfix hack</li>
+          <li><span class="dot" style="background:#fda4af"></span>flow-root solution</li>
+        </ul>
+        <div class="topic-h1"># Multi-Column Layout</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>columns shorthand</li>
+          <li><span class="dot" style="background:#a78bfa"></span>column-count</li>
+          <li><span class="dot" style="background:#a78bfa"></span>column-width</li>
+          <li><span class="dot" style="background:#a78bfa"></span>column-gap</li>
+          <li><span class="dot" style="background:#a78bfa"></span>column-rule</li>
+          <li><span class="dot" style="background:#a78bfa"></span>column-span: all</li>
+          <li><span class="dot" style="background:#a78bfa"></span>break-inside: avoid</li>
+        </ul>
+        <div class="topic-h1"># Writing Modes</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>writing-mode (horizontal-tb, vertical-rl, vertical-lr)</li>
+          <li><span class="dot" style="background:#fde68a"></span>text-orientation</li>
+          <li><span class="dot" style="background:#fde68a"></span>direction (ltr / rtl)</li>
+          <li><span class="dot" style="background:#fde68a"></span>unicode-bidi</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 34, week: 'week5',
+    title: 'CSS for Forms & UI Components',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Styling Forms</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>Input styling (text, email, number, range, date)</li>
+          <li><span class="dot" style="background:#fda4af"></span>Textarea resizing (resize property)</li>
+          <li><span class="dot" style="background:#fda4af"></span>Select dropdown styling</li>
+          <li><span class="dot" style="background:#fda4af"></span>Checkbox & radio custom styles</li>
+          <li><span class="dot" style="background:#fda4af"></span>appearance property (none)</li>
+          <li><span class="dot" style="background:#fda4af"></span>accent-color</li>
+          <li><span class="dot" style="background:#fda4af"></span>caret-color</li>
+          <li><span class="dot" style="background:#fda4af"></span>::placeholder styling</li>
+          <li><span class="dot" style="background:#fda4af"></span>:focus-visible for accessible focus rings</li>
+          <li><span class="dot" style="background:#fda4af"></span>fieldset & legend styling</li>
+        </ul>
+        <div class="topic-h2">## Modern Form Controls (2024+)</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>input[type=range] track & thumb</li>
+          <li><span class="dot" style="background:#a78bfa"></span>progress & meter elements</li>
+          <li><span class="dot" style="background:#a78bfa"></span>details & summary styling</li>
+          <li><span class="dot" style="background:#a78bfa"></span>dialog element styling</li>
+          <li><span class="dot" style="background:#a78bfa"></span>popover attribute styling</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@starting-style (entry animations)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 35, week: 'week5',
+    title: 'Week 5 Project: Component Library',
+    time: '4h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Project Day</div>
+        <div class="topic-h2">## Build: Reusable CSS Component Library</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fda4af"></span>Button variants (primary, secondary, ghost, danger)</li>
+          <li><span class="dot" style="background:#fda4af"></span>Input components with states</li>
+          <li><span class="dot" style="background:#fda4af"></span>Card components</li>
+          <li><span class="dot" style="background:#fda4af"></span>Badge & tag components</li>
+          <li><span class="dot" style="background:#fda4af"></span>Tooltip using CSS only</li>
+          <li><span class="dot" style="background:#fda4af"></span>Modal / dialog styling</li>
+          <li><span class="dot" style="background:#fda4af"></span>Using @layer for architecture</li>
+          <li><span class="dot" style="background:#fda4af"></span>CSS variables design tokens</li>
+        </ul>
+      </div>`
+  },
+ 
+  // ── WEEK 6: CSS Architecture & Preprocessors ─────────────────────────────
+  {
+    day: 36, week: 'week6',
+    title: 'CSS Architecture & Methodologies',
+    time: '3h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Architecture</div>
+        <div class="topic-h2">## Naming Methodologies</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>BEM (Block, Element, Modifier)</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>OOCSS (Object-Oriented CSS)</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>SMACSS (Scalable and Modular)</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>ITCSS (Inverted Triangle CSS)</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Atomic / Utility-First CSS</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>CSS Modules</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>CSS-in-JS patterns</li>
+        </ul>
+        <div class="topic-h2">## File Organization</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>7-1 Pattern (sass/)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>tokens / base / components / layouts / utilities</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Co-located component styles</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Design token files</li>
+        </ul>
+        <div class="topic-h2">## Design Tokens</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Color tokens</li>
+          <li><span class="dot" style="background:#fde68a"></span>Spacing scale</li>
+          <li><span class="dot" style="background:#fde68a"></span>Typography scale</li>
+          <li><span class="dot" style="background:#fde68a"></span>Border radius scale</li>
+          <li><span class="dot" style="background:#fde68a"></span>Shadow scale</li>
+          <li><span class="dot" style="background:#fde68a"></span>CSS variables as tokens</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 37, week: 'week6',
+    title: 'Sass / SCSS Preprocessor',
+    time: '3h', topics: 7,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Sass / SCSS</div>
+        <div class="topic-h2">## Variables & Nesting</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>$variable syntax</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Nesting rules</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>& parent reference</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>@use vs @import</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>@forward</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Namespaces (as keyword)</li>
+        </ul>
+        <div class="topic-h2">## Mixins & Functions</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>@mixin / @include</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Mixin arguments & defaults</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@content block mixins</li>
+          <li><span class="dot" style="background:#a78bfa"></span>@function / @return</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Built-in modules (color, math, string, list, map, selector, meta)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>color.adjust / color.mix functions</li>
+        </ul>
+        <div class="topic-h2">## Control Flow & Loops</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>@if / @else if / @else</li>
+          <li><span class="dot" style="background:#fde68a"></span>@for (from through / to)</li>
+          <li><span class="dot" style="background:#fde68a"></span>@each (in list / map)</li>
+          <li><span class="dot" style="background:#fde68a"></span>@while</li>
+          <li><span class="dot" style="background:#fde68a"></span>Maps (key-value pairs)</li>
+          <li><span class="dot" style="background:#fde68a"></span>Lists</li>
+        </ul>
+        <div class="topic-h2">## Placeholders & Extends</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>%placeholder selectors</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>@extend</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Extend vs Mixin tradeoffs</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 38, week: 'week6',
+    title: 'PostCSS & Tooling',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Tooling</div>
+        <div class="topic-h2">## PostCSS</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>PostCSS overview & plugins</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Autoprefixer</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>postcss-preset-env</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>cssnano (minification)</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>purgecss (removing unused CSS)</li>
+        </ul>
+        <div class="topic-h2">## Build Tools Integration</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Webpack CSS configuration</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Vite CSS handling</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS source maps</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Critical CSS extraction</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Code splitting for CSS</li>
+        </ul>
+        <div class="topic-h2">## Linting & Formatting</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Stylelint setup & rules</li>
+          <li><span class="dot" style="background:#fde68a"></span>Prettier for CSS</li>
+          <li><span class="dot" style="background:#fde68a"></span>.stylelintrc configuration</li>
+          <li><span class="dot" style="background:#fde68a"></span>Git hooks (lint-staged)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 39, week: 'week6',
+    title: 'CSS Performance & Optimization',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS Performance</div>
+        <div class="topic-h2">## Critical Rendering Path</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>CSSOM construction</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Render-blocking CSS</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Critical CSS inlining</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Async/deferred CSS loading</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>media attribute on link</li>
+        </ul>
+        <div class="topic-h2">## Layout & Paint Performance</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Reflow (layout) triggers</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Repaint triggers</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Compositing layer (GPU)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>will-change hints</li>
+          <li><span class="dot" style="background:#a78bfa"></span>contain property (layout, paint, size, style)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>content-visibility: auto</li>
+          <li><span class="dot" style="background:#a78bfa"></span>contain-intrinsic-size</li>
+        </ul>
+        <div class="topic-h2">## Selector Performance</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>Selector matching direction (right to left)</li>
+          <li><span class="dot" style="background:#fde68a"></span>Avoiding deep descendant selectors</li>
+          <li><span class="dot" style="background:#fde68a"></span>Universal selector overhead</li>
+          <li><span class="dot" style="background:#fde68a"></span>CSS file size & delivery</li>
+          <li><span class="dot" style="background:#fde68a"></span>Unused CSS removal</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 40, week: 'week6',
+    title: 'CSS Accessibility',
+    time: '2h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># CSS & Accessibility</div>
+        <div class="topic-h2">## Focus Management</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>Never remove outline: none without replacement</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>:focus-visible for keyboard focus</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Skip links styling</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Focus trap patterns</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Visible focus indicator design</li>
+        </ul>
+        <div class="topic-h2">## Color & Contrast</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>WCAG contrast ratios (4.5:1 normal, 3:1 large)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>prefers-color-scheme (dark mode)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>prefers-contrast</li>
+          <li><span class="dot" style="background:#a78bfa"></span>forced-colors media query</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Not relying solely on color</li>
+        </ul>
+        <div class="topic-h2">## Motion & Reduced Motion</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>prefers-reduced-motion</li>
+          <li><span class="dot" style="background:#fde68a"></span>Safe animation patterns</li>
+          <li><span class="dot" style="background:#fde68a"></span>Vestibular motion disorders</li>
+        </ul>
+        <div class="topic-h2">## Visual Accessibility</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#6ee7b7"></span>visually-hidden / sr-only pattern</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Sufficient font sizes</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Line-height & spacing for readability</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>Touch target sizing (48x48px)</li>
+          <li><span class="dot" style="background:#6ee7b7"></span>print media query</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 41, week: 'week6',
+    title: 'Dark Mode & Theming',
+    time: '2h', topics: 4,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Theming Systems</div>
+        <div class="topic-h2">## Dark Mode Implementation</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>prefers-color-scheme media query</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>CSS variables theming approach</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>data-theme attribute toggling</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>color-scheme property</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>light-dark() color function</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>System UI integration</li>
+        </ul>
+        <div class="topic-h2">## Multi-Theme Systems</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>Token-based theming</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Theme switching with JS + CSS vars</li>
+          <li><span class="dot" style="background:#a78bfa"></span>localStorage persistence</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Animated theme transitions</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS-only theme toggle (checkbox hack)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 42, week: 'week6',
+    title: 'Week 6 Project: Dark Mode Dashboard',
+    time: '4h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Project Day</div>
+        <div class="topic-h2">## Build: Analytics Dashboard with Dark/Light Mode</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#d8b4fe"></span>Full design token system</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Light/dark theme toggle</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>CSS Grid dashboard layout</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>BEM architecture</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Accessible focus states</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Sass/SCSS for variables & mixins</li>
+          <li><span class="dot" style="background:#d8b4fe"></span>Smooth theme transition animation</li>
+        </ul>
+      </div>`
+  },
+ 
+  // ── WEEK 7: Final Advanced Topics ────────────────────────────────────────
+  {
+    day: 43, week: 'week7',
+    title: 'CSS Grid Advanced + Subgrid',
+    time: '3h', topics: 5,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Advanced Grid & Subgrid</div>
+        <div class="topic-h2">## Subgrid</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fed7aa"></span>grid-template-columns: subgrid</li>
+          <li><span class="dot" style="background:#fed7aa"></span>grid-template-rows: subgrid</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Aligning nested items to parent grid</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Card components with subgrid alignment</li>
+        </ul>
+        <div class="topic-h2">## Masonry Layout</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>grid-template-rows: masonry (experimental)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS column masonry approach</li>
+          <li><span class="dot" style="background:#a78bfa"></span>JS fallback options</li>
+        </ul>
+        <div class="topic-h2">## CSS Anchor Positioning</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>anchor-name</li>
+          <li><span class="dot" style="background:#fde68a"></span>position-anchor</li>
+          <li><span class="dot" style="background:#fde68a"></span>anchor() function</li>
+          <li><span class="dot" style="background:#fde68a"></span>Tooltips & popovers with anchor</li>
+          <li><span class="dot" style="background:#fde68a"></span>inset-area</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 44, week: 'week7',
+    title: 'Upcoming & Experimental CSS',
+    time: '2h', topics: 6,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># Modern & Future CSS</div>
+        <div class="topic-h2">## Newly Supported Features</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fed7aa"></span>:has() — full browser support</li>
+          <li><span class="dot" style="background:#fed7aa"></span>CSS nesting — native</li>
+          <li><span class="dot" style="background:#fed7aa"></span>@layer — cascade layers</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Container queries & style queries</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Scroll-driven animations</li>
+          <li><span class="dot" style="background:#fed7aa"></span>View Transitions API</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Anchor Positioning</li>
+          <li><span class="dot" style="background:#fed7aa"></span>@starting-style</li>
+          <li><span class="dot" style="background:#fed7aa"></span>overlay property</li>
+          <li><span class="dot" style="background:#fed7aa"></span>transition-behavior: allow-discrete</li>
+        </ul>
+        <div class="topic-h2">## Experimental / Upcoming</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#a78bfa"></span>CSS Masonry grid</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS Reading Flow (reading-flow property)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS if() function</li>
+          <li><span class="dot" style="background:#a78bfa"></span>style queries for custom properties</li>
+          <li><span class="dot" style="background:#a78bfa"></span>CSS mixins (proposed)</li>
+          <li><span class="dot" style="background:#a78bfa"></span>Conditional values (random(), first-valid())</li>
+        </ul>
+        <div class="topic-h2">## Cross-Browser Support Tools</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fde68a"></span>@supports rule</li>
+          <li><span class="dot" style="background:#fde68a"></span>@supports selector()</li>
+          <li><span class="dot" style="background:#fde68a"></span>Feature detection strategies</li>
+          <li><span class="dot" style="background:#fde68a"></span>Can I Use usage</li>
+          <li><span class="dot" style="background:#fde68a"></span>Vendor prefixes (when needed)</li>
+        </ul>
+      </div>`
+  },
+  {
+    day: 45, week: 'week7',
+    title: 'FINAL PROJECT: Full Website',
+    time: '5h', topics: 0,
+    content: `
+      <div class="topic-block">
+        <div class="topic-h1"># 🎓 Final Capstone Project</div>
+        <div class="topic-h2">## Build: Complete Portfolio/Agency Website</div>
+        <ul class="topics-list">
+          <li><span class="dot" style="background:#fed7aa"></span>Full responsive layout (Grid + Flexbox)</li>
+          <li><span class="dot" style="background:#fed7aa"></span>CSS variable design system</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Dark/light mode toggle</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Scroll-driven animations</li>
+          <li><span class="dot" style="background:#fed7aa"></span>CSS keyframe animations (hero, loaders)</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Glassmorphism / neumorphism elements</li>
+          <li><span class="dot" style="background:#fed7aa"></span>clip-path section dividers</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Accessible focus & color contrast</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Sass/SCSS with @layer architecture</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Mobile-first responsive approach</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Performance optimized (contain, content-visibility)</li>
+          <li><span class="dot" style="background:#fed7aa"></span>Print stylesheet</li>
+        </ul>
+        <div class="tip-box"><span class="tip-icon">🏆</span> Congratulations! You've completed the full 45-day CSS roadmap. Deploy your project to showcase your skills!</div>
+      </div>`
+  }
+];
+ 
+// ─── Render ───────────────────────────────────────────────────────────────
+const weekLabels = {
+  week1: 'Week 1 — Foundations (Days 1–7)',
+  week2: 'Week 2 — Box Model & Layout Basics (Days 8–14)',
+  week3: 'Week 3 — Flexbox, Grid & Responsive (Days 15–21)',
+  week4: 'Week 4 — Animations & Visual Effects (Days 22–28)',
+  week5: 'Week 5 — Advanced Layout & Modern CSS (Days 29–35)',
+  week6: 'Week 6 — Architecture, Preprocessors & A11y (Days 36–42)',
+  week7: 'Week 7 — Future CSS & Capstone (Days 43–45)'
+};
+ 
+function buildGrid(filter = 'all', search = '') {
+  const grid = document.getElementById('daysGrid');
+  grid.innerHTML = '';
+  let lastWeek = null;
+  let shown = 0;
+  days.forEach(d => {
+    const matchFilter = filter === 'all' || d.week === filter;
+    const matchSearch = !search ||
+      d.title.toLowerCase().includes(search) ||
+      d.content.toLowerCase().includes(search) ||
+      String(d.day).includes(search);
+    if (!matchFilter || !matchSearch) return;
+    shown++;
+    if (d.week !== lastWeek) {
+      const lbl = document.createElement('div');
+      lbl.className = 'week-label';
+      lbl.textContent = weekLabels[d.week];
+      grid.appendChild(lbl);
+      lastWeek = d.week;
+    }
+    const card = document.createElement('div');
+    const checked = localStorage.getItem('day_' + d.day) === '1';
+    card.className = `day-card ${d.week}`;
+    card.dataset.day = d.day;
+    card.innerHTML = `
+      <div class="day-header" onclick="toggleCard(this.parentElement)">
+        <div class="day-num">DAY<br>${d.day}</div>
+        <div class="day-meta">
+          <div class="day-title">${d.title}</div>
+          <div class="day-sub">
+            <span>⏱ ${d.time}</span>
+            ${d.topics ? `<span>📚 ${d.topics} topics</span>` : ''}
+          </div>
+        </div>
+        ${checked ? '<span style="color:#6ee7b7;font-size:1.1rem">✓</span>' : ''}
+        <span class="day-chevron">▼</span>
+      </div>
+      <div class="day-body">${d.content}</div>
+    `;
+    grid.appendChild(card);
+  });
+  if (shown === 0) {
+    grid.innerHTML = '<div style="text-align:center;color:var(--text-dim);padding:40px">No results found.</div>';
+  }
+}
+ 
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+ 
+// Filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    buildGrid(currentFilter, currentSearch);
+  });
+});
+ 
+// Search
+let currentFilter = 'all', currentSearch = '';
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value.toLowerCase().trim();
+  buildGrid(currentFilter, currentSearch);
+});
+ 
+// Progress
+function updateProgress() {
+  const completed = days.filter(d => localStorage.getItem('day_' + d.day) === '1').length;
+  const pct = Math.round((completed / 45) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = completed + ' / 45 days';
+}
+ 
+updateProgress();
+buildGrid();
+</script>
+</body>
+</html>

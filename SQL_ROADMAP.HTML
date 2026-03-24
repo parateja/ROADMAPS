@@ -1,0 +1,2167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Complete Roadmap — 60 Days</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0118;
+    --bg2: #0d0a2e;
+    --bg3: #060d1f;
+    --glass: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.13);
+    --glass-hover: rgba(255,255,255,0.11);
+    --accent1: #a78bfa;
+    --accent2: #38bdf8;
+    --accent3: #f472b6;
+    --accent4: #34d399;
+    --accent5: #fb923c;
+    --accent6: #facc15;
+    --heading-color: #e0c3fc;
+    --sub-color: #7dd3fc;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --glow1: rgba(167,139,250,0.18);
+    --glow2: rgba(56,189,248,0.14);
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+ 
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(167,139,250,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(244,114,182,0.07) 0%, transparent 60%);
+    z-index: 0;
+    animation: bgShift 15s ease-in-out infinite alternate;
+  }
+ 
+  @keyframes bgShift {
+    0% { opacity: 1; }
+    100% { opacity: 0.7; filter: hue-rotate(30deg); }
+  }
+ 
+  /* Grid overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(167,139,250,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(167,139,250,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
+  }
+ 
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 0 50px;
+    position: relative;
+  }
+ 
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 22px;
+    border-radius: 100px;
+    background: rgba(167,139,250,0.13);
+    border: 1px solid rgba(167,139,250,0.3);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent1);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    animation: fadeSlideDown 0.8s ease both;
+  }
+ 
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #e0c3fc 0%, #a78bfa 40%, #38bdf8 70%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    animation: fadeSlideDown 0.9s ease 0.1s both;
+  }
+ 
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto 30px;
+    font-weight: 300;
+    animation: fadeSlideDown 1s ease 0.2s both;
+  }
+ 
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    animation: fadeSlideDown 1s ease 0.3s both;
+  }
+ 
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    backdrop-filter: blur(12px);
+  }
+ 
+  .stat-pill span.dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+ 
+  /* PHASE HEADER */
+  .phase-header {
+    margin: 56px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeIn 0.6s ease both;
+  }
+ 
+  .phase-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 1.5px;
+  }
+ 
+  .phase-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+ 
+  .phase-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.12) 0%, transparent 100%);
+  }
+ 
+  /* DAY CARD */
+  .day-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+ 
+  .day-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, linear-gradient(90deg, var(--accent1), var(--accent2)));
+    opacity: 0.7;
+  }
+ 
+  .day-card:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px var(--glow1);
+  }
+ 
+  .day-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+ 
+  .day-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+ 
+  .day-title-wrap { flex: 1; }
+ 
+  /* HEADING HIGHLIGHT RULE */
+  .h1-topic {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f0c3ff;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+ 
+  .h2-topic {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #7dd3fc;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+ 
+  .h3-topic {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f9a8d4;
+    margin-bottom: 2px;
+  }
+ 
+  .h4-topic {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #86efac;
+    margin-bottom: 2px;
+  }
+ 
+  .day-time {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3px;
+    font-family: 'Space Mono', monospace;
+  }
+ 
+  /* TOPICS LIST */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+ 
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 9px 13px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    transition: background 0.2s;
+  }
+ 
+  .topic-item:hover {
+    background: rgba(255,255,255,0.08);
+  }
+ 
+  .topic-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+ 
+  .subtopic {
+    font-size: 0.82rem;
+    color: var(--muted);
+    padding: 4px 13px 4px 28px;
+    line-height: 1.5;
+  }
+ 
+  .subtopic::before {
+    content: '↳ ';
+    opacity: 0.5;
+  }
+ 
+  /* Progress bar */
+  .progress-bar-wrap {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+ 
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+ 
+  .progress-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: var(--fill-color, var(--accent1));
+    transition: width 1s ease;
+  }
+ 
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+ 
+  /* WEEK DIVIDER */
+  .week-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 30px 0 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+ 
+  .week-divider::before, .week-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+  }
+ 
+  /* Color themes per phase */
+  .phase-1 { --card-accent: linear-gradient(90deg, #a78bfa, #818cf8); }
+  .phase-2 { --card-accent: linear-gradient(90deg, #38bdf8, #22d3ee); }
+  .phase-3 { --card-accent: linear-gradient(90deg, #f472b6, #fb7185); }
+  .phase-4 { --card-accent: linear-gradient(90deg, #34d399, #10b981); }
+  .phase-5 { --card-accent: linear-gradient(90deg, #fb923c, #f59e0b); }
+  .phase-6 { --card-accent: linear-gradient(90deg, #facc15, #a3e635); }
+ 
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+ 
+  /* TOC */
+  .toc-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px 36px;
+    backdrop-filter: blur(18px);
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+ 
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+ 
+  .toc-item:hover { color: var(--text); }
+ 
+  .toc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+ 
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.3); border-radius: 10px; }
+ 
+  /* Tag chips */
+  .tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+ 
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 70px;
+    padding: 28px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+  }
+ 
+  @media (max-width: 600px) {
+    .topics-grid { grid-template-columns: 1fr; }
+    .day-card { padding: 20px; }
+    .hero-stats { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+ 
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">&#128218; Complete Learning Path</div>
+    <h1 class="hero-title">SQL MASTERY<br>ROADMAP</h1>
+    <p class="hero-sub">From absolute zero to advanced SQL expert — structured 60-day plan with estimated daily time.</p>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="dot" style="background:#a78bfa"></span>60 Days</div>
+      <div class="stat-pill"><span class="dot" style="background:#38bdf8"></span>6 Phases</div>
+      <div class="stat-pill"><span class="dot" style="background:#f472b6"></span>200+ Topics</div>
+      <div class="stat-pill"><span class="dot" style="background:#34d399"></span>~150 Hours</div>
+    </div>
+  </div>
+ 
+  <!-- TOC -->
+  <div style="margin-bottom:10px;font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase">Phases Overview</div>
+  <div class="toc-card">
+    <div class="toc-item"><span class="toc-dot" style="background:#a78bfa"></span>Phase 1 · Foundations (Day 1–10)</div>
+    <div class="toc-item"><span class="toc-dot" style="background:#38bdf8"></span>Phase 2 · Intermediate (Day 11–20)</div>
+    <div class="toc-item"><span class="toc-dot" style="background:#f472b6"></span>Phase 3 · Advanced Queries (Day 21–32)</div>
+    <div class="toc-item"><span class="toc-dot" style="background:#34d399"></span>Phase 4 · Database Design (Day 33–42)</div>
+    <div class="toc-item"><span class="toc-dot" style="background:#fb923c"></span>Phase 5 · Performance & Admin (Day 43–52)</div>
+    <div class="toc-item"><span class="toc-dot" style="background:#facc15"></span>Phase 6 · Expert & Real World (Day 53–60)</div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 1 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase1">
+    <div class="phase-number" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3)">PHASE 01</div>
+    <div class="phase-title" style="color:#a78bfa">SQL Foundations</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 1–10</div>
+  </div>
+ 
+  <!-- Day 1 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 01</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Introduction to Databases & SQL</div>
+        <div class="h2-topic">## What is a Database?</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>What is a Database &amp; DBMS</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Types: Relational vs Non-Relational</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>RDBMS Concepts (Tables, Rows, Columns)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>What is SQL? History &amp; Purpose</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>SQL vs NoSQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Popular RDBMS: MySQL, PostgreSQL, SQLite, MSSQL, Oracle</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Installing MySQL / PostgreSQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>SQL IDEs: DBeaver, MySQL Workbench, pgAdmin, DataGrip</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>SQL Sub-languages: DDL, DML, DQL, DCL, TCL</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Theory</span>
+      <span class="tag" style="background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Setup</span>
+    </div>
+  </div>
+ 
+  <!-- Day 2 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 02</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># DDL — Data Definition Language</div>
+        <div class="h2-topic">## Creating & Managing Database Structure</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>CREATE DATABASE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>USE / CONNECT to a Database</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>CREATE TABLE — Syntax &amp; Rules</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Column Definitions (Name, DataType)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>ALTER TABLE — ADD, DROP, MODIFY, RENAME Column</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>DROP TABLE / DROP DATABASE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>TRUNCATE TABLE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>RENAME TABLE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>SHOW TABLES / DESCRIBE TABLE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>IF EXISTS / IF NOT EXISTS clauses</div>
+    </div>
+  </div>
+ 
+  <!-- Day 3 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 03</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Data Types in SQL</div>
+        <div class="h2-topic">## All Data Type Categories</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Numeric: INT, BIGINT, SMALLINT, TINYINT, DECIMAL, FLOAT, DOUBLE, NUMERIC</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>String: CHAR, VARCHAR, TEXT, TINYTEXT, MEDIUMTEXT, LONGTEXT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Date & Time: DATE, TIME, DATETIME, TIMESTAMP, YEAR</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Boolean: BOOL / BOOLEAN / TINYINT(1)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Binary: BINARY, VARBINARY, BLOB, LONGBLOB</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>JSON data type (MySQL 5.7+)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>ENUM and SET types</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>NULL vs NOT NULL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Type Casting: CAST(), CONVERT()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Choosing the Right Data Type (Best Practices)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 4 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 04</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Constraints in SQL</div>
+        <div class="h2-topic">## Integrity Rules & Constraints</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>NOT NULL Constraint</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>UNIQUE Constraint</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>PRIMARY KEY — Single &amp; Composite</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>FOREIGN KEY — References &amp; Actions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>CHECK Constraint</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>DEFAULT Constraint</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>AUTO_INCREMENT / SERIAL / IDENTITY</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>ON DELETE CASCADE / SET NULL / RESTRICT / NO ACTION</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>ON UPDATE CASCADE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Adding Constraints via ALTER TABLE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Dropping Constraints</div>
+    </div>
+  </div>
+ 
+  <!-- Day 5 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 05</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># DML — Data Manipulation Language</div>
+        <div class="h2-topic">## INSERT, UPDATE, DELETE</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>INSERT INTO — Single Row</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>INSERT INTO — Multiple Rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>INSERT INTO … SELECT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>INSERT IGNORE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>REPLACE INTO</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>UPDATE — Single Column</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>UPDATE — Multiple Columns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>UPDATE with WHERE Clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>DELETE — Specific Rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>DELETE All Rows vs TRUNCATE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>UPSERT: INSERT … ON DUPLICATE KEY UPDATE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Soft Delete Pattern</div>
+    </div>
+  </div>
+ 
+  <!-- Day 6 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 06</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SELECT — Basic Querying</div>
+        <div class="h2-topic">## DQL — Data Query Language</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>SELECT * FROM table</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>SELECT Specific Columns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Column Aliases (AS)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>WHERE Clause — Filtering Rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Comparison Operators: =, !=, &lt;, &gt;, &lt;=, &gt;=</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Logical Operators: AND, OR, NOT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>BETWEEN … AND</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>IN / NOT IN</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>LIKE / NOT LIKE — % and _ Wildcards</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>IS NULL / IS NOT NULL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>DISTINCT — Remove Duplicates</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>ORDER BY — ASC, DESC</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>LIMIT / OFFSET / TOP / FETCH FIRST</div>
+    </div>
+  </div>
+ 
+  <!-- Day 7 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 07</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Aggregate Functions</div>
+        <div class="h2-topic">## GROUP BY, HAVING &amp; Aggregation</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>COUNT() — COUNT(*) vs COUNT(col)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>SUM()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>AVG()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>MIN() and MAX()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>GROUP BY — Single &amp; Multiple Columns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>HAVING Clause — Filter Groups</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>WHERE vs HAVING</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>GROUP BY with ORDER BY</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>COUNT(DISTINCT column)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Aggregate with NULL handling</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>GROUP_CONCAT() / STRING_AGG()</div>
+    </div>
+  </div>
+ 
+  <!-- Day 8 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 08</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Built-in SQL Functions</div>
+        <div class="h2-topic">## String, Numeric, Date Functions</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>String: UPPER, LOWER, LENGTH, CHAR_LENGTH</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>String: SUBSTRING, LEFT, RIGHT, MID</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>String: CONCAT, CONCAT_WS</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>String: TRIM, LTRIM, RTRIM, REPLACE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>String: INSTR, LOCATE, FIND_IN_SET, REPEAT, REVERSE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Numeric: ROUND, FLOOR, CEIL, ABS, MOD, POWER, SQRT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Numeric: TRUNCATE, RAND, FORMAT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Date: NOW(), CURDATE(), CURTIME(), SYSDATE()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Date: DATE_FORMAT, DATE_ADD, DATE_SUB, DATEDIFF</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Date: YEAR, MONTH, DAY, HOUR, MINUTE, SECOND</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>Date: EXTRACT(), TIMESTAMPDIFF, TO_DATE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#c084fc"></span>NULL Functions: IFNULL, NULLIF, COALESCE, ISNULL</div>
+    </div>
+  </div>
+ 
+  <!-- Day 9 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 09</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Conditional Expressions</div>
+        <div class="h2-topic">## CASE, IF, IFNULL &amp; Conditional Logic</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>CASE WHEN … THEN … ELSE … END</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Simple CASE vs Searched CASE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>CASE in SELECT, WHERE, ORDER BY</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>Nested CASE statements</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>IF() function</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>IIF() (SQL Server)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>IFNULL() and COALESCE() for defaults</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>NULLIF() — prevent divide by zero</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#818cf8"></span>GREATEST() / LEAST()</div>
+    </div>
+  </div>
+ 
+  <!-- Day 10 -->
+  <div class="day-card phase-1">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">DAY 10</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Practice + Mini Project 1</div>
+        <div class="h2-topic">## Foundations Consolidation</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Build a Student Management DB from scratch</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Practice DDL: Create all tables with constraints</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Insert sample data (50+ rows)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Practice SELECT with WHERE / ORDER BY / LIMIT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Aggregation queries on data</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Use string &amp; date functions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Write CASE expressions for grade labels</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#a78bfa"></span>Review &amp; fix errors independently</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Mini Project</span>
+      <span class="tag" style="background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Practice</span>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 2 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase2">
+    <div class="phase-number" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.3)">PHASE 02</div>
+    <div class="phase-title" style="color:#38bdf8">Intermediate SQL</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 11–20</div>
+  </div>
+ 
+  <!-- Day 11 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 11</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL JOINs — Part 1</div>
+        <div class="h2-topic">## INNER JOIN &amp; LEFT/RIGHT JOIN</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>What is a JOIN? — Visual Venn Diagram Concept</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>INNER JOIN — Matching Rows Only</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>LEFT JOIN (LEFT OUTER JOIN)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>RIGHT JOIN (RIGHT OUTER JOIN)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>JOIN with WHERE clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>JOIN with aliases</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Joining more than 2 tables</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>NULL in JOIN results explained</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>USING() clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Natural Join (and its pitfalls)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 12 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 12</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL JOINs — Part 2</div>
+        <div class="h2-topic">## FULL JOIN, CROSS JOIN &amp; SELF JOIN</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>FULL OUTER JOIN</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Simulating FULL OUTER JOIN in MySQL (UNION)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>CROSS JOIN — Cartesian Product</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Use cases for CROSS JOIN</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>SELF JOIN — Joining a Table with Itself</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>SELF JOIN use cases: hierarchies, employee-manager</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Non-equi JOINs</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Exclusive LEFT JOIN (NULL filter pattern)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>JOIN Performance considerations (intro)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 13 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 13</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Subqueries</div>
+        <div class="h2-topic">## Nested Queries &amp; Correlated Subqueries</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>What is a Subquery?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Subquery in WHERE clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Subquery in FROM clause (Derived Tables)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Subquery in SELECT clause (Scalar Subquery)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Subquery in HAVING clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Correlated Subqueries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>EXISTS / NOT EXISTS</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>ANY / ALL / SOME operators</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>IN vs EXISTS — Performance comparison</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Nested subqueries (multi-level)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 14 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 14</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># UNION, INTERSECT &amp; EXCEPT</div>
+        <div class="h2-topic">## Set Operations in SQL</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>UNION — Combine Result Sets</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>UNION vs UNION ALL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Rules for UNION (same # columns, compatible types)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>INTERSECT — Common Rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>EXCEPT / MINUS — Difference</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Simulating INTERSECT &amp; EXCEPT in MySQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>ORDER BY with UNION</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Use Cases &amp; Real Examples</div>
+    </div>
+  </div>
+ 
+  <!-- Day 15 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 15</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Views</div>
+        <div class="h2-topic">## Creating &amp; Managing Views</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>What is a View?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>CREATE VIEW</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>CREATE OR REPLACE VIEW</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>DROP VIEW</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Querying Views</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Updatable vs Non-updatable Views</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>WITH CHECK OPTION</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Materialized Views (concept + PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>View Security &amp; Access Control</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Views for abstraction &amp; simplification</div>
+    </div>
+  </div>
+ 
+  <!-- Day 16 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 16</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Indexes</div>
+        <div class="h2-topic">## Index Types &amp; Query Optimization</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>What is an Index? Why it matters</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>How Indexes work (B-Tree concept)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>CREATE INDEX — Single &amp; Multi-column</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>UNIQUE INDEX</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>PRIMARY KEY Index (automatic)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>FULLTEXT Index</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>SPATIAL Index (MySQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>HASH Index (Memory tables / PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Covering Index concept</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>DROP INDEX</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>SHOW INDEX / pg_indexes</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>When NOT to use indexes</div>
+    </div>
+  </div>
+ 
+  <!-- Day 17 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 17</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Transactions &amp; TCL</div>
+        <div class="h2-topic">## COMMIT, ROLLBACK &amp; ACID Properties</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>What is a Transaction?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>ACID Properties: Atomicity, Consistency, Isolation, Durability</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>BEGIN / START TRANSACTION</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>COMMIT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>ROLLBACK</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>SAVEPOINT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>ROLLBACK TO SAVEPOINT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>RELEASE SAVEPOINT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Auto-commit mode</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Implicit vs Explicit Transactions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Transaction Isolation Levels (intro)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Dirty Read, Non-Repeatable Read, Phantom Read</div>
+    </div>
+  </div>
+ 
+  <!-- Day 18 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 18</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># DCL — Data Control Language</div>
+        <div class="h2-topic">## GRANT, REVOKE &amp; User Management</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>CREATE USER</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>DROP USER</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>GRANT Privileges (SELECT, INSERT, UPDATE, DELETE, ALL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>GRANT on specific tables/databases</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>REVOKE Privileges</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>SHOW GRANTS</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Roles concept (MySQL 8+, PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>WITH GRANT OPTION</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Password management: ALTER USER, SET PASSWORD</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#7dd3fc"></span>Principle of Least Privilege</div>
+    </div>
+  </div>
+ 
+  <!-- Day 19 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 19</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Common Table Expressions (CTEs)</div>
+        <div class="h2-topic">## WITH Clause &amp; Recursive CTEs</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>What is a CTE?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>WITH … AS Syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Multiple CTEs in one query</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>CTE vs Subquery vs View — When to use which</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Recursive CTEs</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Recursive CTE: Anchor + Recursive member</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Tree/Hierarchy traversal with Recursive CTEs</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Fibonacci / Number sequence with Recursive CTE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>CTE in INSERT, UPDATE, DELETE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>MAXRECURSION limit (SQL Server)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 20 -->
+  <div class="day-card phase-2">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">DAY 20</div>
+        <div class="day-time">⏱ 2–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Practice + Mini Project 2</div>
+        <div class="h2-topic">## E-commerce Database Project</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Build E-commerce schema (products, orders, users, categories)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Write 20+ JOIN queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Subqueries for top-selling products</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Views for reporting</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Transactions for order processing</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>Index creation for performance</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>CTE for monthly sales report</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#38bdf8"></span>UNION for cross-region report</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25)">Mini Project</span>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 3 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase3">
+    <div class="phase-number" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.3)">PHASE 03</div>
+    <div class="phase-title" style="color:#f472b6">Advanced SQL Queries</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 21–32</div>
+  </div>
+ 
+  <!-- Day 21 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 21</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Window Functions — Part 1</div>
+        <div class="h2-topic">## OVER(), PARTITION BY, ORDER BY</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>What are Window Functions?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>OVER() clause — basic syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>PARTITION BY — Dividing data into partitions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>ORDER BY inside OVER()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>ROW_NUMBER()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>RANK() vs DENSE_RANK()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>NTILE(n) — Buckets</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Window vs GROUP BY comparison</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Running Total with SUM() OVER()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Running Average with AVG() OVER()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Aggregate Window Functions: COUNT, MIN, MAX</div>
+    </div>
+  </div>
+ 
+  <!-- Day 22 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 22</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Window Functions — Part 2</div>
+        <div class="h2-topic">## Frame Clauses &amp; Value Functions</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>LAG() — Access Previous Row</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>LEAD() — Access Next Row</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>FIRST_VALUE() / LAST_VALUE()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>NTH_VALUE()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>CUME_DIST() — Cumulative Distribution</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>PERCENT_RANK()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Frame Clause: ROWS vs RANGE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>UNBOUNDED PRECEDING / FOLLOWING</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>CURRENT ROW</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Sliding Window Moving Average</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Named Window (WINDOW … AS)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 23 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 23</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Stored Procedures</div>
+        <div class="h2-topic">## CREATE PROCEDURE, Parameters &amp; Logic</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>What is a Stored Procedure?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>CREATE PROCEDURE syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>CALL / EXEC procedure</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>IN, OUT, INOUT parameters</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Variables: DECLARE, SET, SELECT INTO</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>IF … ELSEIF … ELSE logic</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>CASE in stored procedures</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>WHILE loop / REPEAT / LOOP</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>LEAVE, ITERATE (loop control)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Cursors: DECLARE, OPEN, FETCH, CLOSE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Error Handling: DECLARE HANDLER</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>DROP PROCEDURE / ALTER PROCEDURE</div>
+    </div>
+  </div>
+ 
+  <!-- Day 24 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 24</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># User-Defined Functions (UDFs)</div>
+        <div class="h2-topic">## Scalar, Table-Valued &amp; Aggregate Functions</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>What is a UDF?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>CREATE FUNCTION syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>DETERMINISTIC vs NOT DETERMINISTIC</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>READS SQL DATA / MODIFIES SQL DATA</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Scalar (Single-value return) UDF</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Table-Valued Functions (SQL Server / PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Inline Table-Valued Functions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Aggregate UDFs (MySQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Procedure vs Function — Key Differences</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>DROP FUNCTION</div>
+    </div>
+  </div>
+ 
+  <!-- Day 25 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 25</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Triggers</div>
+        <div class="h2-topic">## BEFORE / AFTER Triggers on DML Events</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>What is a Trigger?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>CREATE TRIGGER syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>BEFORE INSERT / AFTER INSERT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>BEFORE UPDATE / AFTER UPDATE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>BEFORE DELETE / AFTER DELETE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>NEW and OLD references</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>FOR EACH ROW</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>INSTEAD OF Triggers (SQL Server / Views)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>SHOW TRIGGERS / DROP TRIGGER</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Trigger use cases: Audit logs, validations</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Trigger pitfalls &amp; anti-patterns</div>
+    </div>
+  </div>
+ 
+  <!-- Day 26 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 26</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># EXPLAIN &amp; Query Execution Plans</div>
+        <div class="h2-topic">## Understanding Query Optimization</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>EXPLAIN / EXPLAIN ANALYZE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Reading Execution Plan Output</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>type column: ALL, index, range, ref, eq_ref, const</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>rows — estimated rows scanned</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>key / possible_keys — index usage</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Extra column: Using index, Using filesort, Using temporary</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>EXPLAIN FORMAT=JSON / TREE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Index Hints: USE INDEX, FORCE INDEX, IGNORE INDEX</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Query cost &amp; optimizer decisions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Slow Query Log</div>
+    </div>
+  </div>
+ 
+  <!-- Day 27 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 27</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Advanced Filtering &amp; Pattern Matching</div>
+        <div class="h2-topic">## REGEXP, FULLTEXT Search &amp; Advanced LIKE</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>REGEXP / RLIKE — Regular Expressions in SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>REGEXP patterns: ^, $, ., *, +, [a-z], |</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>SIMILAR TO (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>FULLTEXT Search: MATCH … AGAINST</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Natural Language Mode vs Boolean Mode</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>FULLTEXT index creation</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>SOUNDEX() — Phonetic Matching</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>LEVENSHTEIN distance (extension)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Advanced LIKE with ESCAPE character</div>
+    </div>
+  </div>
+ 
+  <!-- Day 28 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 28</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Pivoting &amp; Unpivoting Data</div>
+        <div class="h2-topic">## PIVOT, UNPIVOT &amp; Dynamic SQL</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>What is Pivoting?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>PIVOT operator (SQL Server / Oracle)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Simulating PIVOT in MySQL using CASE + GROUP BY</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>UNPIVOT operator</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Cross-tab / Crosstab queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Dynamic PIVOT using Dynamic SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>CROSSTAB() in PostgreSQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Use cases: Sales by month, Region-wise report</div>
+    </div>
+  </div>
+ 
+  <!-- Day 29 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 29</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># JSON in SQL</div>
+        <div class="h2-topic">## JSON Functions &amp; JSON Data Type</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Storing JSON in SQL (JSON column type)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_OBJECT(), JSON_ARRAY()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_EXTRACT() / -> operator</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_UNQUOTE() / ->> operator</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_SET(), JSON_INSERT(), JSON_REPLACE(), JSON_REMOVE()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_CONTAINS(), JSON_SEARCH()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_KEYS(), JSON_LENGTH(), JSON_DEPTH()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON_TABLE() — Shredding JSON to rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Indexing JSON fields (generated columns)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSONB in PostgreSQL — binary JSON</div>
+    </div>
+  </div>
+ 
+  <!-- Day 30 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 30</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Dynamic SQL &amp; Prepared Statements</div>
+        <div class="h2-topic">## PREPARE, EXECUTE &amp; Dynamic Queries</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>What is Dynamic SQL?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>PREPARE … FROM</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>EXECUTE statement</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>DEALLOCATE PREPARE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>sp_executesql (SQL Server)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>EXECUTE() / EXEC() (SQL Server)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Dynamic column names in queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>SQL Injection Risks &amp; Prevention</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb7185"></span>Parameterized Queries vs Dynamic SQL</div>
+    </div>
+  </div>
+ 
+  <!-- Day 31 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 31</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Advanced Aggregation</div>
+        <div class="h2-topic">## ROLLUP, CUBE, GROUPING SETS</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>GROUP BY ROLLUP — Hierarchical totals</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>GROUP BY CUBE — All combinations</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>GROUPING SETS — Custom combinations</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>GROUPING() function — identify subtotals</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>GROUPING_ID()</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Use cases: Multi-dimensional reporting</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Difference between ROLLUP and CUBE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Combining with HAVING &amp; WHERE</div>
+    </div>
+  </div>
+ 
+  <!-- Day 32 -->
+  <div class="day-card phase-3">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">DAY 32</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Practice + Mini Project 3</div>
+        <div class="h2-topic">## HR / Analytics Dashboard Project</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Build HR database (employees, departments, salaries, leaves)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Write 10+ Window Function queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Salary ranking per department with DENSE_RANK</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Create stored procedure for payroll</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>Build audit trigger for salary changes</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>PIVOT salary by year and department</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>ROLLUP for department-wise totals</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#f472b6"></span>JSON storage for employee metadata</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(244,114,182,0.12);color:#f472b6;border:1px solid rgba(244,114,182,0.25)">Mini Project</span>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 4 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase4">
+    <div class="phase-number" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.3)">PHASE 04</div>
+    <div class="phase-title" style="color:#34d399">Database Design & Normalization</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 33–42</div>
+  </div>
+ 
+  <!-- Day 33 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 33</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Database Design Fundamentals</div>
+        <div class="h2-topic">## ER Diagrams &amp; Relational Modeling</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Entity-Relationship (ER) Model</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Entities, Attributes, Relationships</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Strong vs Weak Entities</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Cardinality: One-to-One, One-to-Many, Many-to-Many</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Participation Constraints (Total / Partial)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>ER Diagram Notation (Crow's Foot, Chen)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Converting ER to Relational Tables</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Junction/Bridge Tables for M:N</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Identifying vs Non-identifying Relationships</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Conceptual vs Logical vs Physical Schema</div>
+    </div>
+  </div>
+ 
+  <!-- Day 34 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 34</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Normalization — 1NF to BCNF</div>
+        <div class="h2-topic">## Eliminating Redundancy &amp; Anomalies</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Why Normalize? Update, Insert, Delete Anomalies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Functional Dependency</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Partial Dependency vs Transitive Dependency</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>1NF — Atomic values, No repeating groups</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>2NF — Remove Partial Dependencies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>3NF — Remove Transitive Dependencies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>BCNF (Boyce-Codd Normal Form)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Step-by-step normalization example</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Loss-less decomposition</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Functional dependency preservation</div>
+    </div>
+  </div>
+ 
+  <!-- Day 35 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 35</div>
+        <div class="day-time">⏱ 2.5 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Higher Normal Forms</div>
+        <div class="h2-topic">## 4NF, 5NF &amp; Denormalization</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>4NF — Multi-Valued Dependencies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>5NF (PJNF) — Join Dependencies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>DKNF — Domain-Key Normal Form</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>6NF (Temporal Databases)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Denormalization — When &amp; Why</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Denormalization Techniques: Redundant columns, precomputed values</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Trade-offs: Performance vs Storage</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>OLTP vs OLAP schema differences</div>
+    </div>
+  </div>
+ 
+  <!-- Day 36 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 36</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Keys &amp; Relationships (Deep Dive)</div>
+        <div class="h2-topic">## Key Types &amp; Relationship Patterns</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Super Key, Candidate Key, Primary Key</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Alternate Key, Surrogate Key, Natural Key</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Composite Key design patterns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Foreign Key strategies: UUID vs Auto-increment</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Self-referential (hierarchical) relationships</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Polymorphic associations</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Many-to-Many with extra attributes</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Referential Integrity enforcement</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Cascading deletes strategy</div>
+    </div>
+  </div>
+ 
+  <!-- Day 37 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 37</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Data Warehousing Concepts</div>
+        <div class="h2-topic">## Star Schema, Snowflake, Fact &amp; Dimension Tables</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>OLTP vs OLAP — Architecture differences</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Data Warehouse concepts</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Fact Tables vs Dimension Tables</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Star Schema Design</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Snowflake Schema Design</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Galaxy / Fact Constellation Schema</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Slowly Changing Dimensions (SCD Type 1, 2, 3)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>ETL Process (Extract, Transform, Load)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Data Mart concept</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Columnar Storage vs Row Storage</div>
+    </div>
+  </div>
+ 
+  <!-- Day 38 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 38</div>
+        <div class="day-time">⏱ 2.5 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Database Security</div>
+        <div class="h2-topic">## SQL Injection, Encryption &amp; Row-Level Security</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>SQL Injection — Types &amp; Examples</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Preventing SQL Injection: Parameterized queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Stored Procedure security model</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Row-Level Security (RLS) in PostgreSQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Column-level encryption: AES_ENCRYPT / AES_DECRYPT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Transparent Data Encryption (TDE) concept</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Password hashing: SHA2(), MD5() (and why NOT to use MD5)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Audit logging strategies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>SSL/TLS for DB connections</div>
+    </div>
+  </div>
+ 
+  <!-- Day 39 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 39</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Backup, Recovery &amp; Import/Export</div>
+        <div class="h2-topic">## mysqldump, pg_dump, Data Migration</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>mysqldump — Full &amp; Table backup</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>pg_dump &amp; pg_restore (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>LOAD DATA INFILE / mysqlimport</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>SELECT … INTO OUTFILE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>COPY command (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Import/Export CSV, JSON data</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Binary Backup (ibdata files, .frm) — MySQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Point-in-Time Recovery (PITR)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Binary Log (binlog) — replication &amp; recovery</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Database Migration tools: Flyway, Liquibase (concept)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 40 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 40</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Stored Programs — Advanced</div>
+        <div class="h2-topic">## Events, Scheduled Jobs &amp; Error Handling</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>MySQL Events (Scheduled Tasks)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>CREATE EVENT syntax</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>One-time vs Recurring events</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>SHOW EVENTS / ALTER EVENT / DROP EVENT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>pg_cron (PostgreSQL scheduled jobs)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Advanced Error Handling in procedures</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>SIGNAL / RESIGNAL (raise custom errors)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>SQLEXCEPTION / SQLWARNING handlers</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Nested procedures &amp; function calls</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#6ee7b7"></span>Debugging stored procedures</div>
+    </div>
+  </div>
+ 
+  <!-- Day 41 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 41</div>
+        <div class="day-time">⏱ 2.5 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># PostgreSQL-Specific Features</div>
+        <div class="h2-topic">## Arrays, Schemas, Inheritance &amp; Extensions</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Schemas in PostgreSQL (CREATE SCHEMA)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Array data type &amp; array functions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>HSTORE extension (key-value store)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Table Inheritance</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>RETURNING clause in INSERT/UPDATE/DELETE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>ON CONFLICT (UPSERT in PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>PL/pgSQL — procedural language</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Dollar quoting ($$)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>UUID extension</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>pg_stat_statements extension</div>
+    </div>
+  </div>
+ 
+  <!-- Day 42 -->
+  <div class="day-card phase-4">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">DAY 42</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Practice + Mini Project 4</div>
+        <div class="h2-topic">## Full Library Management System Design</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Design full ER diagram with 8+ entities</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Normalize to 3NF / BCNF</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Create all tables with proper constraints</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Write complex JOIN + Window Function reports</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Build stored procedure for book checkout</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Trigger for overdue fine calculation</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>Backup and restore the database</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#34d399"></span>DCL: Create librarian &amp; member users with roles</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.25)">Mini Project</span>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 5 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase5">
+    <div class="phase-number" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.3)">PHASE 05</div>
+    <div class="phase-title" style="color:#fb923c">Performance, Optimization & Administration</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 43–52</div>
+  </div>
+ 
+  <!-- Day 43 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 43</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Query Optimization Deep Dive</div>
+        <div class="h2-topic">## Indexing Strategies &amp; Cost Analysis</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Query Optimizer internals</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Statistics &amp; ANALYZE command</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Composite Index — Column order importance</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Index Selectivity &amp; Cardinality</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Index-Only Scan (Covering Index)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Partial Indexes (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Functional / Expression Indexes</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Index Fragmentation &amp; REBUILD / REORGANIZE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Query rewriting techniques</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Avoiding full table scans</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Batch processing vs single queries</div>
+    </div>
+  </div>
+ 
+  <!-- Day 44 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 44</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Concurrency &amp; Locking</div>
+        <div class="h2-topic">## Locks, Deadlocks &amp; Isolation Levels</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Transaction Isolation Levels: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Locking: Shared Lock (S), Exclusive Lock (X)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Row-level vs Table-level locks</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Intent Locks</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Deadlock — Detection &amp; Prevention</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>LOCK TABLES / UNLOCK TABLES</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>SELECT … FOR UPDATE / FOR SHARE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>NOWAIT / SKIP LOCKED</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Optimistic vs Pessimistic Locking</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>MVCC (Multi-Version Concurrency Control)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>innodb_lock_wait_timeout</div>
+    </div>
+  </div>
+ 
+  <!-- Day 45 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 45</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># MySQL Architecture &amp; Storage Engines</div>
+        <div class="h2-topic">## InnoDB, MyISAM &amp; Internal Architecture</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>MySQL Architecture Overview</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Query Processing Pipeline</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>InnoDB — ACID, row locking, FK support</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>MyISAM — Table locking, no FK, full-text</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>MEMORY engine</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>ARCHIVE, CSV, NDB engines</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>InnoDB Buffer Pool</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Undo Log &amp; Redo Log</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Clustered vs Secondary Index in InnoDB</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Page structure (16KB pages)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Changing storage engine: ALTER TABLE … ENGINE</div>
+    </div>
+  </div>
+ 
+  <!-- Day 46 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 46</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Partitioning</div>
+        <div class="h2-topic">## RANGE, LIST, HASH &amp; KEY Partitioning</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>What is Table Partitioning?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>RANGE Partitioning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>LIST Partitioning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>HASH Partitioning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>KEY Partitioning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Sub-partitioning (Composite)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Partition Pruning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>ADD / DROP / TRUNCATE partitions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Declarative partitioning (PostgreSQL 10+)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>When to use partitioning (large tables)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Partition &amp; Index interaction</div>
+    </div>
+  </div>
+ 
+  <!-- Day 47 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 47</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Replication &amp; High Availability</div>
+        <div class="h2-topic">## Master-Slave, Group Replication &amp; Failover</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>What is Replication?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Master-Slave (Source-Replica) Replication</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Binary Log replication</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>GTID-based Replication</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Semi-synchronous Replication</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>MySQL Group Replication</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>MySQL InnoDB Cluster</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Streaming Replication (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Read Replicas for scaling reads</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Failover &amp; Switchover concepts</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Replication lag monitoring</div>
+    </div>
+  </div>
+ 
+  <!-- Day 48 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 48</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># MySQL / PostgreSQL Configuration Tuning</div>
+        <div class="h2-topic">## my.cnf, postgresql.conf &amp; Memory Tuning</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>innodb_buffer_pool_size tuning</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>query_cache (deprecated in MySQL 8)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>max_connections setting</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>tmp_table_size / max_heap_table_size</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>sort_buffer_size / join_buffer_size</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>PostgreSQL shared_buffers, work_mem, effective_cache_size</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>PostgreSQL checkpoint &amp; WAL settings</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Connection pooling: PgBouncer, ProxySQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>VACUUM &amp; ANALYZE (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Table OPTIMIZE (MySQL)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 49 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 49</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Monitoring &amp; Performance Tools</div>
+        <div class="h2-topic">## INFORMATION_SCHEMA, Performance Schema &amp; Tools</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>INFORMATION_SCHEMA — Tables, Columns, Indexes</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>PERFORMANCE_SCHEMA (MySQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>sys schema (MySQL 5.7+)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>SHOW STATUS / SHOW VARIABLES</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>SHOW PROCESSLIST / KILL query</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Slow Query Log analysis</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>pt-query-digest (Percona Toolkit)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>pg_stat_activity, pg_stat_user_tables</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Prometheus + MySQL Exporter (overview)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Grafana dashboards for DB monitoring (concept)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 50 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 50</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Sharding &amp; Distributed Databases</div>
+        <div class="h2-topic">## Horizontal Scaling &amp; Distributed SQL</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Vertical vs Horizontal Scaling</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>What is Database Sharding?</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Sharding strategies: Range, Hash, Directory-based</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Cross-shard queries challenges</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Consistent Hashing</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Vitess (MySQL sharding)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Citus (PostgreSQL sharding)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>Distributed SQL: CockroachDB, YugabyteDB (concept)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>CAP Theorem: Consistency, Availability, Partition Tolerance</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fdba74"></span>BASE vs ACID in distributed systems</div>
+    </div>
+  </div>
+ 
+  <!-- Day 51 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 51</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Cloud SQL &amp; Managed Databases</div>
+        <div class="h2-topic">## AWS RDS, Google Cloud SQL, Azure SQL</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>AWS RDS — MySQL, PostgreSQL, Aurora</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Amazon Aurora — MySQL/PostgreSQL compatible</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Google Cloud SQL &amp; AlloyDB</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Azure SQL Database &amp; Azure Database for MySQL/PostgreSQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Managed DB features: auto-backup, auto-scaling, HA</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Cloud SQL pricing models</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Connecting to Cloud DBs securely</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>PlanetScale (serverless MySQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Neon &amp; Supabase (serverless PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Database-as-a-Service trade-offs</div>
+    </div>
+  </div>
+ 
+  <!-- Day 52 -->
+  <div class="day-card phase-5">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">DAY 52</div>
+        <div class="day-time">⏱ 2.5–3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Practice + Optimization Lab</div>
+        <div class="h2-topic">## Benchmark &amp; Tune Real Queries</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Generate 1M+ row dataset using procedures</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Find slow queries using EXPLAIN</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Add strategic indexes and measure improvement</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Partition large table by date range</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Compare InnoDB vs MyISAM on same queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Set up connection pooling</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Monitor using PERFORMANCE_SCHEMA</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fb923c"></span>Document optimization findings</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25)">Optimization Lab</span>
+    </div>
+  </div>
+ 
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PHASE 6 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="phase-header" id="phase6">
+    <div class="phase-number" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.3)">PHASE 06</div>
+    <div class="phase-title" style="color:#facc15">Expert Topics &amp; Real-World SQL</div>
+    <div class="phase-line"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--muted)">Day 53–60</div>
+  </div>
+ 
+  <!-- Day 53 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 53</div>
+        <div class="day-time">⏱ 3–4 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL for Data Analysis</div>
+        <div class="h2-topic">## Analytics Queries, Cohort Analysis &amp; Funnel</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Cohort Analysis with SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Retention Rate queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Funnel Analysis with SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Time-series analysis patterns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Moving averages &amp; rolling calculations</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Year-over-Year (YoY) growth queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Month-over-Month (MoM) comparison</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Percentile calculations with PERCENTILE_CONT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Sessionization patterns</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Customer Lifetime Value (CLV) with SQL</div>
+    </div>
+  </div>
+ 
+  <!-- Day 54 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 54</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Temporal Data &amp; Time-Based Queries</div>
+        <div class="h2-topic">## Date Ranges, Gaps &amp; Temporal Tables</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Date range overlap detection</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Gaps and Islands problem</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Finding missing dates in a sequence</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Calendar table technique</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Temporal Tables (SQL Server 2016+ System-Versioned)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>AS OF / FOR SYSTEM_TIME queries</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Slowly Changing Dimension Type 2 implementation</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Handling time zones in SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>UTC storage best practices</div>
+    </div>
+  </div>
+ 
+  <!-- Day 55 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 55</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Hierarchical &amp; Graph Queries</div>
+        <div class="h2-topic">## Adjacency List, Nested Set &amp; Tree Traversal</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Adjacency List model (parent_id)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Recursive CTE for tree traversal</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Nested Set model (lft, rgt)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Path Enumeration model</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Closure Table model</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>CONNECT BY (Oracle)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Finding depth / level in a hierarchy</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Bill of Materials (BOM) problem</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Graph data: shortest path concept in SQL</div>
+    </div>
+  </div>
+ 
+  <!-- Day 56 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 56</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL Interview Patterns</div>
+        <div class="h2-topic">## Common SQL Interview Problems &amp; Patterns</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Nth highest salary problem</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Duplicate records: find and delete</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Consecutive numbers / gaps</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Employees without managers</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Top N records per group</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Cumulative sum &amp; running total</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Pivot table without PIVOT operator</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Self-join for comparing rows</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Finding unpurchased items</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Date difference queries (age, tenure)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Median calculation</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Common LeetCode SQL patterns</div>
+    </div>
+  </div>
+ 
+  <!-- Day 57 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 57</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL Best Practices &amp; Code Quality</div>
+        <div class="h2-topic">## Clean SQL, Naming Conventions &amp; Anti-patterns</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>SQL style guide &amp; formatting</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Naming conventions: tables, columns, indexes, procedures</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Anti-patterns: SELECT *, implicit columns in INSERT</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Anti-patterns: Functions on indexed columns in WHERE</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Anti-patterns: N+1 query problem</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Anti-patterns: God tables &amp; EAV pattern</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Comment your SQL code</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Query refactoring strategies</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Database documentation best practices</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Version control for DB schemas (Git + migration files)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 58 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 58</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># SQL in Application Development</div>
+        <div class="h2-topic">## ORMs, Connection Pooling &amp; Query Builders</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>SQL with Python: mysql-connector, psycopg2, SQLAlchemy</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>SQL with Node.js: mysql2, pg, Knex.js</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>SQL with Java: JDBC, Hibernate</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>ORM concept: Pros and Cons vs Raw SQL</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Query Builders (Knex, SQLAlchemy Core)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Connection Pooling in apps (HikariCP, pg-pool)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Prepared statements vs parameterized queries in code</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>DB migration in apps: Flyway, Alembic, Prisma Migrate</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#fde047"></span>Seeding databases for testing</div>
+    </div>
+  </div>
+ 
+  <!-- Day 59 -->
+  <div class="day-card phase-6">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.12);color:#facc15;border:1px solid rgba(250,204,21,0.25)">DAY 59</div>
+        <div class="day-time">⏱ 3 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Emerging SQL Features &amp; Modern SQL</div>
+        <div class="h2-topic">## SQL:2023 Standard, LATERAL, FILTER, MERGE</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>MERGE statement (SQL Server / Oracle / PostgreSQL 15+)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>LATERAL JOIN / LATERAL subquery</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>FILTER clause with aggregate functions</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>TABLESAMPLE clause</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>VALUES() as a table constructor</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>QUALIFY clause (BigQuery, Snowflake)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>GENERATE_SERIES (PostgreSQL)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>SQL/JSON path language (SQL:2016)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Property Graph Queries (SQL:2023)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Snowflake SQL, BigQuery Standard SQL differences</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>DuckDB for analytical SQL (OLAP in files)</div>
+    </div>
+  </div>
+ 
+  <!-- Day 60 -->
+  <div class="day-card phase-6" style="border-color:rgba(250,204,21,0.35);">
+    <div class="day-card-header">
+      <div>
+        <div class="day-badge" style="background:rgba(250,204,21,0.18);color:#facc15;border:1px solid rgba(250,204,21,0.4)">DAY 60 🏆</div>
+        <div class="day-time">⏱ 4–5 hrs</div>
+      </div>
+      <div class="day-title-wrap">
+        <div class="h1-topic"># Final Capstone Project</div>
+        <div class="h2-topic">## Full-Stack SQL: End-to-End Real World System</div>
+      </div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Design complete DB for a SaaS product (multi-tenant)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Apply all normalization rules</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Implement RLS (Row-Level Security)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Full suite of stored procedures</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Analytics dashboard queries (Window functions)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Triggers for complete audit trail</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Optimized indexes &amp; EXPLAIN verified</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Users &amp; roles with proper privileges</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Full backup &amp; restore plan</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>SQL interview Q&amp;A practice (10+ questions)</div>
+      <div class="topic-item"><span class="topic-bullet" style="background:#facc15"></span>Document entire project with schema diagram</div>
+    </div>
+    <div class="tag-wrap">
+      <span class="tag" style="background:rgba(250,204,21,0.15);color:#facc15;border:1px solid rgba(250,204,21,0.35)">Capstone</span>
+      <span class="tag" style="background:rgba(250,204,21,0.15);color:#facc15;border:1px solid rgba(250,204,21,0.35)">Final Project</span>
+      <span class="tag" style="background:rgba(250,204,21,0.15);color:#facc15;border:1px solid rgba(250,204,21,0.35)">🎓 Graduation</span>
+    </div>
+  </div>
+ 
+  <!-- Summary Table -->
+  <div style="margin-top:60px">
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Time Estimate Summary</div>
+    <div style="background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:24px 30px;backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px">
+      <div style="padding:12px;border-radius:12px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.15)">
+        <div style="color:#a78bfa;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 1 · Day 1–10</div>
+        <div style="font-size:1rem;font-weight:600">~25 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Foundations</div>
+      </div>
+      <div style="padding:12px;border-radius:12px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15)">
+        <div style="color:#38bdf8;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 2 · Day 11–20</div>
+        <div style="font-size:1rem;font-weight:600">~28 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Intermediate</div>
+      </div>
+      <div style="padding:12px;border-radius:12px;background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.15)">
+        <div style="color:#f472b6;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 3 · Day 21–32</div>
+        <div style="font-size:1rem;font-weight:600">~36 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Advanced Queries</div>
+      </div>
+      <div style="padding:12px;border-radius:12px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15)">
+        <div style="color:#34d399;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 4 · Day 33–42</div>
+        <div style="font-size:1rem;font-weight:600">~30 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">DB Design</div>
+      </div>
+      <div style="padding:12px;border-radius:12px;background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.15)">
+        <div style="color:#fb923c;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 5 · Day 43–52</div>
+        <div style="font-size:1rem;font-weight:600">~30 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Performance & Admin</div>
+      </div>
+      <div style="padding:12px;border-radius:12px;background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.15)">
+        <div style="color:#facc15;font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:1px;margin-bottom:6px">PHASE 6 · Day 53–60</div>
+        <div style="font-size:1rem;font-weight:600">~24 hours</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Expert & Real World</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="footer">
+    <div style="font-family:'Orbitron',sans-serif;font-size:1rem;background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px">SQL MASTERY ROADMAP · 60 DAYS</div>
+    Total ~173 hours · 6 Phases · 200+ Topics · 5 Mini Projects + 1 Capstone
+  </div>
+ 
+</div>
+</body>
+</html>
