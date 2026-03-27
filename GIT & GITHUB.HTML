@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git & GitHub — Complete Command Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0015;
+    --bg2: #0d0025;
+    --glass: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.13);
+    --glass-hover: rgba(255,255,255,0.11);
+    --accent1: #a259ff;
+    --accent2: #00d4ff;
+    --accent3: #ff6bdf;
+    --accent4: #ffcc00;
+    --accent5: #00ffb3;
+    --accent6: #ff7043;
+    --text: #e8e8ff;
+    --muted: #9090b8;
+    --code-bg: rgba(0,0,0,0.38);
+    --heading-color: #fff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === ANIMATED BG === */
+  .bg-mesh {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(162,89,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0,212,255,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,107,223,0.08) 0%, transparent 60%),
+      linear-gradient(135deg, #0a0015 0%, #0d0025 50%, #05001a 100%);
+    animation: bgshift 12s ease-in-out infinite alternate;
+  }
+  @keyframes bgshift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(30deg); }
+  }
+
+  /* === STARS === */
+  .stars {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.4) 0%, transparent 100%);
+  }
+
+  /* === LAYOUT === */
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* === HERO === */
+  .hero {
+    text-align: center;
+    padding: 72px 0 56px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 6px 22px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    box-shadow: 0 0 24px rgba(162,89,255,0.4);
+  }
+  .hero h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 40%, var(--accent1) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 32px rgba(162,89,255,0.3));
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* === LEGEND BAR === */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    backdrop-filter: blur(8px);
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* === DAY PLAN STRIP === */
+  .day-plan-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+  .day-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .day-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .day-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(162,89,255,0.22);
+  }
+  .day-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .day-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .day-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  /* === SECTION === */
+  .day-section {
+    margin-bottom: 64px;
+  }
+
+  .day-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px;
+    padding: 20px 28px;
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+  }
+  .day-header::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  .day-number {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.2rem;
+    font-weight: 900;
+    opacity: 0.25;
+    line-height: 1;
+  }
+  .day-info h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .day-info p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* === TOPIC CARD === */
+  .topic-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+  }
+  .topic-card:hover {
+    box-shadow: 0 8px 40px rgba(162,89,255,0.18);
+    transform: translateY(-2px);
+  }
+  .topic-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .topic-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .topic-header-left {
+    display: flex; align-items: center; gap: 14px;
+    flex: 1;
+  }
+  .topic-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  /* Heading highlight styles */
+  .h1-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.35rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #fff, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .h2-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .h3-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+  }
+  .h4-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .chevron {
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .topic-card.open .chevron { transform: rotate(180deg); }
+
+  .topic-body {
+    display: none;
+    padding: 0 24px 22px;
+    border-top: 1px solid var(--glass-border);
+  }
+  .topic-body.show { display: block; }
+
+  /* === SUBTOPIC === */
+  .subtopic {
+    margin-top: 18px;
+  }
+  .subtopic-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace;
+  }
+  .subtopic-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--glass-border);
+  }
+
+  /* === CODE BLOCK === */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    font-family: 'Space Mono', monospace;
+  }
+  .code-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 14px;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .code-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--glass-border);
+    color: var(--muted);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+  .copy-btn.copied { color: var(--accent5); border-color: var(--accent5); }
+
+  .code-content {
+    padding: 14px 16px;
+    overflow-x: auto;
+  }
+  .code-content pre {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    white-space: pre;
+  }
+
+  .cmd { color: var(--accent2); }
+  .flag { color: var(--accent3); }
+  .arg { color: var(--accent4); }
+  .comment { color: var(--muted); font-style: italic; }
+  .kw { color: var(--accent1); }
+  .str { color: var(--accent5); }
+
+  /* === DESCRIPTION === */
+  .desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .desc strong { color: var(--text); }
+
+  /* === NOTE BOX === */
+  .note-box {
+    display: flex; gap: 10px;
+    background: rgba(255,204,0,0.07);
+    border: 1px solid rgba(255,204,0,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: rgba(255,204,0,0.9);
+    line-height: 1.55;
+  }
+  .note-icon { flex-shrink: 0; }
+
+  /* === BADGE === */
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 2px 9px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* === SEARCH === */
+  .search-wrap {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+  .search-icon {
+    position: absolute; left: 16px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted); font-size: 1rem;
+    pointer-events: none;
+  }
+  #searchInput {
+    width: 100%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    padding: 14px 20px 14px 44px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    backdrop-filter: blur(14px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #searchInput::placeholder { color: var(--muted); }
+  #searchInput:focus {
+    border-color: var(--accent1);
+    box-shadow: 0 0 0 3px rgba(162,89,255,0.15);
+  }
+
+  /* === PROGRESS === */
+  #progressBar {
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+    z-index: 9999;
+    transition: width 0.15s;
+  }
+
+  /* === BACK TO TOP === */
+  #backTop {
+    position: fixed; bottom: 32px; right: 32px;
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border: none; border-radius: 50%;
+    color: #fff; font-size: 1.1rem;
+    cursor: pointer; display: none; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(162,89,255,0.45);
+    z-index: 999;
+    transition: transform 0.2s;
+  }
+  #backTop:hover { transform: scale(1.1); }
+  #backTop.show { display: flex; }
+
+  /* === COLORS PER DAY === */
+  .d1 { --dc: var(--accent1); }
+  .d2 { --dc: var(--accent2); }
+  .d3 { --dc: var(--accent3); }
+  .d4 { --dc: var(--accent4); }
+  .d5 { --dc: var(--accent5); }
+  .d6 { --dc: var(--accent6); }
+  .d7 { --dc: #c084fc; }
+
+  .day-header { background: rgba(255,255,255,0.04); }
+  .day-section .day-header::before { background: var(--dc); }
+  .day-section .day-number { color: var(--dc); }
+  .day-section .day-info h2 { color: var(--dc); }
+  .day-section .topic-icon { background: color-mix(in srgb, var(--dc) 18%, transparent); }
+
+  .d1 .day-time { background: rgba(162,89,255,0.15); color: var(--accent1); }
+  .d2 .day-time { background: rgba(0,212,255,0.12); color: var(--accent2); }
+  .d3 .day-time { background: rgba(255,107,223,0.12); color: var(--accent3); }
+  .d4 .day-time { background: rgba(255,204,0,0.12); color: var(--accent4); }
+  .d5 .day-time { background: rgba(0,255,179,0.12); color: var(--accent5); }
+  .d6 .day-time { background: rgba(255,112,67,0.12); color: var(--accent6); }
+  .d7 .day-time { background: rgba(192,132,252,0.12); color: #c084fc; }
+
+  /* Heading font colors */
+  .hl1 { color: var(--accent2); font-family: 'Orbitron', monospace; font-size: 1.25em; font-weight: 900; }
+  .hl2 { color: var(--accent1); font-family: 'Orbitron', monospace; font-size: 1.1em; font-weight: 700; }
+  .hl3 { color: var(--accent3); font-family: 'Syne', sans-serif; font-size: 1.05em; font-weight: 700; }
+  .hl4 { color: var(--accent5); font-family: 'Syne', sans-serif; font-size: 1em; font-weight: 600; }
+
+  /* responsive */
+  @media (max-width: 600px) {
+    .day-plan-strip { grid-template-columns: repeat(2, 1fr); }
+    .topic-header { flex-direction: row; }
+    .h1-title { font-size: 1.05rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+<div class="bg-mesh"></div>
+<div class="stars"></div>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">⚡ Complete Reference Guide</div>
+    <h1>Git & GitHub<br>Commands</h1>
+    <p>Every essential command — organized by topic, explained with examples, with a structured 7-day learning plan.</p>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search commands, topics...">
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>Commands</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>Flags/Options</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div>Arguments</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent5)"></div>Output/Strings</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div>Comments</div>
+  </div>
+
+  <!-- DAY PLAN OVERVIEW -->
+  <div class="day-plan-strip">
+    <div class="day-card d1">
+      <div class="day-label">Day 1</div>
+      <div class="day-title" style="color:var(--accent1)">Git Basics & Setup</div>
+      <div class="day-time">~3 hrs</div>
+    </div>
+    <div class="day-card d2">
+      <div class="day-label">Day 2</div>
+      <div class="day-title" style="color:var(--accent2)">Commits & History</div>
+      <div class="day-time">~3 hrs</div>
+    </div>
+    <div class="day-card d3">
+      <div class="day-label">Day 3</div>
+      <div class="day-title" style="color:var(--accent3)">Branching & Merging</div>
+      <div class="day-time">~4 hrs</div>
+    </div>
+    <div class="day-card d4">
+      <div class="day-label">Day 4</div>
+      <div class="day-title" style="color:var(--accent4)">Remote & GitHub</div>
+      <div class="day-time">~3.5 hrs</div>
+    </div>
+    <div class="day-card d5">
+      <div class="day-label">Day 5</div>
+      <div class="day-title" style="color:var(--accent5)">Undoing & Reset</div>
+      <div class="day-time">~3 hrs</div>
+    </div>
+    <div class="day-card d6">
+      <div class="day-label">Day 6</div>
+      <div class="day-title" style="color:var(--accent6)">GitHub Features</div>
+      <div class="day-time">~4 hrs</div>
+    </div>
+    <div class="day-card d7">
+      <div class="day-label">Day 7</div>
+      <div class="day-title" style="color:#c084fc">Advanced & Pro Tips</div>
+      <div class="day-time">~4 hrs</div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 1 ===== -->
+  <div class="day-section d1" id="day1">
+    <div class="day-header">
+      <div class="day-number">01</div>
+      <div class="day-info">
+        <h2>Git Basics & Setup</h2>
+        <p>Estimated Time: ~3 Hours &nbsp;|&nbsp; Configuration, Init, Staging, First Commits</p>
+      </div>
+    </div>
+
+    <!-- # Git Installation & Configuration -->
+    <div class="topic-card" id="tc-config">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">⚙️</div>
+          <div>
+            <div class="h1-title hl1"># Git Installation &amp; Configuration</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Initial setup — identity, editor, aliases</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(162,89,255,0.15);color:var(--accent1)">SETUP</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <p class="desc">Before using Git, configure your identity. These values are embedded in every commit you make.</p>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Check Git Version</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="flag">--version</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Set Global Identity</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> user.name <span class="str">"Your Name"</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> user.email <span class="str">"you@example.com"</span>
+<span class="comment"># Project-level (no --global)</span>
+<span class="cmd">git</span> <span class="kw">config</span> user.name <span class="str">"Project Name"</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Default Branch & Editor</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> init.defaultBranch <span class="arg">main</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> core.editor <span class="str">"code --wait"</span>   <span class="comment"># VS Code</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> core.editor <span class="str">"vim"</span>           <span class="comment"># Vim</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## View & Edit Config</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--list</span>               <span class="comment"># All settings</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global --list</span>       <span class="comment"># Global only</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global --edit</span>       <span class="comment"># Open .gitconfig in editor</span>
+<span class="cmd">git</span> <span class="kw">config</span> user.name             <span class="comment"># Get single value</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Useful Aliases</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> alias.st <span class="arg">status</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> alias.co <span class="arg">checkout</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> alias.br <span class="arg">branch</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> alias.lg <span class="str">"log --oneline --graph --all"</span>
+<span class="comment"># Usage:</span>
+<span class="cmd">git</span> <span class="arg">st</span>     <span class="comment"># same as git status</span>
+<span class="cmd">git</span> <span class="arg">lg</span>     <span class="comment"># pretty log graph</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Initialize & Clone -->
+    <div class="topic-card" id="tc-init">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📁</div>
+          <div>
+            <div class="h1-title hl1"># Initialize &amp; Clone Repositories</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">git init, git clone</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(162,89,255,0.15);color:var(--accent1)">CORE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git init</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">init</span>                   <span class="comment"># Init in current folder</span>
+<span class="cmd">git</span> <span class="kw">init</span> <span class="arg">my-project</span>        <span class="comment"># Create + init new folder</span>
+<span class="cmd">git</span> <span class="kw">init</span> <span class="flag">--bare</span> <span class="arg">repo.git</span>   <span class="comment"># Bare repo (server-side)</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git clone</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">clone</span> <span class="arg">https://github.com/user/repo.git</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="arg">git@github.com:user/repo.git</span>          <span class="comment"># SSH</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="arg">URL</span> <span class="str">my-folder</span>                           <span class="comment"># Custom folder name</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="flag">--depth 1</span> <span class="arg">URL</span>                           <span class="comment"># Shallow clone (fastest)</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="flag">--branch</span> <span class="arg">develop</span> <span class="arg">URL</span>                   <span class="comment"># Clone specific branch</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="flag">--recurse-submodules</span> <span class="arg">URL</span>              <span class="comment"># With submodules</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Staging Area -->
+    <div class="topic-card" id="tc-stage">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📋</div>
+          <div>
+            <div class="h1-title hl1"># Staging Area (Index)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">git add, git rm, git mv, git status</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(162,89,255,0.15);color:var(--accent1)">CORE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git status</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">status</span>            <span class="comment"># Full output</span>
+<span class="cmd">git</span> <span class="kw">status</span> <span class="flag">-s</span>         <span class="comment"># Short/compact format</span>
+<span class="cmd">git</span> <span class="kw">status</span> <span class="flag">-sb</span>        <span class="comment"># Short + branch info</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git add</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">add</span> <span class="arg">file.txt</span>       <span class="comment"># Stage one file</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">src/</span>           <span class="comment"># Stage entire folder</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">.</span>              <span class="comment"># Stage all changes</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="flag">-A</span>             <span class="comment"># Stage all (including deletions)</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="flag">-p</span>             <span class="comment"># Interactive patch staging (hunk by hunk)</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="flag">-u</span>             <span class="comment"># Stage modified + deleted (not untracked)</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">*.js</span>           <span class="comment"># Stage all .js files</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git rm &amp; git mv</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">rm</span> <span class="arg">file.txt</span>              <span class="comment"># Remove file & stage deletion</span>
+<span class="cmd">git</span> <span class="kw">rm</span> <span class="flag">--cached</span> <span class="arg">file.txt</span>    <span class="comment"># Untrack but keep on disk</span>
+<span class="cmd">git</span> <span class="kw">rm</span> <span class="flag">-r</span> <span class="arg">folder/</span>           <span class="comment"># Remove entire folder</span>
+<span class="cmd">git</span> <span class="kw">mv</span> <span class="arg">old.txt</span> <span class="arg">new.txt</span>      <span class="comment"># Rename/move file</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## .gitignore</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="comment"># .gitignore syntax</span>
+<span class="str">node_modules/</span>        <span class="comment"># Ignore folder</span>
+<span class="str">*.log</span>                <span class="comment"># Ignore all .log files</span>
+<span class="str">!important.log</span>       <span class="comment"># Re-include this file</span>
+<span class="str">.env</span>                 <span class="comment"># Ignore env file</span>
+<span class="str">dist/</span>                <span class="comment"># Ignore dist folder</span>
+
+<span class="comment"># After adding to .gitignore, remove cached:</span>
+<span class="cmd">git</span> <span class="kw">rm</span> <span class="flag">-r --cached</span> <span class="arg">.</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">.</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day1 -->
+
+  <!-- ===== DAY 2 ===== -->
+  <div class="day-section d2" id="day2">
+    <div class="day-header">
+      <div class="day-number">02</div>
+      <div class="day-info">
+        <h2>Commits &amp; Viewing History</h2>
+        <p>Estimated Time: ~3 Hours &nbsp;|&nbsp; Commit, Diff, Log, Stash, Tags</p>
+      </div>
+    </div>
+
+    <!-- # Committing -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">💾</div>
+          <div>
+            <div class="h1-title hl2"># Committing Changes</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">git commit, amend, messages</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,212,255,0.12);color:var(--accent2)">COMMITS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Basic Commit</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-m</span> <span class="str">"feat: add login page"</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-am</span> <span class="str">"fix: update styles"</span>   <span class="comment"># Stage tracked files + commit</span>
+<span class="cmd">git</span> <span class="kw">commit</span>                              <span class="comment"># Open editor for message</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">--allow-empty</span> <span class="flag">-m</span> <span class="str">"chore: trigger CI"</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Amend Last Commit</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">--amend</span> <span class="flag">-m</span> <span class="str">"corrected message"</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">--amend --no-edit</span>   <span class="comment"># Keep message, add staged changes</span></pre></div>
+          </div>
+          <div class="note-box"><span class="note-icon">⚠️</span> Never amend commits that have been pushed to a shared branch — it rewrites history.</div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Conventional Commit Format</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">format</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="str">feat</span>:     new feature
+<span class="str">fix</span>:      bug fix
+<span class="str">docs</span>:     documentation
+<span class="str">style</span>:    formatting (no logic change)
+<span class="str">refactor</span>: code restructure
+<span class="str">test</span>:     add/update tests
+<span class="str">chore</span>:    maintenance tasks
+<span class="str">perf</span>:     performance improvement
+
+<span class="comment"># Example:</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-m</span> <span class="str">"feat(auth): add JWT refresh token support"</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Viewing Differences -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔍</div>
+          <div>
+            <div class="h1-title hl2"># Viewing Differences (git diff)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Unstaged, staged, between commits</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,212,255,0.12);color:var(--accent2)">DIFF</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">diff</span>                        <span class="comment"># Unstaged changes</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="flag">--staged</span>               <span class="comment"># Staged vs last commit</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="arg">HEAD</span>                    <span class="comment"># All changes vs last commit</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="arg">main..feature</span>          <span class="comment"># Between branches</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="arg">abc123 def456</span>          <span class="comment"># Between two commits</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="flag">--stat</span>                  <span class="comment"># Summary of changes</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="flag">--name-only</span>             <span class="comment"># Only filenames</span>
+<span class="cmd">git</span> <span class="kw">diff</span> <span class="arg">HEAD~3..HEAD</span>           <span class="comment"># Last 3 commits</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Viewing History -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📜</div>
+          <div>
+            <div class="h1-title hl2"># Viewing Commit History (git log)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">log, shortlog, show</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,212,255,0.12);color:var(--accent2)">HISTORY</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">log</span>                                      <span class="comment"># Full log</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--oneline</span>                            <span class="comment"># One line per commit</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--oneline --graph --all</span>             <span class="comment"># Visual branch graph</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--oneline -10</span>                       <span class="comment"># Last 10 commits</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--author=</span><span class="str">"Name"</span>                    <span class="comment"># Filter by author</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--since=</span><span class="str">"2024-01-01"</span>              <span class="comment"># After date</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--grep=</span><span class="str">"fix"</span>                       <span class="comment"># Search commit messages</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">-S</span><span class="str">"function name"</span>                  <span class="comment"># Search added/removed code</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--follow</span> <span class="arg">file.txt</span>                  <span class="comment"># History including renames</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--format=</span><span class="str">"%H | %an | %s"</span>          <span class="comment"># Custom format</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">--no-merges</span>                         <span class="comment"># Exclude merge commits</span>
+<span class="cmd">git</span> <span class="kw">show</span> <span class="arg">abc123</span>                              <span class="comment"># Show a specific commit</span>
+<span class="cmd">git</span> <span class="kw">shortlog</span> <span class="flag">-sn</span>                             <span class="comment"># Commits per author</span>
+<span class="cmd">git</span> <span class="kw">blame</span> <span class="arg">file.txt</span>                          <span class="comment"># Who changed each line</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Stashing -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📦</div>
+          <div>
+            <div class="h1-title hl2"># Stashing Changes</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Temporarily save uncommitted work</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,212,255,0.12);color:var(--accent2)">STASH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">stash</span>                              <span class="comment"># Stash tracked changes</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">push</span> <span class="flag">-m</span> <span class="str">"wip: feature x"</span>   <span class="comment"># Named stash</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="flag">-u</span>                          <span class="comment"># Include untracked files</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="flag">-a</span>                          <span class="comment"># Include ignored files too</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">list</span>                        <span class="comment"># Show all stashes</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">pop</span>                         <span class="comment"># Apply + remove latest stash</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">apply</span> <span class="arg">stash@{2}</span>           <span class="comment"># Apply specific stash</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">drop</span> <span class="arg">stash@{0}</span>            <span class="comment"># Delete specific stash</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">clear</span>                      <span class="comment"># Delete all stashes</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">show</span> <span class="flag">-p</span>                    <span class="comment"># Show stash diff</span>
+<span class="cmd">git</span> <span class="kw">stash</span> <span class="kw">branch</span> <span class="arg">new-branch</span>        <span class="comment"># Create branch from stash</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Tags -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🏷️</div>
+          <div>
+            <div class="h1-title hl2"># Tags</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Lightweight and annotated tags, releases</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,212,255,0.12);color:var(--accent2)">TAGS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">tag</span>                             <span class="comment"># List all tags</span>
+<span class="cmd">git</span> <span class="kw">tag</span> <span class="arg">v1.0.0</span>                     <span class="comment"># Lightweight tag</span>
+<span class="cmd">git</span> <span class="kw">tag</span> <span class="flag">-a</span> <span class="arg">v1.0.0</span> <span class="flag">-m</span> <span class="str">"Release 1.0"</span> <span class="comment"># Annotated tag</span>
+<span class="cmd">git</span> <span class="kw">tag</span> <span class="flag">-a</span> <span class="arg">v1.0.0</span> <span class="arg">abc123</span>         <span class="comment"># Tag a specific commit</span>
+<span class="cmd">git</span> <span class="kw">show</span> <span class="arg">v1.0.0</span>                    <span class="comment"># Show tag details</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="arg">v1.0.0</span>            <span class="comment"># Push one tag</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="flag">--tags</span>            <span class="comment"># Push all tags</span>
+<span class="cmd">git</span> <span class="kw">tag</span> <span class="flag">-d</span> <span class="arg">v1.0.0</span>                 <span class="comment"># Delete local tag</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="flag">--delete</span> <span class="arg">v1.0.0</span>  <span class="comment"># Delete remote tag</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="arg">v1.0.0</span>               <span class="comment"># Checkout a tag (detached HEAD)</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day2 -->
+
+  <!-- ===== DAY 3 ===== -->
+  <div class="day-section d3" id="day3">
+    <div class="day-header">
+      <div class="day-number">03</div>
+      <div class="day-info">
+        <h2>Branching &amp; Merging</h2>
+        <p>Estimated Time: ~4 Hours &nbsp;|&nbsp; Branches, Merge, Rebase, Cherry-pick, Conflicts</p>
+      </div>
+    </div>
+
+    <!-- # Branches -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🌿</div>
+          <div>
+            <div class="h1-title hl3"># Branch Management</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Create, switch, rename, delete branches</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,107,223,0.12);color:var(--accent3)">BRANCH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Create &amp; Switch</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">branch</span>                         <span class="comment"># List local branches</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-a</span>                      <span class="comment"># List all (local + remote)</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-r</span>                      <span class="comment"># Remote branches only</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="arg">feature/login</span>          <span class="comment"># Create branch</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="arg">feature/login</span>        <span class="comment"># Switch to branch</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">-b</span> <span class="arg">feature/login</span>    <span class="comment"># Create + switch</span>
+<span class="cmd">git</span> <span class="kw">switch</span> <span class="arg">feature/login</span>          <span class="comment"># Modern switch (Git 2.23+)</span>
+<span class="cmd">git</span> <span class="kw">switch</span> <span class="flag">-c</span> <span class="arg">feature/login</span>      <span class="comment"># Create + switch (modern)</span>
+<span class="cmd">git</span> <span class="kw">switch</span> <span class="flag">-</span>                      <span class="comment"># Switch to previous branch</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Rename &amp; Delete</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-m</span> <span class="arg">old-name new-name</span>        <span class="comment"># Rename branch</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-d</span> <span class="arg">feature/login</span>            <span class="comment"># Safe delete (merged)</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-D</span> <span class="arg">feature/login</span>            <span class="comment"># Force delete</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="flag">--delete</span> <span class="arg">feature/login</span> <span class="comment"># Delete remote branch</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">--merged</span>                    <span class="comment"># Branches merged into current</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">--no-merged</span>                 <span class="comment"># Unmerged branches</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Merging -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔀</div>
+          <div>
+            <div class="h1-title hl3"># Merging</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Merge strategies, fast-forward, squash</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,107,223,0.12);color:var(--accent3)">MERGE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">merge</span> <span class="arg">feature/login</span>            <span class="comment"># Merge into current branch</span>
+<span class="cmd">git</span> <span class="kw">merge</span> <span class="flag">--no-ff</span> <span class="arg">feature/login</span>   <span class="comment"># Force merge commit (no fast-forward)</span>
+<span class="cmd">git</span> <span class="kw">merge</span> <span class="flag">--ff-only</span> <span class="arg">feature</span>       <span class="comment"># Only if fast-forward possible</span>
+<span class="cmd">git</span> <span class="kw">merge</span> <span class="flag">--squash</span> <span class="arg">feature</span>        <span class="comment"># Squash all into one commit</span>
+<span class="cmd">git</span> <span class="kw">merge</span> <span class="flag">--abort</span>                  <span class="comment"># Cancel merge in progress</span>
+<span class="cmd">git</span> <span class="kw">merge</span> <span class="flag">--continue</span>               <span class="comment"># Continue after resolving conflicts</span></pre></div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Conflict Resolution</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="comment"># 1. After a conflict, files look like:</span>
+<span class="str">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span class="str">your changes</span>
+<span class="str">=======</span>
+<span class="str">their changes</span>
+<span class="str">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</span>
+
+<span class="comment"># 2. Edit the file, then:</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">conflicted-file.txt</span>
+<span class="cmd">git</span> <span class="kw">commit</span>
+
+<span class="comment"># Useful conflict tools:</span>
+<span class="cmd">git</span> <span class="kw">mergetool</span>               <span class="comment"># Launch merge tool (vimdiff, kdiff3...)</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">--ours</span> <span class="arg">file</span>   <span class="comment"># Accept our version</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">--theirs</span> <span class="arg">file</span> <span class="comment"># Accept their version</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Rebase -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔄</div>
+          <div>
+            <div class="h1-title hl3"># Rebase</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Linear history, interactive rebase</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,107,223,0.12);color:var(--accent3)">REBASE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">rebase</span> <span class="arg">main</span>                   <span class="comment"># Rebase current branch onto main</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="flag">-i</span> <span class="arg">HEAD~3</span>             <span class="comment"># Interactive rebase last 3 commits</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="flag">--onto</span> <span class="arg">main A B</span>      <span class="comment"># Rebase branch B onto main, starting after A</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="flag">--abort</span>               <span class="comment"># Cancel rebase</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="flag">--continue</span>            <span class="comment"># Continue after conflict resolution</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="flag">--skip</span>                <span class="comment"># Skip current patch</span></pre></div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Interactive Rebase Commands</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">interactive rebase options</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="str">pick</span>    <span class="comment"># use commit as-is</span>
+<span class="str">reword</span>  <span class="comment"># use commit, edit message</span>
+<span class="str">edit</span>    <span class="comment"># pause to amend</span>
+<span class="str">squash</span>  <span class="comment"># meld into previous commit</span>
+<span class="str">fixup</span>   <span class="comment"># like squash, discard message</span>
+<span class="str">drop</span>    <span class="comment"># remove commit entirely</span>
+<span class="str">exec</span>    <span class="comment"># run shell command after commit</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Cherry-Pick -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🍒</div>
+          <div>
+            <div class="h1-title hl3"># Cherry-Pick</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Apply specific commits from other branches</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,107,223,0.12);color:var(--accent3)">CHERRY</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="arg">abc123</span>              <span class="comment"># Apply one commit</span>
+<span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="arg">abc123 def456</span>       <span class="comment"># Multiple commits</span>
+<span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="arg">abc123..def456</span>     <span class="comment"># Range of commits</span>
+<span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="flag">-n</span> <span class="arg">abc123</span>          <span class="comment"># Apply but don't commit</span>
+<span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="flag">--abort</span>             <span class="comment"># Cancel</span>
+<span class="cmd">git</span> <span class="kw">cherry-pick</span> <span class="flag">--continue</span>          <span class="comment"># Continue after conflict</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day3 -->
+
+  <!-- ===== DAY 4 ===== -->
+  <div class="day-section d4" id="day4">
+    <div class="day-header">
+      <div class="day-number">04</div>
+      <div class="day-info">
+        <h2>Remote Repositories &amp; GitHub</h2>
+        <p>Estimated Time: ~3.5 Hours &nbsp;|&nbsp; Remote, Push, Pull, Fetch, SSH</p>
+      </div>
+    </div>
+
+    <!-- # Remote Management -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🌐</div>
+          <div>
+            <div class="h1-title hl4"># Remote Management</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Add, rename, remove, inspect remotes</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,204,0,0.12);color:var(--accent4)">REMOTE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">remote</span> <span class="flag">-v</span>                                <span class="comment"># List remotes with URLs</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">add</span> <span class="arg">origin</span> <span class="arg">URL</span>                   <span class="comment"># Add remote named origin</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">add</span> <span class="arg">upstream</span> <span class="arg">URL</span>               <span class="comment"># Add upstream (for forks)</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">rename</span> <span class="arg">origin github</span>           <span class="comment"># Rename remote</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">remove</span> <span class="arg">upstream</span>               <span class="comment"># Remove remote</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">set-url</span> <span class="arg">origin</span> <span class="arg">NEW_URL</span>        <span class="comment"># Change remote URL</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">show</span> <span class="arg">origin</span>                    <span class="comment"># Inspect remote info</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">prune</span> <span class="arg">origin</span>                   <span class="comment"># Remove stale remote branches</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Push, Pull, Fetch -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">⬆️</div>
+          <div>
+            <div class="h1-title hl4"># Push, Pull &amp; Fetch</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Sync with remote repos</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,204,0,0.12);color:var(--accent4)">SYNC</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git fetch</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">fetch</span>                        <span class="comment"># Fetch from default remote</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="arg">origin</span>                 <span class="comment"># Fetch from origin</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="flag">--all</span>                  <span class="comment"># Fetch from all remotes</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="arg">origin</span> <span class="arg">main</span>           <span class="comment"># Fetch specific branch</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="flag">--prune</span>                <span class="comment"># Remove deleted remote branches</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="flag">--tags</span>                 <span class="comment"># Fetch all tags</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git pull</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">pull</span>                              <span class="comment"># fetch + merge</span>
+<span class="cmd">git</span> <span class="kw">pull</span> <span class="arg">origin</span> <span class="arg">main</span>                <span class="comment"># Pull specific remote+branch</span>
+<span class="cmd">git</span> <span class="kw">pull</span> <span class="flag">--rebase</span>                    <span class="comment"># fetch + rebase (cleaner history)</span>
+<span class="cmd">git</span> <span class="kw">pull</span> <span class="flag">--no-ff</span>                     <span class="comment"># Always create merge commit</span>
+<span class="cmd">git</span> <span class="kw">pull</span> <span class="flag">--autostash</span>                 <span class="comment"># Stash, pull, re-apply stash</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## git push</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">push</span>                                      <span class="comment"># Push current branch</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="arg">main</span>                         <span class="comment"># Push to specific remote+branch</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">-u</span> <span class="arg">origin</span> <span class="arg">feature/login</span>           <span class="comment"># Push + set upstream tracking</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">--force</span>                              <span class="comment"># Force push (dangerous!)</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">--force-with-lease</span>                  <span class="comment"># Safe force push</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">--all</span>                               <span class="comment"># Push all branches</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="flag">--delete</span> <span class="arg">feature/login</span>     <span class="comment"># Delete remote branch</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">--dry-run</span>                           <span class="comment"># Preview without pushing</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # SSH Keys -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔑</div>
+          <div>
+            <div class="h1-title hl4"># SSH Key Setup for GitHub</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Generate, add, test SSH connection</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,204,0,0.12);color:var(--accent4)">SSH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># Generate SSH key</span>
+<span class="cmd">ssh-keygen</span> <span class="flag">-t ed25519 -C</span> <span class="str">"you@example.com"</span>
+
+<span class="comment"># Start SSH agent & add key</span>
+<span class="cmd">eval</span> <span class="str">"$(ssh-agent -s)"</span>
+<span class="cmd">ssh-add</span> <span class="arg">~/.ssh/id_ed25519</span>
+
+<span class="comment"># Copy public key to clipboard</span>
+<span class="cmd">cat</span> <span class="arg">~/.ssh/id_ed25519.pub</span>          <span class="comment"># Paste this in GitHub SSH settings</span>
+
+<span class="comment"># Test connection</span>
+<span class="cmd">ssh</span> <span class="flag">-T</span> <span class="arg">git@github.com</span>
+
+<span class="comment"># Change existing repo from HTTPS to SSH</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">set-url</span> <span class="arg">origin</span> <span class="arg">git@github.com:user/repo.git</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Tracking Branches -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📡</div>
+          <div>
+            <div class="h1-title hl4"># Tracking &amp; Upstream Branches</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Set upstream tracking for local branches</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,204,0,0.12);color:var(--accent4)">TRACK</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">--set-upstream-to=</span><span class="arg">origin/main</span> <span class="arg">main</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="flag">-vv</span>                     <span class="comment"># Show tracking info for all branches</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">--track</span> <span class="arg">origin/feature</span> <span class="comment"># Track remote branch locally</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">-u</span> <span class="arg">origin</span> <span class="arg">HEAD</span>            <span class="comment"># Push + track with same name</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day4 -->
+
+  <!-- ===== DAY 5 ===== -->
+  <div class="day-section d5" id="day5">
+    <div class="day-header">
+      <div class="day-number">05</div>
+      <div class="day-info">
+        <h2>Undoing Changes &amp; Reset</h2>
+        <p>Estimated Time: ~3 Hours &nbsp;|&nbsp; Restore, Revert, Reset, Reflog, Clean</p>
+      </div>
+    </div>
+
+    <!-- # Undoing Changes -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">↩️</div>
+          <div>
+            <div class="h1-title hl1"># Undoing Working Tree Changes</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">restore, checkout, clean</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,255,179,0.12);color:var(--accent5)">UNDO</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># Discard changes in working directory</span>
+<span class="cmd">git</span> <span class="kw">restore</span> <span class="arg">file.txt</span>             <span class="comment"># Discard unstaged changes (modern)</span>
+<span class="cmd">git</span> <span class="kw">restore</span> <span class="arg">.</span>                     <span class="comment"># Discard all unstaged changes</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">--</span> <span class="arg">file.txt</span>         <span class="comment"># Same (older syntax)</span>
+
+<span class="comment"># Unstage staged files</span>
+<span class="cmd">git</span> <span class="kw">restore</span> <span class="flag">--staged</span> <span class="arg">file.txt</span>   <span class="comment"># Unstage specific file</span>
+<span class="cmd">git</span> <span class="kw">restore</span> <span class="flag">--staged</span> <span class="arg">.</span>           <span class="comment"># Unstage everything</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="arg">HEAD</span> <span class="arg">file.txt</span>          <span class="comment"># Older unstage method</span>
+
+<span class="comment"># Restore to a specific commit</span>
+<span class="cmd">git</span> <span class="kw">restore</span> <span class="flag">--source=</span><span class="arg">HEAD~2</span> <span class="arg">file.txt</span>
+
+<span class="comment"># Remove untracked files</span>
+<span class="cmd">git</span> <span class="kw">clean</span> <span class="flag">-n</span>         <span class="comment"># Dry run (show what will be removed)</span>
+<span class="cmd">git</span> <span class="kw">clean</span> <span class="flag">-f</span>         <span class="comment"># Remove untracked files</span>
+<span class="cmd">git</span> <span class="kw">clean</span> <span class="flag">-fd</span>        <span class="comment"># Remove untracked files + directories</span>
+<span class="cmd">git</span> <span class="kw">clean</span> <span class="flag">-fX</span>        <span class="comment"># Remove only ignored files</span>
+<span class="cmd">git</span> <span class="kw">clean</span> <span class="flag">-fdx</span>       <span class="comment"># Remove all untracked + ignored</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # git reset -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔁</div>
+          <div>
+            <div class="h1-title hl1"># git reset</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">soft, mixed, hard — move HEAD</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,255,179,0.12);color:var(--accent5)">RESET</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># --soft: move HEAD, keep stage + working tree</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="flag">--soft</span> <span class="arg">HEAD~1</span>    <span class="comment"># Undo last commit, keep changes staged</span>
+
+<span class="comment"># --mixed (default): move HEAD, unstage, keep working tree</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="arg">HEAD~1</span>           <span class="comment"># Undo commit, unstage changes</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="arg">abc123</span>           <span class="comment"># Reset to specific commit</span>
+
+<span class="comment"># --hard: move HEAD, discard staged + working tree</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="flag">--hard</span> <span class="arg">HEAD~1</span>    <span class="comment"># Undo commit + discard all changes</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="flag">--hard</span> <span class="arg">origin/main</span> <span class="comment"># Match remote branch</span></pre></div>
+        </div>
+        <div class="note-box"><span class="note-icon">⚠️</span> <strong>--hard</strong> is destructive. Use <code>git reflog</code> to recover if needed.</div>
+      </div>
+    </div>
+
+    <!-- # git revert -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔙</div>
+          <div>
+            <div class="h1-title hl1"># git revert</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Safe undo — creates a new commit</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,255,179,0.12);color:var(--accent5)">REVERT</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">revert</span> <span class="arg">HEAD</span>                 <span class="comment"># Revert last commit</span>
+<span class="cmd">git</span> <span class="kw">revert</span> <span class="arg">abc123</span>               <span class="comment"># Revert specific commit</span>
+<span class="cmd">git</span> <span class="kw">revert</span> <span class="arg">HEAD~3..HEAD</span>        <span class="comment"># Revert a range</span>
+<span class="cmd">git</span> <span class="kw">revert</span> <span class="flag">-n</span> <span class="arg">abc123</span>           <span class="comment"># Revert without auto-committing</span>
+<span class="cmd">git</span> <span class="kw">revert</span> <span class="flag">--abort</span>              <span class="comment"># Cancel revert in progress</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # git reflog -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🗂️</div>
+          <div>
+            <div class="h1-title hl1"># Reflog — Your Safety Net</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Recover lost commits and branches</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(0,255,179,0.12);color:var(--accent5)">REFLOG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">reflog</span>                        <span class="comment"># Show HEAD movement history</span>
+<span class="cmd">git</span> <span class="kw">reflog</span> <span class="arg">show</span> <span class="arg">feature-branch</span>  <span class="comment"># Reflog for specific branch</span>
+
+<span class="comment"># Recover deleted branch</span>
+<span class="cmd">git</span> <span class="kw">reflog</span>                        <span class="comment"># Find the commit hash</span>
+<span class="cmd">git</span> <span class="kw">branch</span> <span class="arg">recovered-branch</span> <span class="arg">abc123</span>
+
+<span class="comment"># Recover from bad reset --hard</span>
+<span class="cmd">git</span> <span class="kw">reflog</span>                        <span class="comment"># Find the right HEAD@{n}</span>
+<span class="cmd">git</span> <span class="kw">reset</span> <span class="flag">--hard</span> <span class="arg">HEAD@{3}</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day5 -->
+
+  <!-- ===== DAY 6 ===== -->
+  <div class="day-section d6" id="day6">
+    <div class="day-header">
+      <div class="day-number">06</div>
+      <div class="day-info">
+        <h2>GitHub Platform Features</h2>
+        <p>Estimated Time: ~4 Hours &nbsp;|&nbsp; PR, Issues, Forks, Actions, Pages, CLI</p>
+      </div>
+    </div>
+
+    <!-- # GitHub CLI -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">💻</div>
+          <div>
+            <div class="h1-title hl2"># GitHub CLI (gh)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Work with GitHub from terminal</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,112,67,0.12);color:var(--accent6)">GH CLI</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Auth &amp; Repos</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">gh</span> <span class="kw">auth</span> <span class="kw">login</span>                          <span class="comment"># Authenticate</span>
+<span class="cmd">gh</span> <span class="kw">auth</span> <span class="kw">status</span>                         <span class="comment"># Check auth status</span>
+<span class="cmd">gh</span> <span class="kw">repo</span> <span class="kw">create</span> <span class="arg">my-app</span> <span class="flag">--public</span>       <span class="comment"># Create new repo</span>
+<span class="cmd">gh</span> <span class="kw">repo</span> <span class="kw">clone</span> <span class="arg">user/repo</span>              <span class="comment"># Clone a repo</span>
+<span class="cmd">gh</span> <span class="kw">repo</span> <span class="kw">fork</span> <span class="arg">user/repo</span>              <span class="comment"># Fork a repo</span>
+<span class="cmd">gh</span> <span class="kw">repo</span> <span class="kw">view</span> <span class="flag">--web</span>                   <span class="comment"># Open repo in browser</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Pull Requests</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">create</span> <span class="flag">--title</span> <span class="str">"feat: login"</span> <span class="flag">--body</span> <span class="str">"..."</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">list</span>                             <span class="comment"># List open PRs</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">view</span> <span class="arg">42</span>                         <span class="comment"># View PR #42</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">checkout</span> <span class="arg">42</span>                    <span class="comment"># Checkout PR branch locally</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">merge</span> <span class="arg">42</span> <span class="flag">--squash</span>             <span class="comment"># Merge PR with squash</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">review</span> <span class="arg">42</span> <span class="flag">--approve</span>           <span class="comment"># Approve PR</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">review</span> <span class="arg">42</span> <span class="flag">--request-changes</span>  <span class="comment"># Request changes</span>
+<span class="cmd">gh</span> <span class="kw">pr</span> <span class="kw">close</span> <span class="arg">42</span>                       <span class="comment"># Close PR</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## Issues</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">gh</span> <span class="kw">issue</span> <span class="kw">create</span> <span class="flag">--title</span> <span class="str">"Bug: crash"</span> <span class="flag">--body</span> <span class="str">"..."</span>
+<span class="cmd">gh</span> <span class="kw">issue</span> <span class="kw">list</span>                    <span class="comment"># List issues</span>
+<span class="cmd">gh</span> <span class="kw">issue</span> <span class="kw">view</span> <span class="arg">10</span>                 <span class="comment"># View issue</span>
+<span class="cmd">gh</span> <span class="kw">issue</span> <span class="kw">close</span> <span class="arg">10</span>               <span class="comment"># Close issue</span>
+<span class="cmd">gh</span> <span class="kw">issue</span> <span class="kw">comment</span> <span class="arg">10</span> <span class="flag">-b</span> <span class="str">"Fixed!"</span> <span class="comment"># Add comment</span></pre></div>
+          </div>
+        </div>
+
+        <div class="subtopic">
+          <div class="subtopic-title hl3">## GitHub Actions via CLI</div>
+          <div class="code-block">
+            <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><pre><span class="cmd">gh</span> <span class="kw">workflow</span> <span class="kw">list</span>               <span class="comment"># List workflows</span>
+<span class="cmd">gh</span> <span class="kw">workflow</span> <span class="kw">run</span> <span class="arg">deploy.yml</span>    <span class="comment"># Trigger a workflow</span>
+<span class="cmd">gh</span> <span class="kw">run</span> <span class="kw">list</span>                    <span class="comment"># List workflow runs</span>
+<span class="cmd">gh</span> <span class="kw">run</span> <span class="kw">view</span> <span class="arg">12345</span>             <span class="comment"># View a run</span>
+<span class="cmd">gh</span> <span class="kw">run</span> <span class="kw">watch</span>                   <span class="comment"># Watch live run output</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Pull Requests Workflow -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔃</div>
+          <div>
+            <div class="h1-title hl2"># Pull Request Workflow</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Fork, branch, PR, review, merge</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,112,67,0.12);color:var(--accent6)">PR</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">workflow</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># 1. Fork repo on GitHub, then clone your fork</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="arg">git@github.com:you/repo.git</span>
+
+<span class="comment"># 2. Add upstream remote</span>
+<span class="cmd">git</span> <span class="kw">remote</span> <span class="kw">add</span> <span class="arg">upstream</span> <span class="arg">git@github.com:original/repo.git</span>
+
+<span class="comment"># 3. Create feature branch</span>
+<span class="cmd">git</span> <span class="kw">switch</span> <span class="flag">-c</span> <span class="arg">feature/my-change</span>
+
+<span class="comment"># 4. Make changes, commit</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">.</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-m</span> <span class="str">"feat: my change"</span>
+
+<span class="comment"># 5. Sync with upstream before push</span>
+<span class="cmd">git</span> <span class="kw">fetch</span> <span class="arg">upstream</span>
+<span class="cmd">git</span> <span class="kw">rebase</span> <span class="arg">upstream/main</span>
+
+<span class="comment"># 6. Push to your fork</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="flag">-u</span> <span class="arg">origin</span> <span class="arg">feature/my-change</span>
+
+<span class="comment"># 7. Open Pull Request on GitHub / gh pr create</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # GitHub Actions -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">⚡</div>
+          <div>
+            <div class="h1-title hl2"># GitHub Actions (CI/CD)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Workflow YAML structure &amp; key commands</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,112,67,0.12);color:var(--accent6)">ACTIONS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">.github/workflows/ci.yml</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="kw">name</span>: <span class="str">CI</span>
+<span class="kw">on</span>:
+  <span class="arg">push</span>:
+    <span class="arg">branches</span>: [<span class="str">main</span>, <span class="str">develop</span>]
+  <span class="arg">pull_request</span>:
+    <span class="arg">branches</span>: [<span class="str">main</span>]
+
+<span class="kw">jobs</span>:
+  <span class="arg">build</span>:
+    <span class="arg">runs-on</span>: <span class="str">ubuntu-latest</span>
+    <span class="arg">steps</span>:
+      - <span class="arg">uses</span>: <span class="str">actions/checkout@v4</span>
+      - <span class="arg">name</span>: <span class="str">Setup Node.js</span>
+        <span class="arg">uses</span>: <span class="str">actions/setup-node@v4</span>
+        <span class="arg">with</span>:
+          <span class="arg">node-version</span>: <span class="str">'20'</span>
+      - <span class="arg">name</span>: <span class="str">Install dependencies</span>
+        <span class="arg">run</span>: <span class="str">npm ci</span>
+      - <span class="arg">name</span>: <span class="str">Run tests</span>
+        <span class="arg">run</span>: <span class="str">npm test</span>
+      - <span class="arg">name</span>: <span class="str">Build</span>
+        <span class="arg">run</span>: <span class="str">npm run build</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # GitHub Pages -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🌍</div>
+          <div>
+            <div class="h1-title hl2"># GitHub Pages</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Deploy static sites from a repo</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(255,112,67,0.12);color:var(--accent6)">PAGES</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># Method 1: Push to gh-pages branch</span>
+<span class="cmd">git</span> <span class="kw">checkout</span> <span class="flag">--orphan</span> <span class="arg">gh-pages</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">.</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-m</span> <span class="str">"deploy: initial pages"</span>
+<span class="cmd">git</span> <span class="kw">push</span> <span class="arg">origin</span> <span class="arg">gh-pages</span>
+
+<span class="comment"># Method 2: Use gh-pages npm package</span>
+<span class="cmd">npm</span> <span class="kw">install</span> <span class="flag">--save-dev</span> <span class="arg">gh-pages</span>
+<span class="comment"># package.json: "deploy": "gh-pages -d dist"</span>
+<span class="cmd">npm</span> <span class="kw">run</span> <span class="arg">deploy</span>
+
+<span class="comment"># Method 3: GitHub Actions (see above workflow)</span>
+<span class="comment"># Settings > Pages > Source: GitHub Actions</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day6 -->
+
+  <!-- ===== DAY 7 ===== -->
+  <div class="day-section d7" id="day7">
+    <div class="day-header">
+      <div class="day-number">07</div>
+      <div class="day-info">
+        <h2>Advanced &amp; Pro Tips</h2>
+        <p>Estimated Time: ~4 Hours &nbsp;|&nbsp; Bisect, Worktree, Submodules, Hooks, Signing, Large Files</p>
+      </div>
+    </div>
+
+    <!-- # git bisect -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🔬</div>
+          <div>
+            <div class="h1-title hl1"># git bisect — Find the Bug Commit</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Binary search through history</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">BISECT</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">start</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">bad</span>                     <span class="comment"># Current commit has bug</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">good</span> <span class="arg">v1.0.0</span>            <span class="comment"># This tag was working</span>
+<span class="comment"># Git checks out midpoint — test and mark:</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">good</span>                     <span class="comment"># This commit is OK</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">bad</span>                      <span class="comment"># This commit has the bug</span>
+<span class="comment"># Git narrows down... repeats until found</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">reset</span>                    <span class="comment"># Back to original branch</span>
+
+<span class="comment"># Automated bisect with a test script</span>
+<span class="cmd">git</span> <span class="kw">bisect</span> <span class="kw">run</span> <span class="arg">npm test</span>            <span class="comment"># 0=good, non-zero=bad</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # git worktree -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🌲</div>
+          <div>
+            <div class="h1-title hl1"># git worktree</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Multiple branches checked out simultaneously</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">WORKTREE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">worktree</span> <span class="kw">add</span> <span class="arg">../hotfix hotfix/v1</span>   <span class="comment"># Checkout branch in new folder</span>
+<span class="cmd">git</span> <span class="kw">worktree</span> <span class="kw">add</span> <span class="flag">-b</span> <span class="arg">fix/bug ../fix</span>     <span class="comment"># Create new branch in new folder</span>
+<span class="cmd">git</span> <span class="kw">worktree</span> <span class="kw">list</span>                       <span class="comment"># List all worktrees</span>
+<span class="cmd">git</span> <span class="kw">worktree</span> <span class="kw">remove</span> <span class="arg">../hotfix</span>          <span class="comment"># Remove worktree</span>
+<span class="cmd">git</span> <span class="kw">worktree</span> <span class="kw">prune</span>                      <span class="comment"># Clean stale worktrees</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Submodules -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🧩</div>
+          <div>
+            <div class="h1-title hl1"># Submodules</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Embed repos inside repos</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">SUBMODULE</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">add</span> <span class="arg">URL</span> <span class="arg">path/to/sub</span>    <span class="comment"># Add submodule</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">init</span>                     <span class="comment"># Initialize submodules</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">update</span>                   <span class="comment"># Checkout pinned commits</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">update</span> <span class="flag">--init --recursive</span> <span class="comment"># All nested submodules</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">update</span> <span class="flag">--remote</span>         <span class="comment"># Update to latest remote</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">foreach</span> <span class="str">'git pull'</span>      <span class="comment"># Run command in each submodule</span>
+<span class="cmd">git</span> <span class="kw">submodule</span> <span class="kw">status</span>                   <span class="comment"># Show submodule state</span>
+<span class="cmd">git</span> <span class="kw">clone</span> <span class="flag">--recurse-submodules</span> <span class="arg">URL</span>   <span class="comment"># Clone with submodules</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Git Hooks -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🪝</div>
+          <div>
+            <div class="h1-title hl1"># Git Hooks</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Automate tasks at git lifecycle events</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">HOOKS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="desc">Hooks live in <strong>.git/hooks/</strong> — make them executable with <code>chmod +x</code>.</div>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">hooks list</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="str">pre-commit</span>        <span class="comment"># Before commit (lint, test)</span>
+<span class="str">prepare-commit-msg</span> <span class="comment"># Edit commit message template</span>
+<span class="str">commit-msg</span>        <span class="comment"># Validate commit message</span>
+<span class="str">post-commit</span>       <span class="comment"># After commit (notify)</span>
+<span class="str">pre-push</span>          <span class="comment"># Before push (run tests)</span>
+<span class="str">pre-rebase</span>        <span class="comment"># Before rebase</span>
+<span class="str">post-merge</span>        <span class="comment"># After merge</span>
+<span class="str">post-checkout</span>     <span class="comment"># After checkout</span></pre></div>
+        </div>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">.git/hooks/pre-commit</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="kw">#!/bin/sh</span>
+<span class="cmd">npm run lint</span>
+<span class="cmd">npm test</span></pre></div>
+        </div>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash — Husky (team hooks)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">npm</span> <span class="kw">install</span> <span class="flag">--save-dev</span> <span class="arg">husky</span>
+<span class="cmd">npx</span> <span class="arg">husky init</span>
+<span class="comment"># Adds .husky/ folder with shareable hooks</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Signing Commits -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">✍️</div>
+          <div>
+            <div class="h1-title hl1"># Signing Commits (GPG)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Verified commits on GitHub</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">GPG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># Generate GPG key</span>
+<span class="cmd">gpg</span> <span class="flag">--full-generate-key</span>
+
+<span class="comment"># Get key ID</span>
+<span class="cmd">gpg</span> <span class="flag">--list-secret-keys --keyid-format=long</span>
+
+<span class="comment"># Configure Git to use GPG key</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> user.signingkey <span class="arg">YOUR_KEY_ID</span>
+<span class="cmd">git</span> <span class="kw">config</span> <span class="flag">--global</span> commit.gpgsign <span class="arg">true</span>
+
+<span class="comment"># Sign individual commit</span>
+<span class="cmd">git</span> <span class="kw">commit</span> <span class="flag">-S</span> <span class="flag">-m</span> <span class="str">"signed commit"</span>
+
+<span class="comment"># Verify a commit signature</span>
+<span class="cmd">git</span> <span class="kw">verify-commit</span> <span class="arg">abc123</span>
+
+<span class="comment"># Export public key for GitHub</span>
+<span class="cmd">gpg</span> <span class="flag">--armor --export</span> <span class="arg">YOUR_KEY_ID</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Git LFS -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">📦</div>
+          <div>
+            <div class="h1-title hl1"># Git LFS (Large File Storage)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Track binaries, images, models outside repo</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">LFS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">install</span>                      <span class="comment"># Enable LFS in repo</span>
+<span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">track</span> <span class="str">"*.psd"</span>               <span class="comment"># Track PSD files</span>
+<span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">track</span> <span class="str">"*.mp4"</span>               <span class="comment"># Track videos</span>
+<span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">track</span> <span class="str">"models/**"</span>            <span class="comment"># Track entire folder</span>
+<span class="cmd">git</span> <span class="kw">add</span> <span class="arg">.gitattributes</span>              <span class="comment"># Stage the LFS config</span>
+<span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">ls-files</span>                     <span class="comment"># List tracked LFS files</span>
+<span class="cmd">git</span> <span class="kw">lfs</span> <span class="kw">status</span>                       <span class="comment"># LFS file status</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Advanced Inspection -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">🧠</div>
+          <div>
+            <div class="h1-title hl1"># Advanced Inspection &amp; Search</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">grep, pickaxe, archive, gc, fsck</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">ADVANCED</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="comment"># Search inside files</span>
+<span class="cmd">git</span> <span class="kw">grep</span> <span class="str">"TODO"</span>                      <span class="comment"># Search all tracked files</span>
+<span class="cmd">git</span> <span class="kw">grep</span> <span class="flag">-n</span> <span class="str">"function login"</span>        <span class="comment"># With line numbers</span>
+<span class="cmd">git</span> <span class="kw">grep</span> <span class="str">"pattern"</span> <span class="arg">HEAD~5</span>          <span class="comment"># Search in older commit</span>
+
+<span class="comment"># Archive repo as zip/tar</span>
+<span class="cmd">git</span> <span class="kw">archive</span> <span class="flag">--format=zip</span> <span class="arg">HEAD</span> <span class="flag">-o</span> <span class="arg">out.zip</span>
+<span class="cmd">git</span> <span class="kw">archive</span> <span class="arg">v1.0.0</span> <span class="flag">-o</span> <span class="arg">release-v1.tar.gz</span>
+
+<span class="comment"># Repo maintenance</span>
+<span class="cmd">git</span> <span class="kw">gc</span>                               <span class="comment"># Garbage collect, pack objects</span>
+<span class="cmd">git</span> <span class="kw">gc</span> <span class="flag">--aggressive</span>                  <span class="comment"># Deeper cleanup</span>
+<span class="cmd">git</span> <span class="kw">fsck</span>                             <span class="comment"># Check repo integrity</span>
+<span class="cmd">git</span> <span class="kw">count-objects</span> <span class="flag">-vH</span>              <span class="comment"># Repo size stats</span>
+
+<span class="comment"># Find who introduced a string (pickaxe)</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">-S</span><span class="str">"secret_key"</span> <span class="flag">--all</span>       <span class="comment"># Commits adding/removing string</span>
+<span class="cmd">git</span> <span class="kw">log</span> <span class="flag">-G</span><span class="str">"regex pattern"</span>           <span class="comment"># Regex version</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- # Git Internals -->
+    <div class="topic-card">
+      <div class="topic-header" onclick="toggleCard(this)">
+        <div class="topic-header-left">
+          <div class="topic-icon">⚙️</div>
+          <div>
+            <div class="h1-title hl1"># Git Internals (Plumbing Commands)</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Objects, refs, cat-file — under the hood</div>
+          </div>
+        </div>
+        <span class="badge" style="background:rgba(192,132,252,0.12);color:#c084fc">INTERNALS</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <div class="code-content"><pre><span class="cmd">git</span> <span class="kw">cat-file</span> <span class="flag">-t</span> <span class="arg">abc123</span>           <span class="comment"># Type of object</span>
+<span class="cmd">git</span> <span class="kw">cat-file</span> <span class="flag">-p</span> <span class="arg">abc123</span>           <span class="comment"># Print object content</span>
+<span class="cmd">git</span> <span class="kw">ls-tree</span> <span class="arg">HEAD</span>                   <span class="comment"># List tree object</span>
+<span class="cmd">git</span> <span class="kw">hash-object</span> <span class="arg">file.txt</span>          <span class="comment"># Get SHA1 of file</span>
+<span class="cmd">git</span> <span class="kw">rev-parse</span> <span class="arg">HEAD</span>                 <span class="comment"># Get full SHA of HEAD</span>
+<span class="cmd">git</span> <span class="kw">rev-parse</span> <span class="flag">--short</span> <span class="arg">HEAD</span>        <span class="comment"># Short SHA</span>
+<span class="cmd">git</span> <span class="kw">rev-list</span> <span class="flag">--count</span> <span class="arg">HEAD</span>         <span class="comment"># Total commit count</span>
+<span class="cmd">cat</span> <span class="arg">.git/HEAD</span>                      <span class="comment"># Current HEAD reference</span>
+<span class="cmd">cat</span> <span class="arg">.git/COMMIT_EDITMSG</span>           <span class="comment"># Last commit message</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /day7 -->
+
+</div><!-- /wrapper -->
+
+<!-- BACK TO TOP -->
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// === TOGGLE CARDS ===
+function toggleCard(header) {
+  const card = header.parentElement;
+  const body = card.querySelector('.topic-body');
+  card.classList.toggle('open');
+  body.classList.toggle('show');
+}
+
+// === COPY CODE ===
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// === SEARCH ===
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.topic-card');
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (!q || text.includes(q)) {
+      card.style.display = '';
+      if (q) {
+        card.classList.add('open');
+        card.querySelector('.topic-body').classList.add('show');
+      }
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+
+// === PROGRESS BAR ===
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  const btn = document.getElementById('backTop');
+  btn.classList.toggle('show', el.scrollTop > 400);
+});
+
+// === OPEN FIRST CARD ===
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.topic-card');
+  if (first) {
+    first.classList.add('open');
+    first.querySelector('.topic-body').classList.add('show');
+  }
+});
+</script>
+</body>
+</html>
